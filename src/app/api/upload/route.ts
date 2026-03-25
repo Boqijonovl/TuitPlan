@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { createClient } from "@supabase/supabase-js";
+
+// Initialize Supabase Client dynamically
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tzlzxxaskazzvtzetvbk.supabase.co";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(request: Request) {
   try {
@@ -17,21 +21,29 @@ export async function POST(request: Request) {
     // Create unique filename (safe characters only)
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
-    const filename = uniqueSuffix + '-' + safeName;
+    const filename = `${uniqueSuffix}-${safeName}`;
     
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    
-    try {
-      await mkdir(uploadDir, { recursive: true });
-    } catch (e) {
-      // directory might already exist
+    // Upload to Supabase Storage "uploads" bucket
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('uploads')
+      .upload(filename, buffer, {
+        contentType: file.type,
+        upsert: false
+      });
+
+    if (uploadError) {
+      console.error("Supabase Upload Error:", uploadError);
+      return NextResponse.json({ error: "Cloud uzatish xatosi: " + uploadError.message }, { status: 500 });
     }
 
-    const filepath = path.join(uploadDir, filename);
-    await writeFile(filepath, buffer);
+    // Get public URL
+    const { data: { publicUrl } } = supabase.storage
+      .from('uploads')
+      .getPublicUrl(filename);
     
-    return NextResponse.json({ fileUrl: `/uploads/${filename}` });
+    return NextResponse.json({ fileUrl: publicUrl });
   } catch (error: any) {
+    console.error("Upload handler error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
