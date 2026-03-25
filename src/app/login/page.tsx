@@ -1,0 +1,113 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Lock, Mail, ArrowRight, ShieldCheck } from "lucide-react";
+import toast from "react-hot-toast";
+
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      
+      toast.success("Tizimga muvaffaqiyatli kirdingiz!");
+      
+      if (data.user.role === "ADMIN") {
+        router.push("/dashboard/admin-monitoring");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-sky-50 p-4 relative overflow-hidden">
+      {/* Background decoration pure blue & white */}
+      <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-blue-600 to-blue-800" style={{ clipPath: "polygon(50% 0, 100% 0%, 100% 100%, 0% 100%)" }}></div>
+      <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-blob"></div>
+      <div className="absolute top-40 -right-20 w-96 h-96 bg-white rounded-full filter blur-[80px] opacity-30 animate-blob animation-delay-2000"></div>
+
+      <div className="w-full max-w-md p-8 md:p-10 rounded-3xl bg-white shadow-2xl relative z-10 border border-slate-100">
+        <div className="mb-8 text-center flex flex-col items-center">
+          <div className="flex items-center justify-center mb-6">
+            <img src="/logo.png" alt="TuitPlan" className="h-24 md:h-28 w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] hover:scale-105 transition-transform duration-500" />
+          </div>
+          <h1 className="text-3xl font-extrabold tracking-tight text-blue-950 mb-2">Hush Kelibsiz</h1>
+          <p className="text-slate-500 text-sm">Axborot tizimiga kirish majburiy</p>
+        </div>
+
+        {error && (
+          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-5">
+          <div className="space-y-4">
+            <div className="relative group">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all focus:bg-white"
+                placeholder="Email manzilingiz"
+              />
+            </div>
+            
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all focus:bg-white"
+                placeholder="Parolingiz"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 px-4 rounded-xl shadow-[0_8px_20px_-6px_rgba(37,99,235,0.5)] transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:hover:bg-blue-600 tracking-wide"
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+            ) : (
+              <>
+                Tizimga kirish
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}

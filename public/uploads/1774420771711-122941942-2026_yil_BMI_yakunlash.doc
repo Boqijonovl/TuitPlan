@@ -1,0 +1,33 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Doc</title></head><body>
+      <div style="font-family: Arial, sans-serif; text-align: center; margin-bottom: 20px;">
+        <h1 style="font-size: 24px;">2026-yil BMI yakunlash</h1>
+        <h3 style="font-size: 16px; color: #555;">Yil: 2026 | Bo'linma: Umumiy Muassasa</h3>
+        <hr style="margin-top: 20px; margin-bottom: 20px;"/>
+      </div>
+      
+      <table border="1" cellpadding="8" style="border-collapse: collapse; width: 100%; border: 1px solid black; font-family: Arial, sans-serif;">
+        <thead>
+          <tr style="background-color: #f2f2f2; font-weight: bold;">
+            <th>Tartib</th>
+            <th>Vazifa nomi</th>
+            <th>Bajarish muddati</th>
+            <th>Kimga biriktirilgan</th>
+          </tr>
+        </thead>
+        <tbody>
+    
+          <tr>
+            <td style="text-align: center;">1</td>
+            <td>BMI larni yakunlash</td>
+            <td style="text-align: center;">31.05.2026</td>
+            <td style="text-align: center;">Kafedra Mudiri</td>
+          </tr>
+        
+          <tr>
+            <td style="text-align: center;">2</td>
+            <td>BMI mavzularini berish</td>
+            <td style="text-align: center;">01.04.2026</td>
+            <td style="text-align: center;">Hamma uchun</td>
+          </tr>
+        </tbody></table>
+    </body></html>

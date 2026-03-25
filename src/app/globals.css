@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
+
+/* Global Dark Mode Overrides for seamless transition */
+.dark .bg-white {
+  background-color: #1e293b !important; /* slate-800 */
+}
+.dark .bg-slate-50 {
+  background-color: #0f172a !important; /* slate-900 */
+}
+.dark .text-slate-800, .dark .text-slate-900, .dark h1, .dark h2, .dark h3 {
+  color: #f8fafc !important; /* slate-50 */
+}
+.dark .text-slate-500, .dark .text-slate-600 {
+  color: #94a3b8 !important; /* slate-400 */
+}
+.dark .border-slate-200, .dark .border-slate-100 {
+  border-color: #334155 !important; /* slate-700 */
+}
+.dark .bg-blue-900 {
+  background-color: #020617 !important; /* slate-950 for sidebar */
+}
+.dark .bg-indigo-50 {
+  background-color: #312e81 !important; /* indigo-900 */
+  color: #e0e7ff !important; /* indigo-100 */
+}
+.dark header {
+  border-bottom-color: #334155 !important;
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
