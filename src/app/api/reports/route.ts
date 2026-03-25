@@ -24,8 +24,8 @@ export async function GET(request: Request) {
       return {
         planId: plan.id,
         planTitle: plan.title,
-        department: plan.department.name,
-        faculty: plan.department.faculty.name,
+        department: plan.department?.name || "Kafedra biriktirilmagan",
+        faculty: plan.department?.faculty?.name || "Fakultet biriktirilmagan",
         totalTasks,
         completedTasks,
         progress: Math.round(progress)
