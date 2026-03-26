@@ -91,11 +91,11 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     // Yozib qolishi uchun reja nomini olib qolamiz
     const plan = await prisma.plan.findUnique({ where: { id: planId }, select: { title: true } });
     
-    // Delete associated tasks first to prevent foreign key constraint issues
-    await prisma.task.deleteMany({ where: { planId } });
+    // Archiving tasks first preventing native application faults
+    await prisma.task.updateMany({ where: { planId }, data: { isDeleted: true } });
     
-    // Delete the plan
-    await prisma.plan.delete({ where: { id: planId } });
+    // Archive the Plan
+    await prisma.plan.update({ where: { id: planId }, data: { isDeleted: true } });
 
     if (userId && plan) {
       // @ts-ignore

@@ -46,8 +46,9 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     await prisma.taskSubmission.deleteMany({ where: { userId } });
     await prisma.news.deleteMany({ where: { authorId: userId } });
     
-    await prisma.user.delete({
-      where: { id: userId }
+    await prisma.user.update({
+      where: { id: userId },
+      data: { isDeleted: true }
     });
     
     return NextResponse.json({ success: true }, { status: 200 });

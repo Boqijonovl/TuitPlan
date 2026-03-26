@@ -6,15 +6,10 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     const resolvedParams = await params;
     const departmentId = resolvedParams.id;
     
-    // Xavfsiz o'chirish: Barcha bog'langan foydalanuvchilar va rejalardan bu kafedrani uzib qoyamiz (SetNull o'rniga manual)
-    // @ts-ignore
-    await prisma.user.updateMany({ where: { departmentId }, data: { departmentId: null } });
-    // @ts-ignore
-    await prisma.plan.updateMany({ where: { departmentId }, data: { departmentId: null } });
-    
-    // Kafedrani to'liq o'chirish
-    await prisma.department.delete({
-      where: { id: departmentId }
+    // Kafedrani haqiqiy o'chirish o'rniga Soft Delete qilamiz va unga bog'langan xodimlarni asrab qolamiz.
+    await prisma.department.update({
+      where: { id: departmentId },
+      data: { isDeleted: true }
     });
     
     return NextResponse.json({ success: true }, { status: 200 });

@@ -4,13 +4,15 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   try {
     const faculties = await prisma.faculty.findMany({
+      where: { isDeleted: false },
       include: { 
         departments: {
+          where: { isDeleted: false },
           include: {
-            _count: { select: { users: true } }
+            _count: { select: { users: { where: { isDeleted: false } } } }
           }
         },
-        _count: { select: { users: true } }
+        _count: { select: { users: { where: { isDeleted: false } } } }
       }
     });
     return NextResponse.json(faculties, { status: 200 });

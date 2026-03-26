@@ -18,6 +18,7 @@ export default function PlansPage() {
     year: new Date().getFullYear(),
     departmentId: "",
     status: "DRAFT",
+    bulkDistribute: false,
     tasks: [] as { id?: string, title: string, timeframe: string, assignedRole: string, status?: string }[]
   };
 
@@ -91,6 +92,7 @@ export default function PlansPage() {
       year: plan.year,
       departmentId: plan.departmentId || "",
       status: plan.status || "DRAFT",
+      bulkDistribute: false,
       tasks: plan.tasks ? plan.tasks.map((t: any) => ({
         id: t.id, title: t.title, timeframe: t.timeframe || "", assignedRole: t.assignedRole || "", status: t.status
       })) : []
@@ -406,6 +408,17 @@ export default function PlansPage() {
                         <div className="w-full px-4 py-2 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-semibold cursor-not-allowed">
                           Faoliyatingizdagi kafedra uchun qulflangan
                         </div>
+                      </div>
+                    )}
+                    {user?.role !== "HOD" && !currentPlan.id && (
+                      <div className="col-span-full pt-2">
+                        <label className="flex items-center gap-2 cursor-pointer bg-indigo-50/50 p-3 rounded-xl border border-indigo-100 transition-colors hover:bg-indigo-50">
+                          <input type="checkbox" checked={currentPlan.bulkDistribute} onChange={e => setCurrentPlan({...currentPlan, bulkDistribute: e.target.checked})} className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                          <div>
+                            <span className="text-sm font-bold text-indigo-700 block">Shablonlarni Barcha Kafedralarga Tarqatish (Smart Distributor)</span>
+                            <span className="text-xs text-indigo-400 font-medium">Belgilansa, ushbu reja fakultetdagi barcha kafedralar uchun alohida avtomatik ravishda yaratiladi.</span>
+                          </div>
+                        </label>
                       </div>
                     )}
                   </div>

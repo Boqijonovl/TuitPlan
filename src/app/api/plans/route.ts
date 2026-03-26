@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const role = searchParams.get("role");
     const statusParam = searchParams.get("status");
 
-    const conditions: any[] = [];
+    const conditions: any[] = [{ isDeleted: false }];
     if (departmentId) conditions.push({ departmentId });
     if (statusParam) conditions.push({ status: statusParam });
 
@@ -69,13 +69,14 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { title, year, departmentId, status, tasks, userId } = await request.json();
+    const { title, year, departmentId, status, tasks, userId, bulkDistribute } = await request.json();
     
     let userFacultyId = null;
     let userDepartmentId = departmentId || null;
+    let creator: any = null;
     
     if (userId) {
-      const creator = await prisma.user.findUnique({ where: { id: userId } });
+      creator = await prisma.user.findUnique({ where: { id: userId } });
       // @ts-ignore
       if (creator && creator.facultyId) {
          // @ts-ignore
@@ -89,30 +90,45 @@ export async function POST(request: Request) {
       }
     }
     
-    const planData: any = { 
-      title, 
-      year: Number(year), 
-      departmentId: userDepartmentId, 
-      facultyId: userFacultyId,
-      status: status || "DRAFT",
-      userId 
-    };
-    
-    if (tasks && Array.isArray(tasks) && tasks.length > 0) {
-      planData.tasks = {
-        create: tasks.map(t => ({
-          title: t.title,
-          timeframe: t.timeframe,
-          assignedRole: t.assignedRole || null,
-          status: "BAJARILMAGAN"
-        }))
-      };
+    let targetDepartments: any[] = [];
+    if (bulkDistribute) {
+       const depFilters: any = { isDeleted: false };
+       if (creator && creator.role === "DEAN" && userFacultyId) {
+          depFilters.facultyId = userFacultyId;
+       }
+       targetDepartments = await prisma.department.findMany({ where: depFilters });
+    } else {
+       targetDepartments = [{ id: userDepartmentId, facultyId: userFacultyId }];
     }
 
-    const plan = await prisma.plan.create({
-      data: planData,
-      include: { tasks: true }
-    });
+    const createdPlans = [];
+    for (const target of targetDepartments) {
+      const planData: any = { 
+        title, 
+        year: Number(year), 
+        departmentId: target.id, 
+        facultyId: target.facultyId,
+        status: status || "DRAFT",
+        userId 
+      };
+      
+      if (tasks && Array.isArray(tasks) && tasks.length > 0) {
+        planData.tasks = {
+          create: tasks.map(t => ({
+            title: t.title,
+            timeframe: t.timeframe,
+            assignedRole: t.assignedRole || null,
+            status: "BAJARILMAGAN"
+          }))
+        };
+      }
+
+      const plan = await prisma.plan.create({
+        data: planData,
+        include: { tasks: true }
+      });
+      createdPlans.push(plan);
+    }
 
     if (userId) {
       // @ts-ignore
@@ -125,7 +141,7 @@ export async function POST(request: Request) {
       });
     }
 
-    return NextResponse.json(plan, { status: 201 });
+    return NextResponse.json(createdPlans[0] || {}, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Reja yaratishda xatolik" }, { status: 500 });
   }

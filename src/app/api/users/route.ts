@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 export async function GET() {
   try {
     const users = await prisma.user.findMany({
+      where: { isDeleted: false },
       include: { 
         department: true,
         faculty: true

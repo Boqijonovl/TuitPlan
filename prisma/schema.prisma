@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -18,6 +19,8 @@ model User {
   facultyId      String?
   faculty        Faculty?     @relation(fields: [facultyId], references: [id])
   avatarUrl      String?      // Avatarlar uchun qo'shildi
+  isDeleted      Boolean      @default(false)
+  points         Int          @default(0) // KPI Gamification reytingi
   tasks          Task[]
   news           News[]
   taskSubmissions TaskSubmission[]
@@ -35,6 +38,7 @@ model Faculty {
   departments    Department[]
   users          User[]
   plans          Plan[]
+  isDeleted      Boolean      @default(false)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }
@@ -47,6 +51,7 @@ model Department {
   faculty        Faculty?     @relation(fields: [facultyId], references: [id], onDelete: Cascade)
   users          User[]
   plans          Plan[]
+  isDeleted      Boolean      @default(false)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }
@@ -62,6 +67,7 @@ model Plan {
   faculty        Faculty?     @relation(fields: [facultyId], references: [id])
   userId         String?
   tasks          Task[]
+  isDeleted      Boolean      @default(false)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }
@@ -82,6 +88,8 @@ model Task {
   plan           Plan         @relation(fields: [planId], references: [id], onDelete: Cascade)
   submissions    TaskSubmission[]
   comments       Comment[]
+  isDeleted      Boolean      @default(false)
+  pointsReward   Int          @default(10)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }

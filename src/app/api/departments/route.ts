@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   try {
     const departments = await prisma.department.findMany({
+      where: { isDeleted: false },
       include: { faculty: true }
     });
     return NextResponse.json(departments, { status: 200 });

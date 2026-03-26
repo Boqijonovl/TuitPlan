@@ -31,9 +31,13 @@ export async function GET(req: Request) {
     const allSubmissions = await prisma.taskSubmission.findMany();
 
     const leaderboard = users.map(user => {
-      // 1 ta topshirilgan hisobot = 10 ball
       const submissions = allSubmissions.filter((s: any) => s.userId === user.id);
-      const points = submissions.length * 10;
+      
+      // @ts-ignore
+      const dbPoints = user.points || 0;
+      // Agar tizim yangilanishdan oldingi KPI bo'lsa, uni asrab qolamiz
+      const points = dbPoints > 0 ? dbPoints : (submissions.length * 10);
+      
       return {
         id: user.id,
         name: user.name,

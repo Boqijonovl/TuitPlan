@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     const page = searchParams.get("page");
     const limit = searchParams.get("limit");
 
-    const where: any = {};
+    const where: any = { isDeleted: false };
     if (planId) where.planId = planId;
     
     // Add User-specific plan scoping
