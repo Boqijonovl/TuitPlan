@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-// Initialize Supabase Client dynamically
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tzlzxxaskazzvtzetvbk.supabase.co";
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "";
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 export async function POST(request: Request) {
   try {
+    // Initialize Supabase Client internally to prevent Build Type-Check crashes
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tzlzxxaskazzvtzetvbk.supabase.co";
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "sb_publishable_WpnUu0-1kHxN3jD-BFs8jw_gXfPzvd_";
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
     const data = await request.formData();
     const file = data.get("file") as File | null;
     
