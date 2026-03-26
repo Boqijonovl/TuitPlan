@@ -4,7 +4,14 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   try {
     const faculties = await prisma.faculty.findMany({
-      include: { departments: true }
+      include: { 
+        departments: {
+          include: {
+            _count: { select: { users: true } }
+          }
+        },
+        _count: { select: { users: true } }
+      }
     });
     return NextResponse.json(faculties, { status: 200 });
   } catch (error) {

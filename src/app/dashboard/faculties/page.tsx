@@ -176,7 +176,7 @@ export default function FacultiesPage() {
                   <div>
                     <h3 className="font-extrabold text-white text-xl tracking-tight leading-tight drop-shadow-sm line-clamp-2 pr-2">{faculty.name}</h3>
                     <div className="flex items-center gap-3 mt-2">
-                       <span className="text-blue-200 text-xs font-semibold opacity-90">{faculty.departments?.length || 0} ta kafedra</span>
+                       <span className="text-blue-200 text-xs font-semibold opacity-90">{faculty.departments?.length || 0} ta kafedra • {faculty._count?.users || 0} xodim</span>
                        <button 
                          onClick={(e) => {
                             e.stopPropagation();
@@ -223,6 +223,7 @@ export default function FacultiesPage() {
                             <GraduationCap className="w-4 h-4" />
                           </div>
                           <span className="font-semibold text-slate-800 tracking-tight line-clamp-1 group-hover/item:text-indigo-900 transition-colors" title={dep.name}>{dep.name}</span>
+                          <span className="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full whitespace-nowrap border border-slate-200">{dep._count?.users || 0} xodim</span>
                         </div>
                         <div className="flex items-center gap-1 relative z-10 opacity-60 group-hover/item:opacity-100 transition-opacity">
                           <button 
