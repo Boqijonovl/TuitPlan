@@ -468,8 +468,8 @@ export default function PlansPage() {
                              >
                                 <option value="">Hamma uchun</option>
                                 <option value="TEACHER">O'qituvchilar</option>
-                                <option value="HOD">Kafedra Mudirlari</option>
-                                <option value="DEAN">Dekanlar</option>
+                                {user?.role !== "HOD" && <option value="HOD">Kafedra Mudirlari</option>}
+                                {(user?.role === "ADMIN" || !user?.role) && <option value="DEAN">Dekanlar</option>}
                              </select>
                           </div>
                           
