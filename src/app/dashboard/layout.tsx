@@ -95,7 +95,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <>
               <NavItem href="/dashboard/tasks" icon={<CheckSquare />} label="Vazifalar" isOpen={isSidebarOpen} active={pathname.includes("/tasks")} isMobile={isMobile} />
               <NavItem href="/dashboard/calendar" icon={<Calendar />} label="Kalendar" isOpen={isSidebarOpen} active={pathname.includes("/calendar")} isMobile={isMobile} />
-              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat Xonasi" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
+              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
             </>
           )}
           
@@ -104,7 +104,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin Kuzatuv" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
               <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Tuzilma (Fakultetlar)" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
               <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
-              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat Xonasi" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
+              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
             </>
           )}
           {user.role === "DEAN" && (

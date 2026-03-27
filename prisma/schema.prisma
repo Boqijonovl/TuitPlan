@@ -21,6 +21,7 @@ model User {
   avatarUrl      String?      // Avatarlar uchun qo'shildi
   isDeleted      Boolean      @default(false)
   points         Int          @default(0) // KPI Gamification reytingi
+  lastSeen       DateTime?    // Chat 'Online' statusi uchun
   tasks          Task[]
   news           News[]
   taskSubmissions TaskSubmission[]
@@ -156,5 +157,10 @@ model ChatMessage {
   sender     User     @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
   receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
   isRead     Boolean  @default(false)
+  fileUrl    String?
+  fileType   String?
+  fileName   String?
+  isEdited   Boolean  @default(false)
+  isDeleted  Boolean  @default(false)
   createdAt  DateTime @default(now())
 }

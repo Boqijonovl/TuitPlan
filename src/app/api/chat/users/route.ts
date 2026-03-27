@@ -43,7 +43,9 @@ export async function GET(request: Request) {
       role: u.role,
       avatarUrl: u.avatarUrl,
       department: u.department?.name,
-      faculty: u.faculty?.name
+      faculty: u.faculty?.name,
+      // @ts-ignore
+      lastSeen: u.lastSeen
     }));
 
     return NextResponse.json(formattedUsers, { status: 200 });
