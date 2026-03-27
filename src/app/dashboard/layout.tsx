@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { LayoutDashboard, CalendarDays, Users, LogOut, CheckSquare, Menu, BookOpen, Bell, BarChart2, Calendar, Clock, History, FolderOpen, Search } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, LogOut, CheckSquare, Menu, BookOpen, Bell, BarChart2, Calendar, Clock, History, FolderOpen, Search, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { GlobalSearch } from "@/components/GlobalSearch";
@@ -95,6 +95,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <>
               <NavItem href="/dashboard/tasks" icon={<CheckSquare />} label="Vazifalar" isOpen={isSidebarOpen} active={pathname.includes("/tasks")} isMobile={isMobile} />
               <NavItem href="/dashboard/calendar" icon={<Calendar />} label="Kalendar" isOpen={isSidebarOpen} active={pathname.includes("/calendar")} isMobile={isMobile} />
+              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat Xonasi" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
             </>
           )}
           
@@ -103,6 +104,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin Kuzatuv" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
               <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Tuzilma (Fakultetlar)" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
               <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
+              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat Xonasi" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
             </>
           )}
           {user.role === "DEAN" && (
