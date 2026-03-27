@@ -143,10 +143,20 @@ export default function ChatPage() {
   };
 
   const saveEdit = async () => {
-    if (!text.trim() || !editingMessage) return;
+    if (!editingMessage) return;
+    if (!text.trim() && !editingMessage.fileUrl) return; // Yozuv ham, fayl ham yo'q bo'lishi mumkin emas
     
     // Optimistic Edit
-    setMessages(messages.map(m => m.id === editingMessage.id ? { ...m, text, isEdited: true } : m));
+    setMessages(messages.map(m => m.id === editingMessage.id ? { 
+      ...m, 
+      text, 
+      isEdited: true,
+      fileUrl: editingMessage.removeFile ? null : m.fileUrl,
+      fileName: editingMessage.removeFile ? null : m.fileName,
+      fileType: editingMessage.removeFile ? null : m.fileType
+    } : m));
+    
+    const removingFile = editingMessage.removeFile;
     setText("");
     setEditingMessage(null);
 
@@ -154,7 +164,7 @@ export default function ChatPage() {
       await fetch("/api/chat/messages", {
          method: "PUT",
          headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ id: editingMessage.id, action: "EDIT", text })
+         body: JSON.stringify({ id: editingMessage.id, action: "EDIT", text, removeFile: removingFile })
       });
       fetchMessages(false);
     } catch (e) {
@@ -332,14 +342,29 @@ export default function ChatPage() {
 
             {/* Editing UI Indicator */}
             {editingMessage && (
-               <div className="w-full bg-amber-50 border-t border-amber-100 px-4 py-2 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-amber-700 text-xs">
-                     <Edit2 className="w-3.5 h-3.5" />
-                     <span>Xabarni tahrirlash: <span className="font-semibold">{editingMessage.text?.substring(0,20) || "Fayl biriktirma"}...</span></span>
+               <div className="w-full bg-amber-50 border-t border-amber-100 flex flex-col">
+                  <div className="px-4 py-2 flex items-center justify-between">
+                     <div className="flex items-center gap-2 text-amber-700 text-xs">
+                        <Edit2 className="w-3.5 h-3.5" />
+                        <span>Xabarni tahrirlash: <span className="font-semibold">{editingMessage.text?.substring(0,20) || "Fayl biriktirma"}...</span></span>
+                     </div>
+                     <button onClick={() => {setEditingMessage(null); setText("");}} className="p-1 hover:bg-amber-100 rounded-full text-amber-500">
+                        <X className="w-4 h-4" />
+                     </button>
                   </div>
-                  <button onClick={() => {setEditingMessage(null); setText("");}} className="p-1 hover:bg-amber-100 rounded-full text-amber-500">
-                     <X className="w-4 h-4" />
-                  </button>
+                  {/* Agar xabarda fayl bo'lsa va hali o'chirilmagan bo'lsa */}
+                  {editingMessage.fileUrl && !editingMessage.removeFile && (
+                     <div className="px-4 py-1.5 bg-amber-100/50 flex items-center justify-between text-xs text-amber-800 border-t border-amber-100/50">
+                        <span className="truncate max-w-[200px] flex items-center gap-1"><FileIcon className="w-3 h-3"/> {editingMessage.fileName || "Biriktirilgan fayl"}</span>
+                        <button 
+                          type="button"
+                          onClick={() => setEditingMessage({...editingMessage, removeFile: true})} 
+                          className="text-red-500 hover:underline flex items-center gap-1 font-medium bg-red-50 hover:bg-red-100 px-2 py-0.5 rounded-md transition-colors"
+                        >
+                           <Trash2 className="w-3 h-3" /> Rekvizitni uzish (Faylni o'chirish)
+                        </button>
+                     </div>
+                  )}
                </div>
             )}
 

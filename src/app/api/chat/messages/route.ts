@@ -68,7 +68,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { id, action, text } = await request.json();
+    const { id, action, text, removeFile } = await request.json();
     if (!id) return NextResponse.json({ error: "id shart" }, { status: 400 });
 
     if (action === "DELETE") {
@@ -82,11 +82,18 @@ export async function PUT(request: Request) {
     }
 
     if (action === "EDIT") {
+      const updateData: any = { text, isEdited: true };
+      if (removeFile) {
+         updateData.fileUrl = null;
+         updateData.fileName = null;
+         updateData.fileType = null;
+      }
+      
       // @ts-ignore
       const editedMsg = await prisma.chatMessage.update({
          where: { id },
          // @ts-ignore
-         data: { text, isEdited: true }
+         data: updateData
       });
       return NextResponse.json(editedMsg, { status: 200 });
     }
