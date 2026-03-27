@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Activity, BarChart2, TrendingUp, Users, Download, PieChart as PieChartIcon, Trophy, Medal, FileText, LayoutTemplate, RotateCcw } from "lucide-react";
+import { Activity, BarChart2, TrendingUp, Users, Download, PieChart as PieChartIcon, Trophy, Medal, FileText, LayoutTemplate, RotateCcw, Grid } from "lucide-react";
 import * as XLSX from "xlsx";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Skeleton } from "@/components/ui/skeleton";
-import { Responsive, WidthProvider, Layout } from 'react-grid-layout';
+import { Responsive, WidthProvider, Layout } from 'react-grid-layout/legacy';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
@@ -43,7 +43,7 @@ export default function MonitoringPage() {
     fetchLeaderboard();
   }, []);
 
-  const onLayoutChange = (layout: Layout[], allLayouts: any) => {
+  const onLayoutChange = (layout: any, allLayouts: any) => {
     setLayouts(allLayouts);
     localStorage.setItem("tuitplan_monitoring_layout", JSON.stringify(allLayouts));
   };

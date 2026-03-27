@@ -24,11 +24,14 @@ export default function ChatPage() {
   useEffect(() => {
     let interval: any;
     if (activeContact && user) {
-      fetchMessages();
-      // Short Polling
-      interval = setInterval(() => {
-         fetchMessages(false);
-      }, 3000);
+      fetchMessages().then((success) => {
+         if (success !== false) {
+           interval = setInterval(async () => {
+             const ok = await fetchMessages(false);
+             if (ok === false) clearInterval(interval);
+           }, 3000);
+         }
+      });
     }
     return () => clearInterval(interval);
   }, [activeContact]);
@@ -37,7 +40,7 @@ export default function ChatPage() {
     try {
       const res = await fetch(`/api/chat/users?userId=${u.id}&role=${u.role}`);
       const data = await res.json();
-      setContacts(data);
+      setContacts(Array.isArray(data) ? data : []);
     } catch (e) {
       console.error(e);
     } finally {
@@ -50,10 +53,15 @@ export default function ChatPage() {
     if (showLoad) setLoadingMessages(true);
     try {
       const res = await fetch(`/api/chat/messages?userId=${user.id}&contactId=${activeContact.id}`);
+      if (!res.ok) {
+         return false; // xatolik bo'lsa pollingni to'xtatish uchun signal
+      }
       const data = await res.json();
-      setMessages(data);
+      setMessages(Array.isArray(data) ? data : []);
+      return true;
     } catch (e) {
       console.error(e);
+      return false;
     } finally {
       if (showLoad) setLoadingMessages(false);
     }
