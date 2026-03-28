@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Send, User as UserIcon, MessageSquare, Loader2, Paperclip, MoreVertical, Edit2, Trash2, X, File as FileIcon, FileText, Image as ImageIcon } from "lucide-react";
+import { Send, User as UserIcon, MessageSquare, Loader2, Paperclip, MoreVertical, Edit2, Trash2, X, File as FileIcon, FileText, Image as ImageIcon, ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function ChatPage() {
@@ -203,7 +203,7 @@ export default function ChatPage() {
   return (
     <div className="h-[80vh] min-h-[600px] bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
       {/* Sidebar Contacts */}
-      <div className="w-full md:w-80 border-r border-slate-100 bg-slate-50 flex flex-col shrink-0">
+      <div className={`w-full md:w-80 border-r border-slate-100 bg-slate-50 flex-col shrink-0 ${activeContact ? 'hidden md:flex' : 'flex'}`}>
         <div className="p-4 border-b border-slate-200 bg-white">
           <h2 className="font-bold text-slate-800 flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-indigo-500" /> Chatlar
@@ -239,7 +239,7 @@ export default function ChatPage() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 bg-slate-50 flex flex-col relative min-w-0" onClick={() => setActiveDropdown(null)}>
+      <div className={`flex-1 bg-slate-50 flex-col relative min-w-0 ${!activeContact ? 'hidden md:flex' : 'flex'}`} onClick={() => setActiveDropdown(null)}>
         {!activeContact ? (
           <div className="flex-1 flex flex-col items-center justify-center text-slate-400 text-center p-8">
             <MessageSquare className="w-16 h-16 mx-auto mb-4 opacity-20 text-indigo-500" />
@@ -249,8 +249,11 @@ export default function ChatPage() {
         ) : (
           <div className="w-full h-full flex flex-col bg-white">
             {/* Chat Header */}
-            <div className="p-4 border-b border-slate-200 bg-white flex items-center justify-between shadow-[0_4px_20px_-15px_rgba(0,0,0,0.1)] z-10">
+            <div className="p-4 border-b border-slate-200 bg-white flex items-center justify-between shadow-[0_4px_20px_-15px_rgba(0,0,0,0.1)] z-10 shrink-0">
               <div className="flex items-center gap-3">
+                <button onClick={() => setActiveContact(null)} className="md:hidden p-1.5 -ml-1.5 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
                 <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center shrink-0 overflow-hidden border border-indigo-100">
                   {activeContact.avatarUrl ? <img src={activeContact.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-indigo-500" />}
                 </div>
@@ -299,42 +302,42 @@ export default function ChatPage() {
                          </div>
                        )}
 
-                       {/* Vaqt va Edit status */}
-                       <div className={`flex items-center justify-end gap-2 mt-1.5 ${isMe ? 'text-indigo-200' : 'text-slate-400'}`}>
+                        {/* Vaqt va Edit status */}
+                       <div className={`flex items-center justify-end gap-1.5 mt-1.5 ${isMe ? 'text-indigo-200' : 'text-slate-400'}`}>
                          {m.isEdited && <span className="text-[9px] italic">Tahrirlangan</span>}
                          <span className="text-[10px] font-medium block">
                            {new Date(m.createdAt).toLocaleTimeString('uz-UZ', {hour: '2-digit', minute:'2-digit'})}
                          </span>
+                         
+                         {/* 3 nuqtali Edit/Delete menyusi (Xabar ichiga ko'chirdik) */}
+                         {isMe && !m.isDeleted && (
+                           <div className="relative ml-1 flex items-center">
+                              <button 
+                                 onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === m.id ? null : m.id); }}
+                                 className={`p-1 rounded-full transition-colors ${isMe ? 'hover:bg-indigo-500 text-indigo-100' : 'hover:bg-slate-200 text-slate-400'}`}
+                              >
+                                 <MoreVertical className="w-4 h-4" />
+                              </button>
+                              {activeDropdown === m.id && (
+                                 <div className="absolute right-0 bottom-6 w-32 bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden z-20 py-1" onClick={e => e.stopPropagation()}>
+                                    <button 
+                                      onClick={() => { setEditingMessage(m); setText(m.text || ""); setActiveDropdown(null); }}
+                                      className="w-full text-left px-3 py-2 hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-2"
+                                    >
+                                       <Edit2 className="w-3.5 h-3.5" /> Tahrirlash
+                                    </button>
+                                    <button 
+                                      onClick={() => handleDelete(m.id)}
+                                      className="w-full text-left px-3 py-2 hover:bg-red-50 text-xs font-medium text-red-600 flex items-center gap-2"
+                                    >
+                                       <Trash2 className="w-3.5 h-3.5" /> O'chirish
+                                    </button>
+                                 </div>
+                              )}
+                           </div>
+                         )}
                        </div>
                      </div>
-
-                     {/* 3 nuqtali Edit/Delete menyusi (Faqat o'zini xabarlariga) */}
-                     {isMe && !m.isDeleted && (
-                       <div className="absolute top-2 -left-8 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                          <button 
-                             onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === m.id ? null : m.id); }}
-                             className="p-1 rounded-md text-slate-400 hover:bg-slate-200 hover:text-slate-700"
-                          >
-                             <MoreVertical className="w-4 h-4" />
-                          </button>
-                          {activeDropdown === m.id && (
-                             <div className="absolute right-6 top-0 w-32 bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden z-20 py-1" onClick={e => e.stopPropagation()}>
-                                <button 
-                                  onClick={() => { setEditingMessage(m); setText(m.text || ""); setActiveDropdown(null); }}
-                                  className="w-full text-left px-3 py-2 hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-2"
-                                >
-                                   <Edit2 className="w-3.5 h-3.5" /> Tahrirlash
-                                </button>
-                                <button 
-                                  onClick={() => handleDelete(m.id)}
-                                  className="w-full text-left px-3 py-2 hover:bg-red-50 text-xs font-medium text-red-600 flex items-center gap-2"
-                                >
-                                   <Trash2 className="w-3.5 h-3.5" /> O'chirish
-                                </button>
-                             </div>
-                          )}
-                       </div>
-                     )}
                    </div>
                  );
               })}
