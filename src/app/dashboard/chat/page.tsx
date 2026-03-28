@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Send, User as UserIcon, MessageSquare, Loader2, Paperclip, MoreVertical, Edit2, Trash2, X, File as FileIcon, FileText, Image as ImageIcon, ArrowLeft } from "lucide-react";
 import toast from "react-hot-toast";
+import { createClient } from "@supabase/supabase-js";
 
 export default function ChatPage() {
   const [user, setUser] = useState<any>(null);
@@ -90,20 +91,32 @@ export default function ChatPage() {
     let fileName = null;
 
     try {
-      // 1. Upload File if selected
+      // 1. Upload File (Direct to Supabase bypassing Vercel 4.5MB API limits)
       if (selectedFile) {
-        const formData = new FormData();
-        formData.append("file", selectedFile);
+        toast.loading("Fayl serverga yozib olinmoqda...", { id: "attach" });
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://tzlzxxaskazzvtzetvbk.supabase.co";
+        // To'g'ridan-to'g'ri cloud'ga ulanish
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || "sb_publishable_WpnUu0-1kHxN3jD-BFs8jw_gXfPzvd_";
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const safeName = selectedFile.name.replace(/[^a-zA-Z0-9.]/g, '_');
+        const filename = `${Date.now()}-${safeName}`;
+
+        const { data: uploadData, error } = await supabase.storage
+          .from('uploads')
+          .upload(filename, selectedFile, {
+            upsert: false
+          });
+
+        if (error) {
+           toast.dismiss("attach");
+           throw new Error("Cloud uzatish xatosi: " + error.message);
+        }
+
+        const { data: { publicUrl } } = supabase.storage.from('uploads').getPublicUrl(filename);
         
-        const uploadRes = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-        });
-        
-        if (!uploadRes.ok) throw new Error("Fayl yuklashda xatolik");
-        const uploadData = await uploadRes.json();
-        
-        finalFileUrl = uploadData.fileUrl;
+        toast.dismiss("attach");
+        finalFileUrl = publicUrl;
         fileType = selectedFile.type;
         fileName = selectedFile.name;
       }
