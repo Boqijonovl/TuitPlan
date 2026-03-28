@@ -52,7 +52,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-8 md:p-10 rounded-3xl bg-white shadow-2xl relative z-10 border border-slate-100">
         <div className="mb-8 text-center flex flex-col items-center">
           <div className="text-center mb-8 shrink-0">
-            <img src="/logo.png" alt="TUIT" className="h-40 md:h-48 w-auto mx-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] hover:scale-105 transition-transform duration-500" />
+            <img src="/logo1.png" alt="TUIT" className="h-40 md:h-48 w-auto mx-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] hover:scale-105 transition-transform duration-500" />
             <h1 className="text-2xl font-extrabold text-slate-800 tracking-tight mt-6">Tizimga Kirish</h1>
           </div>
         </div>

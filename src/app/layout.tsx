@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FKYRM - Yillik Rejalar Monitoring Tizimi",
+  title: "TUIT - Yillik Rejalar Monitoring Tizimi",
   description: "Fakultet va kafedralar yillik rejalari & monitoringi axborot tizimi",
   manifest: "/manifest.json",
   icons: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "FKYRM",
+    title: "TUIT - Yillik Rejalar Monitoring Tizimi",
   },
 };
 
