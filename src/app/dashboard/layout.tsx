@@ -75,8 +75,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Sidebar - Blue Theme */}
       <aside className={`fixed lg:static top-0 left-0 bg-blue-900 text-white h-screen transition-all z-40 flex flex-col ${isSidebarOpen ? 'w-64' : 'w-0 lg:w-20'} overflow-hidden shadow-2xl lg:shadow-none print:hidden`}>
-        <div className="h-20 flex items-center justify-center border-b border-blue-200 shrink-0 bg-white p-2 shadow-sm">
-          <img src="/logo.png" alt="TuitPlan" className={`h-full w-auto object-contain transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'scale-75 w-10' : 'scale-100 w-auto'}`} />
+        <div className="p-4 border-b border-indigo-500/30 flex items-center justify-center shrink-0 h-20 transition-all cursor-pointer hover:bg-white/5 group">
+          <img src="/logo.png" alt="FKYRM" className={`h-full w-auto object-contain transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'scale-75 w-10' : 'scale-100 w-auto group-hover:scale-105'}`} />
         </div>
         
         <div className="flex-1 py-6 px-3 space-y-2 overflow-y-auto">

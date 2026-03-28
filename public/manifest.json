@@ -1,6 +1,6 @@
 {
-  "name": "TuitPlan",
-  "short_name": "TuitPlan",
+  "name": "Fakultet va Kafedralar Yillik Reja Monitoringi",
+  "short_name": "FKYRM",
   "description": "Fakultet va kafedralar yillik rejalarini boshqarish platformasi",
   "start_url": "/",
   "display": "standalone",

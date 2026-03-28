@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TuitPlan - Yillik Rejalar Monitoring Tizimi",
-  description: "Oliy ta'lim muassasalarining yillik rejalarini shakllantirish va monitoring qilish axborot tizimi",
+  title: "FKYRM - Yillik Rejalar Monitoring Tizimi",
+  description: "Fakultet va kafedralar yillik rejalari & monitoringi axborot tizimi",
   manifest: "/manifest.json",
   icons: {
     icon: "/logo.png",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "TuitPlan",
+    title: "FKYRM",
   },
 };
 

@@ -68,7 +68,7 @@ export default function ArchivePage() {
     
     try {
       const zip = new JSZip();
-      const folder = zip.folder("TuitPlan_Arxiv");
+      const folder = zip.folder("FKYRM_Arxiv");
       
       const promises = filteredDocs.map(async (doc: any, i: number) => {
         if (!doc.fileUrl) return;

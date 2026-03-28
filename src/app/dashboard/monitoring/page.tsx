@@ -119,7 +119,7 @@ export default function MonitoringPage() {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Monitoring");
-    XLSX.writeFile(workbook, "TuitPlan_Monitoring_Hisobot.xlsx");
+    XLSX.writeFile(workbook, "FKYRM_Monitoring_Hisobot.xlsx");
   };
 
   const handleExportPDF = async () => {
@@ -200,10 +200,10 @@ export default function MonitoringPage() {
       </div>
 
       <div id="pdf-export-content" className="bg-slate-50 dark:bg-slate-900 print:bg-white print:p-0">
-        <div className="hidden print:block mb-6 text-center">
-           <img src="/logo.png" alt="TuitPlan Logo" className="h-16 w-auto mx-auto mb-2 opacity-90 object-contain" />
-           <h1 className="text-3xl font-black text-slate-800">TuitPlan Tizimi - Umumiy Hisobot</h1>
-           <p className="text-slate-500 mt-2" suppressHydrationWarning>Chop etilgan sana: {new Date().toLocaleDateString('uz-UZ')}</p>
+        <div className="flex flex-col items-center justify-center py-6 border-b border-indigo-100 bg-gradient-to-r from-blue-50/50 via-indigo-50/50 to-blue-50/50">
+           <img src="/logo.png" alt="FKYRM Logo" className="h-16 w-auto mx-auto mb-2 opacity-90 object-contain" />
+           <h1 className="text-3xl font-black text-slate-800">FKYRM - Umumiy Hisobot</h1>
+           <p className="text-slate-500 mt-2 font-medium max-w-xl text-center">Fakultet va Kafedralar Yillik Rejalari & Monitoringi Axborot Tizimi</p>
         </div>
         
         <ResponsiveGridLayout

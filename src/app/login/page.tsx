@@ -51,11 +51,11 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md p-8 md:p-10 rounded-3xl bg-white shadow-2xl relative z-10 border border-slate-100">
         <div className="mb-8 text-center flex flex-col items-center">
-          <div className="flex items-center justify-center mb-6">
-            <img src="/logo.png" alt="TuitPlan" className="h-24 md:h-28 w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] hover:scale-105 transition-transform duration-500" />
+          <div className="text-center mb-8 shrink-0">
+            <img src="/logo.png" alt="FKYRM" className="h-24 md:h-28 w-auto object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)] hover:scale-105 transition-transform duration-500" />
+            <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight mt-6">Tizimga Kirish</h1>
+            <p className="text-sm text-slate-500 mt-3 max-w-[280px] mx-auto font-medium leading-relaxed">Fakultet va Kafedralar Yillik Rejalari & Monitoringi</p>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-blue-950 mb-2">Hush Kelibsiz</h1>
-          <p className="text-slate-500 text-sm">Axborot tizimiga kirish majburiy</p>
         </div>
 
         {error && (
