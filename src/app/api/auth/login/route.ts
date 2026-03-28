@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       message: "Muvaffaqiyatli kirdingiz",
       token,
-      user: { id: user.id, name: user.name, email: user.email, role: user.role, departmentId: user.departmentId, facultyId: user.facultyId }
+      user: { id: user.id, name: user.name, email: user.email, role: user.role, departmentId: user.departmentId, facultyId: user.facultyId, avatarUrl: user.avatarUrl }
     }, { status: 200 });
   } catch (error) {
     console.error("Login error:", error);

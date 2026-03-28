@@ -310,7 +310,7 @@ export default function ChatPage() {
 
                      {/* 3 nuqtali Edit/Delete menyusi (Faqat o'zini xabarlariga) */}
                      {isMe && !m.isDeleted && (
-                       <div className="absolute top-2 -left-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                       <div className="absolute top-2 -left-8 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                           <button 
                              onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === m.id ? null : m.id); }}
                              className="p-1 rounded-md text-slate-400 hover:bg-slate-200 hover:text-slate-700"
