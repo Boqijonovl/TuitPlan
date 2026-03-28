@@ -201,9 +201,7 @@ export default function MonitoringPage() {
 
       <div id="pdf-export-content" className="bg-slate-50 dark:bg-slate-900 print:bg-white print:p-0">
         <div className="flex flex-col items-center justify-center py-6 border-b border-indigo-100 bg-gradient-to-r from-blue-50/50 via-indigo-50/50 to-blue-50/50">
-           <img src="/logo.png" alt="TUIT Logo" className="h-28 md:h-32 w-auto mx-auto mb-2 opacity-95 object-contain" />
-           <h1 className="text-3xl font-black text-slate-800 mt-2">FKYRM - Umumiy Hisobot</h1>
-           <p className="text-slate-500 mt-2 font-medium max-w-xl text-center">Fakultet va Kafedralar Yillik Rejalari & Monitoringi Axborot Tizimi</p>
+           <img src="/logo.png" alt="TUIT Logo" className="h-32 md:h-40 w-auto mx-auto mb-2 opacity-95 object-contain" />
         </div>
         
         <ResponsiveGridLayout
