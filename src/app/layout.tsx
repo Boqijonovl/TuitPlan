@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   description: "Fakultet va kafedralar yillik rejalari & monitoringi axborot tizimi",
   manifest: "/manifest.json",
   icons: {
-    icon: "/logo.png",
+    icon: "/logo1.png",
   },
   appleWebApp: {
     capable: true,
