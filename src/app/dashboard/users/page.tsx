@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Users, User as UserIcon, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload } from "lucide-react";
+import { Users, User as UserIcon, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload, Download } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function UsersPage() {
@@ -245,6 +245,22 @@ export default function UsersPage() {
         {activeFacultyId && (activeDepartmentId || activeFacultyId === "ADMIN") && (
           <div className="flex flex-wrap items-center justify-end gap-2">
             
+            {/* Ommaviy Export Word Tugmasi */}
+            <button 
+                onClick={() => {
+                   let url = `/api/users/export-word?`;
+                   if (activeFacultyId === "ADMIN") url += `admin=true`;
+                   else if (activeDepartmentId) url += `departmentId=${activeDepartmentId}`;
+                   else if (activeFacultyId) url += `facultyId=${activeFacultyId}`;
+                   window.location.href = url;
+                }}
+                className="bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 hover:border-purple-300 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm shrink-0 text-sm"
+                title="Barcha xodimlarni Word formatida chaqirib olish"
+              >
+                <Download className="w-4 h-4 text-purple-500" />
+                <span className="hidden sm:inline">Word-ga Olish</span>
+            </button>
+
             {/* Word fayl orqali Ommaviy Import Kafedralar darajasida (3-qavat) ishlaydi */}
             {activeDepartmentId && (
               <>
