@@ -170,15 +170,22 @@ export default function UsersPage() {
            method: "POST", 
            body: formData 
         });
-        const data = await res.json();
+        
+        let data;
+        try {
+           data = await res.json();
+        } catch (jsonErr) {
+           throw new Error(`Server butunlay qotdi yohud Hali yangilanmadi! Xato kodi: ${res.status}`);
+        }
+
         if (res.ok) {
             toast.success(data.message, { id: toastId });
             fetchUsers();
         } else {
-            toast.error(data.error, { id: toastId });
+            toast.error(data.error || "Noma'lum server xatosi", { id: toastId });
         }
-    } catch(err) {
-        toast.error("Tarmoq xatosi", { id: toastId });
+    } catch(err: any) {
+        toast.error(`Aloqa xatosi: ${err.message}`, { id: toastId });
     }
     
     if (fileInputRef.current) fileInputRef.current.value = ""; // Inputni tozalash
