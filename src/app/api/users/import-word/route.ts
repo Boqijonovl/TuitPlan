@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     // Matnni qatorlarga ajratish (faqat uzun qatorlar - ism/familiya bo'lishi ehtimoli yuqorilar)
     const lines = text.split('\n').filter(line => line.trim().length > 3);
-    const usersToCreate = [];
+    const usersToCreate: any[] = [];
 
     // Barcha ma'lum email larni xavfsizlik (duplikatlarning oldini olish) uchun tayyorlash
     const existingUsers = await prisma.user.findMany({ select: { email: true } });
