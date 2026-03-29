@@ -13,6 +13,7 @@ export default function UsersPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
+  const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
   // activeView: null (Grid), "ADMIN" (Admin guruh), yoki facultyId (Fakultet guruhi)
   const [activeView, setActiveView] = useState<string | null>(null);
@@ -69,6 +70,7 @@ export default function UsersPage() {
   };
 
   const openModalForCurrentView = () => {
+    setEditingUserId(null);
     setNewUser({
       name: "", email: "", password: "",
       role: activeView === "ADMIN" ? "ADMIN" : "TEACHER",
@@ -78,7 +80,20 @@ export default function UsersPage() {
     setIsModalOpen(true);
   };
 
-  const handleAddUser = async (e: React.FormEvent) => {
+  const openEditModal = (u: any) => {
+    setEditingUserId(u.id);
+    setNewUser({
+      name: u.name, 
+      email: u.email, 
+      password: "", // Optional during edit
+      role: u.role,
+      facultyId: u.facultyId || "",
+      departmentId: u.departmentId || ""
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleSubmitUser = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
@@ -86,15 +101,18 @@ export default function UsersPage() {
       if (!payload.departmentId) payload.departmentId = undefined as any;
       if (!payload.facultyId) payload.facultyId = undefined as any;
 
-      const res = await fetch("/api/users", {
-        method: "POST",
+      const url = editingUserId ? `/api/users/${editingUserId}` : "/api/users";
+      const method = editingUserId ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
       
       if (res.ok) {
         setIsModalOpen(false);
-        toast.success(activeView === "ADMIN" ? "Yangi Bosh admin qo'shildi!" : "Xodim muvaffaqiyatli qo'shildi!");
+        toast.success(editingUserId ? "Foydalanuvchi ma'lumotlari yangilandi!" : (activeView === "ADMIN" ? "Yangi Bosh admin qo'shildi!" : "Xodim muvaffaqiyatli qo'shildi!"));
         fetchUsers();
       } else {
         const errorData = await res.json();
@@ -305,6 +323,12 @@ export default function UsersPage() {
                     )}
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
                       <button 
+                        onClick={() => openEditModal(u)}
+                        className="text-slate-400 hover:text-blue-600 p-1.5 hover:bg-blue-50 rounded-lg transition-colors title='Tahrirlash'"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                      </button>
+                      <button 
                         onClick={() => handleDeleteUser(u.id, u.name)}
                         className="text-slate-400 hover:text-red-600 p-1.5 hover:bg-red-50 rounded-lg transition-colors title='Ochirish'"
                       >
@@ -329,14 +353,16 @@ export default function UsersPage() {
             <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <UserCheck className="w-5 h-5 text-blue-500"/> 
-                {activeView === "ADMIN" ? "Yangi Admin Yaratish" : `${viewTitle} - Xodim Qo'shish`}
+                {editingUserId 
+                  ? "Xodimni Tahrirlash" 
+                  : (activeView === "ADMIN" ? "Yangi Admin Yaratish" : `${viewTitle} - Xodim Qo'shish`)}
               </h2>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-200 rounded-md">
                 <X className="w-5 h-5" />
               </button>
             </div>
             
-            <form onSubmit={handleAddUser} className="p-6 space-y-5 overflow-y-auto">
+            <form onSubmit={handleSubmitUser} className="p-6 space-y-5 overflow-y-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">Ism Familiya</label>
@@ -355,9 +381,13 @@ export default function UsersPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Tizimga kirish paroli</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex justify-between">
+                   Tizimga kirish paroli
+                   {editingUserId && <span className="text-xs font-normal text-slate-400 italic">O'zgartirish ixtiyoriy</span>}
+                </label>
                 <input 
-                  type="text" required value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})}
+                  type="text" required={!editingUserId} value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})}
+                  placeholder={editingUserId ? "Yangi parol (yozilmasa eski parol qoladi)" : ""}
                   className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm"
                 />
               </div>
@@ -410,7 +440,7 @@ export default function UsersPage() {
                   disabled={isSubmitting}
                   className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-md transition-colors disabled:opacity-70 text-sm"
                 >
-                  {isSubmitting ? "Saqlanmoqda..." : "Tasdiqlash va Qo'shish"}
+                  {isSubmitting ? "Saqlanmoqda..." : (editingUserId ? "O'zgarishlarni Saqlash" : "Tasdiqlash va Qo'shish")}
                 </button>
               </div>
             </form>

@@ -7,14 +7,28 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
     const resolvedParams = await params;
     const userId = resolvedParams.id;
     const body = await request.json();
-    const { name, password, avatarUrl } = body;
+    const { name, email, password, avatarUrl, role, facultyId, departmentId } = body;
 
     const dataToUpdate: any = { name };
+    if (email) dataToUpdate.email = email;
     if (password) {
       dataToUpdate.password = await bcrypt.hash(password, 10);
     }
     if (avatarUrl !== undefined) {
       dataToUpdate.avatarUrl = avatarUrl;
+    }
+    if (role) {
+      dataToUpdate.role = role;
+      if (role === 'ADMIN') {
+         dataToUpdate.facultyId = null;
+         dataToUpdate.departmentId = null;
+      } else if (role === 'DEAN') {
+         dataToUpdate.facultyId = facultyId || null;
+         dataToUpdate.departmentId = null;
+      } else {
+         dataToUpdate.facultyId = facultyId || null;
+         dataToUpdate.departmentId = departmentId || null;
+      }
     }
 
     const updatedUser = await prisma.user.update({
