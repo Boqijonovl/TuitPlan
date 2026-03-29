@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Users, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Users, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload } from "lucide-react";
 import toast from "react-hot-toast";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function UsersPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -15,8 +14,11 @@ export default function UsersPage() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
-  // activeView: null (Grid), "ADMIN" (Admin guruh), yoki facultyId (Fakultet guruhi)
-  const [activeView, setActiveView] = useState<string | null>(null);
+  // 3-Level Navigation States
+  const [activeFacultyId, setActiveFacultyId] = useState<string | "ADMIN" | null>(null);
+  const [activeDepartmentId, setActiveDepartmentId] = useState<string | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [newUser, setNewUser] = useState({
     name: "",
@@ -58,8 +60,17 @@ export default function UsersPage() {
     }
   };
 
-  const selectedFaculty = faculties.find(f => f.id === activeView);
+  const selectedFaculty = faculties.find(f => f.id === activeFacultyId);
   const departmentsForFaculty = selectedFaculty ? selectedFaculty.departments : [];
+  const selectedDepartment = departmentsForFaculty?.find((d: any) => d.id === activeDepartmentId);
+
+  const handleBackNavigation = () => {
+    if (activeDepartmentId) {
+      setActiveDepartmentId(null);
+    } else if (activeFacultyId) {
+      setActiveFacultyId(null);
+    }
+  };
 
   const handleRoleChange = (role: string) => {
     setNewUser(prev => ({
@@ -73,9 +84,9 @@ export default function UsersPage() {
     setEditingUserId(null);
     setNewUser({
       name: "", email: "", password: "",
-      role: activeView === "ADMIN" ? "ADMIN" : "TEACHER",
-      facultyId: activeView === "ADMIN" ? "" : (activeView || ""),
-      departmentId: ""
+      role: activeFacultyId === "ADMIN" ? "ADMIN" : "TEACHER",
+      facultyId: activeFacultyId === "ADMIN" ? "" : (activeFacultyId || ""),
+      departmentId: activeDepartmentId || "" // Avtomatik Kafedrani tanlab ketish
     });
     setIsModalOpen(true);
   };
@@ -112,7 +123,7 @@ export default function UsersPage() {
       
       if (res.ok) {
         setIsModalOpen(false);
-        toast.success(editingUserId ? "Foydalanuvchi ma'lumotlari yangilandi!" : (activeView === "ADMIN" ? "Yangi Bosh admin qo'shildi!" : "Xodim muvaffaqiyatli qo'shildi!"));
+        toast.success(editingUserId ? "Foydalanuvchi ma'lumotlari yangilandi!" : (activeFacultyId === "ADMIN" ? "Yangi Bosh admin qo'shildi!" : "Xodim muvaffaqiyatli qo'shildi!"));
         fetchUsers();
       } else {
         const errorData = await res.json();
@@ -139,27 +150,38 @@ export default function UsersPage() {
     }
   };
 
-  const handleHemisSync = async () => {
-    setIsSyncing(true);
-    const toastId = toast.loading("HEMIS API tarmog'iga ulanmoqda...");
-    try {
-      const res = await fetch("/api/hemis/sync", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: "MOCK_TOKEN_123", hemisUrl: "https://hemis.uz" })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        toast.success(data.message, { id: toastId });
-        fetchUsers();
-      } else {
-        toast.error(data.error, { id: toastId });
-      }
-    } catch (e) {
-      toast.error("Tarmoq xatosi", { id: toastId });
-    } finally {
-      setIsSyncing(false);
+  const handleWordUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeFacultyId || !activeDepartmentId) return;
+
+    if (!file.name.endsWith(".doc") && !file.name.endsWith(".docx")) {
+       toast.error("Iltimos, faqat .doc yoki .docx fayl ishlating!");
+       return;
     }
+
+    const toastId = toast.loading("Hujjat tahlil qilinmoqda...");
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("facultyId", activeFacultyId);
+    formData.append("departmentId", activeDepartmentId);
+
+    try {
+        const res = await fetch("/api/users/import-word", { 
+           method: "POST", 
+           body: formData 
+        });
+        const data = await res.json();
+        if (res.ok) {
+            toast.success(data.message, { id: toastId });
+            fetchUsers();
+        } else {
+            toast.error(data.error, { id: toastId });
+        }
+    } catch(err) {
+        toast.error("Tarmoq xatosi", { id: toastId });
+    }
+    
+    if (fileInputRef.current) fileInputRef.current.value = ""; // Inputni tozalash
   };
 
   if (currentUser && currentUser.role !== "ADMIN") {
@@ -172,70 +194,89 @@ export default function UsersPage() {
     );
   }
 
-  // Filter users based on view
-  let viewUsers = [];
-  let viewTitle = "";
-  let viewSubtitle = "";
+  // Sahifa Strukturasi Title lari
+  let viewTitle = "Xodimlar Boshqaruvi";
+  let viewSubtitle = "Fakultetlar va Kafedralar bo'ylab ko'rish rejimidasiz.";
+  let filteredUsers: any[] = [];
 
-  if (activeView === "ADMIN") {
-    viewUsers = users.filter(u => u.role === "ADMIN");
-    viewTitle = "Oliy Tuzilma (Adminlar)";
-    viewSubtitle = "Tizimni to'liq boshqaruvchi shaxslar";
-  } else if (activeView) {
-    viewUsers = users.filter(u => u.facultyId === activeView);
-    viewTitle = selectedFaculty?.name || "Noma'lum Fakultet";
-    viewSubtitle = "Fakultet dekani, mudirlari va o'qituvchilari";
+  if (activeFacultyId === "ADMIN") {
+     viewTitle = "Oliy Tuzilma (Adminlar)";
+     viewSubtitle = "Tizimni to'liq boshqaruvchi shaxslar";
+     filteredUsers = users.filter((u: any) => u.role === "ADMIN");
+  } else if (activeFacultyId && !activeDepartmentId) {
+     viewTitle = selectedFaculty?.name || "Kafedralar ro'yxati";
+     viewSubtitle = "Iltimos, tarkibiy Kafedrani tanlang.";
+  } else if (activeFacultyId && activeDepartmentId) {
+     viewTitle = selectedDepartment?.name || "Kafedra";
+     viewSubtitle = `${selectedFaculty?.name} tarkibidagi kadrlar ro'yxati`;
+     filteredUsers = users.filter((u: any) => u.departmentId === activeDepartmentId);
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          {activeView && (
+          {activeFacultyId && (
             <button 
-              onClick={() => setActiveView(null)}
+              onClick={handleBackNavigation}
               className="p-2 border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 rounded-xl transition-all hover:-translate-x-1"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
           )}
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-              {activeView ? viewTitle : "Xodimlar Boshqaruvi"}
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900 leading-tight">
+              {viewTitle}
             </h1>
             <p className="text-sm text-slate-500 mt-1">
-              {activeView ? viewSubtitle : "Fakultetlar bo'yicha guruhlangan tizim foydalanuvchilari."}
+              {viewSubtitle}
             </p>
           </div>
         </div>
         
-        {activeView && (
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={handleHemisSync}
-              disabled={isSyncing}
-              className="bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100 hover:border-indigo-300 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all disabled:opacity-50 shrink-0 text-sm shadow-sm"
-              title="Kadrlar bazasini HEMIS dan tortib olish"
-            >
-              <RefreshCw className={`w-4 h-4 ${isSyncing ? "animate-spin" : ""}`} /> 
-              {isSyncing ? "Sinxronlanmoqda" : "HEMIS"}
-            </button>
+        {/* Yuqori O'ng Tugmalar: Faqat 3-bosqich (yoki Adminlar) ga yetgandagina asosiylar chiqadi */}
+        {activeFacultyId && (activeDepartmentId || activeFacultyId === "ADMIN") && (
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            
+            {/* Word fayl orqali Ommaviy Import Kafedralar darajasida (3-qavat) ishlaydi */}
+            {activeDepartmentId && (
+              <>
+                <input 
+                   type="file" 
+                   accept=".doc,.docx"
+                   ref={fileInputRef} 
+                   onChange={handleWordUpload} 
+                   className="hidden" 
+                />
+                <button 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm shrink-0 text-sm"
+                  title="Word ro'yxatni kiritish"
+                >
+                  <FileText className="w-4 h-4 text-emerald-500" />
+                  <span className="hidden sm:inline">Word.docx Import</span>
+                </button>
+              </>
+            )}
+
             <button 
               onClick={openModalForCurrentView}
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-lg shadow-blue-500/30 flex items-center gap-2 transition-colors shrink-0 text-sm"
             >
               <Plus className="w-5 h-5" /> 
-              {activeView === "ADMIN" ? "Admin Qo'shish" : "Xodim Qo'shish"}
+              {activeFacultyId === "ADMIN" ? "Admin Qo'shish" : "Xodim Qo'shish"}
             </button>
           </div>
         )}
       </div>
 
-      {!activeView && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* 1-QAVAT: FAKULTETLAR VA ASOSIY MENU KO'RINISHI */}
+      {!activeFacultyId && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-bottom-4 duration-300">
+          
           {/* Adminlar Kartochkasi */}
           <div 
-            onClick={() => setActiveView("ADMIN")}
+            onClick={() => setActiveFacultyId("ADMIN")}
             className="group cursor-pointer bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
           >
             <Shield className="w-24 h-24 text-white/5 absolute -bottom-4 -right-4 blur-sm group-hover:scale-125 transition-transform duration-500" />
@@ -243,9 +284,9 @@ export default function UsersPage() {
               <Shield className="w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Oliy Tuzilma</h3>
-            <p className="text-slate-400 text-sm mb-4">Tizim administratorlari (Boshqaruv)</p>
+            <p className="text-slate-400 text-sm mb-4">Tizim administratorlari (Boshqaruvchi guruh)</p>
             <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
-              <UserCheck className="w-4 h-4" /> {users.filter(u => u.role === "ADMIN").length} xodim
+              <UserCheck className="w-4 h-4" /> {users.filter((u: any) => u.role === "ADMIN").length} xodim
             </div>
           </div>
 
@@ -253,23 +294,23 @@ export default function UsersPage() {
           {loading ? (
             [1,2,3].map(i => <div key={i} className="h-[250px] bg-white border border-slate-200 animate-pulse rounded-2xl"></div>)
           ) : (
-            faculties.map(faculty => {
-              const facUsersCount = users.filter(u => u.facultyId === faculty.id).length;
+            faculties.map((faculty: any) => {
+              const facUsersCount = users.filter((u: any) => u.facultyId === faculty.id).length;
               return (
                 <div 
                   key={faculty.id}
-                  onClick={() => setActiveView(faculty.id)}
-                  className="group cursor-pointer bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 p-6 flex flex-col items-center text-center"
+                  onClick={() => setActiveFacultyId(faculty.id)}
+                  className="group cursor-pointer bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 p-6 flex flex-col items-center text-center relative overflow-hidden"
                 >
-                  <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100">
+                  <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100 relative z-10">
                     <Building2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight group-hover:text-blue-600 transition-colors">{faculty.name}</h3>
-                  <div className="flex items-center gap-1 text-slate-500 text-xs mb-4 font-medium px-3 py-1 bg-slate-50 rounded-lg">
-                    <GraduationCap className="w-4 h-4" /> {faculty.departments?.length || 0} Kafedra
+                  <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight group-hover:text-blue-600 transition-colors relative z-10">{faculty.name}</h3>
+                  <div className="flex items-center gap-1 text-slate-500 text-xs mb-4 font-medium px-3 py-1 bg-slate-50 rounded-lg relative z-10">
+                    <GraduationCap className="w-4 h-4" /> {faculty.departments?.length || 0} Ta Kiruvchi Kafedra
                   </div>
-                  <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-700 rounded-full font-bold text-sm group-hover:bg-blue-100 transition-colors">
-                    <UserCheck className="w-4 h-4 text-blue-500" /> Jami: {facUsersCount} xodim
+                  <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-700 rounded-full font-bold text-sm group-hover:bg-blue-100 transition-colors relative z-10">
+                    <UserCheck className="w-4 h-4 text-blue-500" /> Jami: {facUsersCount} kadr
                   </div>
                 </div>
               );
@@ -278,8 +319,42 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/* Tanlangan Guruh (Table View) */}
-      {activeView && (
+      {/* 2-QAVAT: TANLANGAN FAKULTETNING KAFEDRALARI */}
+      {activeFacultyId && activeFacultyId !== "ADMIN" && !activeDepartmentId && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-right-4 duration-300">
+           {departmentsForFaculty.map((dept: any) => {
+              const deptUsersCount = users.filter((u: any) => u.departmentId === dept.id).length;
+              return (
+                <div 
+                  key={dept.id}
+                  onClick={() => setActiveDepartmentId(dept.id)}
+                  className="group cursor-pointer bg-indigo-50 border border-indigo-100 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden"
+                >
+                  <div>
+                     <div className="flex items-start justify-between mb-4">
+                        <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                          <Briefcase className="w-6 h-6" />
+                        </div>
+                     </div>
+                     <h3 className="text-base font-bold text-indigo-900 leading-snug mb-2">{dept.name}</h3>
+                  </div>
+                  <div className="mt-6 flex items-center justify-between border-t border-indigo-200/50 pt-4">
+                     <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider">Bo'lim</span>
+                     <div className="inline-flex items-center gap-1.5 text-xs text-indigo-700 font-bold bg-indigo-100 px-3 py-1 rounded-full">
+                       <UserIcon className="w-3.5 h-3.5" /> {deptUsersCount} mavjud kadr
+                     </div>
+                  </div>
+                </div>
+              );
+           })}
+           {departmentsForFaculty.length === 0 && (
+             <div className="col-span-full py-12 text-center text-slate-400 font-medium">Bu fakultetda bironta ham Kafedra ochilmagan! Avval Kafedralar bo'limidan kafedra yarating.</div>
+           )}
+        </div>
+      )}
+
+      {/* 3-QAVAT: TANLANGAN KAFEDRAGI (Yoki Adminlar ro'yxatidagi) XODIMLAR JADVALI */}
+      {activeFacultyId && (activeDepartmentId || activeFacultyId === "ADMIN") && (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[400px] animate-in slide-in-from-bottom-4 duration-300">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
@@ -287,17 +362,17 @@ export default function UsersPage() {
                 <tr>
                   <th className="px-6 py-4">Foydalanuvchi</th>
                   <th className="px-6 py-4">Email</th>
-                  <th className="px-6 py-4">Rol</th>
-                  {activeView !== "ADMIN" && <th className="px-6 py-4">Kafedrasi</th>}
-                  <th className="px-6 py-4 text-right">Harakatlar</th>
+                  <th className="px-6 py-4">Rol (Vazifa)</th>
+                  <th className="px-6 py-4 text-right">Amallar</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {viewUsers.map((u) => (
+                {filteredUsers.map((u) => (
                   <tr key={u.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="px-6 py-4 font-medium text-slate-900 flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${activeView === "ADMIN" ? 'bg-slate-800 text-white' : 'bg-blue-100 text-blue-600'}`}>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold relative ${activeFacultyId === "ADMIN" ? 'bg-slate-800 text-white' : 'bg-blue-100 text-blue-600'}`}>
                         {u.name.charAt(0).toUpperCase()}
+                        <div className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white ${u.isDeleted ? 'bg-red-500' : 'bg-green-500'}`}></div>
                       </div>
                       {u.name}
                     </td>
@@ -312,15 +387,6 @@ export default function UsersPage() {
                       {u.role === "HOD" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100/50 tracking-wider">MUDIR</span>}
                       {u.role === "TEACHER" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100/50 tracking-wider">O'QITUVCHI</span>}
                     </td>
-                    {activeView !== "ADMIN" && (
-                      <td className="px-6 py-4 text-slate-500 font-medium">
-                        {u.role === "DEAN" ? (
-                          <span className="text-xs text-slate-400">Umumiy Fakultet Boshqaruvi</span>
-                        ) : (
-                          u.department?.name || "Biriktirilmagan"
-                        )}
-                      </td>
-                    )}
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
                       <button 
                         onClick={() => openEditModal(u)}
@@ -337,8 +403,8 @@ export default function UsersPage() {
                     </td>
                   </tr>
                 ))}
-                {viewUsers.length === 0 && (
-                  <tr><td colSpan={5} className="py-8 text-center text-slate-500">Foydalanuvchilar topilmadi</td></tr>
+                {filteredUsers.length === 0 && (
+                  <tr><td colSpan={4} className="py-8 text-center text-slate-500">Hech qanday xodim topilmadi. Word orqali yoki qo'lda qo'shing.</td></tr>
                 )}
               </tbody>
             </table>
@@ -346,7 +412,7 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/* Yangi Xodim Qo'shish Modal */}
+      {/* MODAL - Yangi Xodim Qo'shish & Tahrirlash */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
@@ -355,7 +421,7 @@ export default function UsersPage() {
                 <UserCheck className="w-5 h-5 text-blue-500"/> 
                 {editingUserId 
                   ? "Xodimni Tahrirlash" 
-                  : (activeView === "ADMIN" ? "Yangi Admin Yaratish" : `${viewTitle} - Xodim Qo'shish`)}
+                  : (activeFacultyId === "ADMIN" ? "Yangi Admin Yaratish" : `Kafedraga Xodim Qo'shish`)}
               </h2>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-200 rounded-md">
                 <X className="w-5 h-5" />
@@ -368,6 +434,7 @@ export default function UsersPage() {
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">Ism Familiya</label>
                   <input 
                     type="text" required value={newUser.name} onChange={e => setNewUser({...newUser, name: e.target.value})}
+                    placeholder="Masalan: Boqijonov Boburjon"
                     className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm"
                   />
                 </div>
@@ -375,6 +442,7 @@ export default function UsersPage() {
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5">Logini (Email)</label>
                   <input 
                     type="email" required value={newUser.email} onChange={e => setNewUser({...newUser, email: e.target.value})}
+                    placeholder="boburjon@tuit.uz"
                     className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm"
                   />
                 </div>
@@ -387,12 +455,12 @@ export default function UsersPage() {
                 </label>
                 <input 
                   type="text" required={!editingUserId} value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})}
-                  placeholder={editingUserId ? "Yangi parol (yozilmasa eski parol qoladi)" : ""}
+                  placeholder={editingUserId ? "Yangi parol (bo'sh qolsa eski qoladi)" : "Qilish qiyin parol kiriting 123456..."}
                   className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-sm"
                 />
               </div>
 
-              {activeView !== "ADMIN" && (
+              {activeFacultyId !== "ADMIN" && (
                 <div className="pt-2 border-t border-slate-50">
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Vazifasi (Roli)</label>
                   <div className="grid grid-cols-3 gap-2">
@@ -408,12 +476,12 @@ export default function UsersPage() {
                 </div>
               )}
 
-              {/* Kafedrani tanlash (faqat HOD va TEACHER uchun) */}
-              {activeView !== "ADMIN" && (newUser.role === "HOD" || newUser.role === "TEACHER") && (
+              {/* Tahrirlanayotganda yoki Majburiy rejimda Kafedrani o'zgartirish imkoniyati (O'qituvchi va Mudirlar uchun) */}
+              {editingUserId && (newUser.role === "HOD" || newUser.role === "TEACHER") && activeFacultyId !== "ADMIN" && (
                 <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center gap-2">
                     <GraduationCap className="w-4 h-4 text-blue-500" />
-                    Biriktiriladigan Kafedra
+                    Biriktirilgan Kafedrani Yangilash
                   </label>
                   <select 
                     required value={newUser.departmentId} onChange={e => setNewUser({...newUser, departmentId: e.target.value})}
@@ -438,9 +506,10 @@ export default function UsersPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-md transition-colors disabled:opacity-70 text-sm"
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-md transition-colors disabled:opacity-70 text-sm flex items-center gap-2"
                 >
-                  {isSubmitting ? "Saqlanmoqda..." : (editingUserId ? "O'zgarishlarni Saqlash" : "Tasdiqlash va Qo'shish")}
+                  {isSubmitting ? <span className="animate-spin w-4 h-4 rounded-full border-2 border-white/50 border-t-white"></span> : <CheckCircle className="w-4 h-4" />}
+                  {isSubmitting ? "Saqlanmoqda..." : (editingUserId ? "O'zgarishlarni Saqlash" : "Xodimni Yaratish (Qo'shish)")}
                 </button>
               </div>
             </form>
