@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Users, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload } from "lucide-react";
+import { Users, User as UserIcon, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function UsersPage() {
