@@ -127,24 +127,6 @@ export default function DashboardHome() {
         <StatCard href="/dashboard/tasks" title="Jarayondagi Vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-500/10 hover:border-amber-300" />
       </div>
 
-      {/* Admin uchun alohida 3 ta Kadrlar Statistikasi */}
-      {user?.role === "ADMIN" && (
-        <div className="grid gap-6 md:grid-cols-3 mt-4">
-           <StatCard 
-              title="Dekanlar Soni" value={stats?.totalDeans || 0} 
-              icon={<UserCheck className="w-5 h-5 text-amber-600" />} color="bg-amber-50 border-amber-200 shadow-sm" href="/dashboard/users" 
-           />
-           <StatCard 
-              title="Kafedra Mudirlari Soni" value={stats?.totalHODs || 0} 
-              icon={<Shield className="w-5 h-5 text-purple-600" />} color="bg-purple-50 border-purple-200 shadow-sm" href="/dashboard/users" 
-           />
-           <StatCard 
-              title="Tizim O'qituvchilari Soni" value={stats?.totalTeachers || 0} 
-              icon={<UserIcon className="w-5 h-5 text-emerald-600" />} color="bg-emerald-50 border-emerald-200 shadow-sm" href="/dashboard/users" 
-           />
-        </div>
-      )}
-
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mt-8">
         
         {/* So'nggi 5 ta reja */}
