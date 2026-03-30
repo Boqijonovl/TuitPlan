@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, BookOpen, CheckCircle, Clock, Send, Megaphone, FileText, Trash2, Shield } from "lucide-react";
+import { Users, BookOpen, CheckCircle, Clock, Send, Megaphone, FileText, Trash2, Shield, UserCheck, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -117,24 +117,33 @@ export default function DashboardHome() {
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard</h1>
       </div>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-2">
         <StatCard 
           href="/dashboard/users" title="Jami Foydalanuvchilar" value={stats?.totalUsers || 0} 
           icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" 
-          subtext={
-            user?.role === "ADMIN" ? (
-              <div className="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 text-[10px] font-bold">
-                <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-md border border-amber-200">{stats?.totalDeans || 0} Dekan</span>
-                <span className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-md border border-indigo-200">{stats?.totalHODs || 0} Mudir</span>
-                <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md border border-emerald-200">{stats?.totalTeachers || 0} O'qituvchi</span>
-              </div>
-            ) : null
-          }
         />
         <StatCard href="/dashboard/plans" title="Faol Rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-indigo-500" />} color="bg-indigo-500/10 hover:border-indigo-300" />
         <StatCard href="/dashboard/tasks" title="Bajarilgan Vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-500/10 hover:border-emerald-300" />
         <StatCard href="/dashboard/tasks" title="Jarayondagi Vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-500/10 hover:border-amber-300" />
       </div>
+
+      {/* Admin uchun alohida 3 ta Kadrlar Statistikasi */}
+      {user?.role === "ADMIN" && (
+        <div className="grid gap-6 md:grid-cols-3 mt-4">
+           <StatCard 
+              title="Dekanlar Soni" value={stats?.totalDeans || 0} 
+              icon={<UserCheck className="w-5 h-5 text-amber-600" />} color="bg-amber-50 border-amber-200 shadow-sm" href="/dashboard/users" 
+           />
+           <StatCard 
+              title="Kafedra Mudirlari Soni" value={stats?.totalHODs || 0} 
+              icon={<Shield className="w-5 h-5 text-purple-600" />} color="bg-purple-50 border-purple-200 shadow-sm" href="/dashboard/users" 
+           />
+           <StatCard 
+              title="Tizim O'qituvchilari Soni" value={stats?.totalTeachers || 0} 
+              icon={<UserIcon className="w-5 h-5 text-emerald-600" />} color="bg-emerald-50 border-emerald-200 shadow-sm" href="/dashboard/users" 
+           />
+        </div>
+      )}
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mt-8">
         
