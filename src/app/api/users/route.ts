@@ -6,16 +6,23 @@ export async function GET() {
   try {
     const users = await prisma.user.findMany({
       where: { isDeleted: false },
-      include: { 
-        department: true,
-        faculty: true
+      select: {
+         id: true,
+         name: true,
+         email: true,
+         role: true,
+         departmentId: true,
+         facultyId: true,
+         points: true,
+         lastSeen: true,
+         avatarUrl: true,
+         department: { select: { id: true, name: true } },
+         faculty: { select: { id: true, name: true } }
       }
     });
-    const safeUsers = users.map(user => {
-      const { password, ...rest } = user;
-      return rest;
-    });
-    return NextResponse.json(safeUsers, { status: 200 });
+    // Foydalanuvchi ma'lumotlari xavfsiz shaklda uzatiladi, chunki password umuman so'ralmadi
+    return NextResponse.json(users, { status: 200 });
+
   } catch (error) {
     return NextResponse.json({ error: "Foydalanuvchilarni yuklashda xatolik yuz berdi" }, { status: 500 });
   }

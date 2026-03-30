@@ -32,6 +32,11 @@ model User {
   receivedMessages ChatMessage[] @relation("ReceivedMessages")
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
+  @@index([role])
+  @@index([facultyId])
+  @@index([departmentId])
+  @@index([email])
 }
 
 model Faculty {
@@ -73,6 +78,11 @@ model Plan {
   isDeleted      Boolean      @default(false)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
+  @@index([status])
+  @@index([departmentId])
+  @@index([facultyId])
+  @@index([userId])
 }
 
 model Task {
@@ -95,6 +105,11 @@ model Task {
   pointsReward   Int          @default(10)
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
+  @@index([status])
+  @@index([planId])
+  @@index([assignedRole])
+  @@index([userId])
 }
 
 model TaskSubmission {
@@ -106,6 +121,9 @@ model TaskSubmission {
   note       String?  
   fileUrl    String?  
   createdAt  DateTime @default(now())
+
+  @@index([taskId])
+  @@index([userId])
 }
 
 model News {
@@ -136,6 +154,9 @@ model ActivityLog {
   action    String
   details   String?
   createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
 }
 
 model Notification {
@@ -147,6 +168,9 @@ model Notification {
   isRead    Boolean  @default(false)
   link      String?
   createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([isRead])
 }
 
 model ChatMessage {
@@ -163,4 +187,8 @@ model ChatMessage {
   isEdited   Boolean  @default(false)
   isDeleted  Boolean  @default(false)
   createdAt  DateTime @default(now())
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([createdAt])
 }

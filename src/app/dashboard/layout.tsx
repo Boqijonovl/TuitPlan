@@ -43,7 +43,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           .catch(console.error);
       };
       fetchNotifs();
-      const intervalId = setInterval(fetchNotifs, 10000); // Simulates real-time socket
+      const intervalId = setInterval(fetchNotifs, 60000); // 60s ye uzaytiramiz tezlik qotmasligi uchun
       return () => clearInterval(intervalId);
     }
   }, [user]);
