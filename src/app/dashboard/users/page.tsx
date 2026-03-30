@@ -82,10 +82,14 @@ export default function UsersPage() {
 
   const openModalForCurrentView = () => {
     setEditingUserId(null);
+    // Determine target role and faculty mapping intelligently based on virtual active states
+    const targetRole = activeFacultyId === "ADMIN" ? "ADMIN" : activeFacultyId === "ALL_DEANS" ? "DEAN" : "TEACHER";
+    const targetFaculty = ["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId as string) ? "" : (activeFacultyId || "");
+
     setNewUser({
       name: "", email: "", password: "",
-      role: activeFacultyId === "ADMIN" ? "ADMIN" : "TEACHER",
-      facultyId: activeFacultyId === "ADMIN" ? "" : (activeFacultyId || ""),
+      role: targetRole,
+      facultyId: targetFaculty,
       departmentId: activeDepartmentId || "" // Avtomatik Kafedrani tanlab ketish
     });
     setIsModalOpen(true);
@@ -249,17 +253,21 @@ export default function UsersPage() {
           </div>
         </div>
         
-        {/* Yuqori O'ng Tugmalar: Faqat 3-bosqich (yoki Adminlar) ga yetgandagina asosiylar chiqadi */}
-        {activeFacultyId && (activeDepartmentId || activeFacultyId === "ADMIN") && (
+        {/* Yuqori O'ng Tugmalar: Faqat 3-bosqich (yoki Adminlar/Virtual kategoriyalar) ga yetgandagina asosiylar chiqadi */}
+        {activeFacultyId && (activeDepartmentId || ["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId)) && (
           <div className="flex flex-wrap items-center justify-end gap-2">
             
             {/* Ommaviy Export Word Tugmasi */}
             <button 
                 onClick={() => {
                    let url = `/api/users/export-word?`;
-                   if (activeFacultyId === "ADMIN") url += `admin=true`;
-                   else if (activeDepartmentId) url += `departmentId=${activeDepartmentId}`;
-                   else if (activeFacultyId) url += `facultyId=${activeFacultyId}`;
+                   if (activeFacultyId === "ADMIN" || activeFacultyId === "ALL_DEANS" || activeFacultyId === "UNASSIGNED") {
+                      url += `role=${activeFacultyId}`;
+                   } else if (activeDepartmentId) {
+                      url += `departmentId=${activeDepartmentId}`;
+                   } else if (activeFacultyId) {
+                      url += `facultyId=${activeFacultyId}`;
+                   }
                    window.location.href = url;
                 }}
                 className="bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 hover:border-purple-300 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm shrink-0 text-sm"
@@ -295,7 +303,7 @@ export default function UsersPage() {
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-lg shadow-blue-500/30 flex items-center gap-2 transition-colors shrink-0 text-sm"
             >
               <Plus className="w-5 h-5" /> 
-              {activeFacultyId === "ADMIN" ? "Admin Qo'shish" : "Xodim Qo'shish"}
+              {activeFacultyId === "ADMIN" ? "Admin Qo'shish" : activeFacultyId === "ALL_DEANS" ? "Dekan Qo'shish" : "Xodim Qo'shish"}
             </button>
           </div>
         )}
@@ -383,7 +391,7 @@ export default function UsersPage() {
       )}
 
       {/* 2-QAVAT: TANLANGAN FAKULTETNING KAFEDRALARI */}
-      {activeFacultyId && activeFacultyId !== "ADMIN" && !activeDepartmentId && (
+      {activeFacultyId && !["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId) && !activeDepartmentId && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-right-4 duration-300">
            {departmentsForFaculty.map((dept: any) => {
               const deptUsersCount = users.filter((u: any) => u.departmentId === dept.id).length;
@@ -416,8 +424,8 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/* 3-QAVAT: TANLANGAN KAFEDRAGI (Yoki Adminlar ro'yxatidagi) XODIMLAR JADVALI */}
-      {activeFacultyId && (activeDepartmentId || activeFacultyId === "ADMIN") && (
+      {/* 3-QAVAT: TANLANGAN KAFEDRAGI (Yoki maxsus guruhlardagi) XODIMLAR JADVALI */}
+      {activeFacultyId && (activeDepartmentId || ["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId)) && (
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[400px] animate-in slide-in-from-bottom-4 duration-300">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
@@ -484,7 +492,7 @@ export default function UsersPage() {
                 <UserCheck className="w-5 h-5 text-blue-500"/> 
                 {editingUserId 
                   ? "Xodimni Tahrirlash" 
-                  : (activeFacultyId === "ADMIN" ? "Yangi Admin Yaratish" : `Kafedraga Xodim Qo'shish`)}
+                  : (activeFacultyId === "ADMIN" ? "Yangi Admin Yaratish" : activeFacultyId === "ALL_DEANS" ? "Yangi Dekan Yaratish" : `Yangi Xodim Qo'shish`)}
               </h2>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-200 rounded-md">
                 <X className="w-5 h-5" />
