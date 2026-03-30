@@ -126,7 +126,7 @@ export default function DashboardHome() {
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-2">
         <StatCard 
-          href="/dashboard/users" title="Jami Foydalanuvchilar" value={stats?.totalUsers || 0} 
+          title="Jami Foydalanuvchilar" value={stats?.totalUsers || 0} 
           icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" 
         />
         <StatCard href="/dashboard/plans" title="Faol Rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-indigo-500" />} color="bg-indigo-500/10 hover:border-indigo-300" />
@@ -250,8 +250,8 @@ export default function DashboardHome() {
 }
 
 function StatCard({ title, value, icon, color, href, subtext }: any) {
-  return (
-    <Link href={href || "#"} className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between ${color}`}>
+  const content = (
+      <>
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-slate-500">{title}</p>
@@ -262,6 +262,20 @@ function StatCard({ title, value, icon, color, href, subtext }: any) {
         </div>
       </div>
       {subtext && <div className="mt-4 pt-4 border-t border-slate-200/50">{subtext}</div>}
-    </Link>
+      </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between ${color}`}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm h-full flex flex-col justify-between ${color}`}>
+      {content}
+    </div>
   );
 }
