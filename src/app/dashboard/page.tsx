@@ -18,13 +18,20 @@ export default function DashboardHome() {
   const [newNewsContent, setNewNewsContent] = useState("");
   const [newNewsType, setNewNewsType] = useState("UNIVERSITET");
 
-  useEffect(() => {
+    useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const u = JSON.parse(storedUser);
       setUser(u);
       
-      // ADMIN can now access the dashboard
+      // ADMIN ni avtomatik ravishda Admin Kuzatuv paneliga yo'naltirish
+      if (u.role === "ADMIN") {
+        router.replace("/dashboard/admin-monitoring");
+        return;
+      }
+    } else {
+      router.replace("/login");
+      return;
     }
     
     fetchData();
@@ -97,6 +104,8 @@ export default function DashboardHome() {
   const todaysNews = news.filter((n: any) => new Date(n.createdAt).toDateString() === new Date().toDateString());
 
   if (!user) return <div className="p-8 text-center text-slate-500">Iltimos, kuting...</div>;
+  if (user.role === "ADMIN") return null; // UI miltillab ko'rinmasligi uchun
+  
   if (loading) return (
     <div className="space-y-6">
       <Skeleton className="h-8 w-48 mb-6" />
@@ -108,8 +117,6 @@ export default function DashboardHome() {
       </div>
     </div>
   );
-
-
 
   return (
     <div className="space-y-6">
