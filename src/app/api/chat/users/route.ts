@@ -12,19 +12,16 @@ export async function GET(request: Request) {
     if (userId && role !== "ADMIN") {
       const dbUser = await prisma.user.findUnique({ where: { id: userId } });
       const userFacultyId = dbUser?.facultyId || null;
-      const userDepartmentId = dbUser?.departmentId || null;
 
-      if (role === "HOD" || role === "TEACHER") {
-          whereParams.OR = [
-            { departmentId: userDepartmentId },
-            { role: "DEAN", facultyId: userFacultyId }, // Can talk to their Dean
-            { role: "ADMIN" } // Can talk to Admin
-          ];
-      } else if (role === "DEAN") {
-        whereParams.OR = [
-          { facultyId: userFacultyId },
-          { role: "ADMIN" } 
-        ];
+      if (userFacultyId) {
+         whereParams.OR = [
+            { facultyId: userFacultyId },     // O'zining fakultetidagi barcha xodimlar
+            { role: "ADMIN" }                 // Va Tizim administratori har doim ochiq
+         ];
+      } else {
+         whereParams.OR = [
+            { role: "ADMIN" }                 // Fakultetsiz xodimlar faqat Admin bilan bog'lana oladi
+         ];
       }
     }
 

@@ -15,7 +15,7 @@ export default function UsersPage() {
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
   // 3-Level Navigation States
-  const [activeFacultyId, setActiveFacultyId] = useState<string | "ADMIN" | null>(null);
+  const [activeFacultyId, setActiveFacultyId] = useState<string | "ADMIN" | "ALL_DEANS" | "UNASSIGNED" | null>(null);
   const [activeDepartmentId, setActiveDepartmentId] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -210,12 +210,20 @@ export default function UsersPage() {
      viewTitle = "Oliy Tuzilma (Adminlar)";
      viewSubtitle = "Tizimni to'liq boshqaruvchi shaxslar";
      filteredUsers = users.filter((u: any) => u.role === "ADMIN");
+  } else if (activeFacultyId === "ALL_DEANS") {
+     viewTitle = "Fakultet Dekanlari";
+     viewSubtitle = "Tizimdagi barcha ta'lim fakultetlari rahbarlari ro'yxati";
+     filteredUsers = users.filter((u: any) => u.role === "DEAN");
+  } else if (activeFacultyId === "UNASSIGNED") {
+     viewTitle = "Biriktirilmagan Kadrlar";
+     viewSubtitle = "Fakulteti yoki kafedrasi noma'lum izolyatsiyadagi xodimlar";
+     filteredUsers = users.filter((u: any) => u.role !== "ADMIN" && !u.facultyId);
   } else if (activeFacultyId && !activeDepartmentId) {
      viewTitle = selectedFaculty?.name || "Kafedralar ro'yxati";
      viewSubtitle = "Iltimos, tarkibiy Kafedrani tanlang.";
   } else if (activeFacultyId && activeDepartmentId) {
      viewTitle = selectedDepartment?.name || "Kafedra";
-     viewSubtitle = `${selectedFaculty?.name} tarkibidagi kadrlar ro'yxati`;
+     viewSubtitle = `${selectedFaculty?.name || "Fakultet"} tarkibidagi kadrlar ro'yxati`;
      filteredUsers = users.filter((u: any) => u.departmentId === activeDepartmentId);
   }
 
@@ -295,7 +303,7 @@ export default function UsersPage() {
 
       {/* 1-QAVAT: FAKULTETLAR VA ASOSIY MENU KO'RINISHI */}
       {!activeFacultyId && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in slide-in-from-bottom-4 duration-300">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-in slide-in-from-bottom-4 duration-300">
           
           {/* Adminlar Kartochkasi */}
           <div 
@@ -310,6 +318,38 @@ export default function UsersPage() {
             <p className="text-slate-400 text-sm mb-4">Tizim administratorlari (Boshqaruvchi guruh)</p>
             <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
               <UserCheck className="w-4 h-4" /> {users.filter((u: any) => u.role === "ADMIN").length} xodim
+            </div>
+          </div>
+
+          {/* Dekanlar Kartochkasi */}
+          <div 
+            onClick={() => setActiveFacultyId("ALL_DEANS")}
+            className="group cursor-pointer bg-gradient-to-br from-amber-500 to-orange-600 border border-amber-600 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
+          >
+            <Users className="w-24 h-24 text-white/5 absolute -top-4 -right-4 blur-sm group-hover:scale-125 transition-transform duration-500" />
+            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              <Briefcase className="w-8 h-8 drop-shadow-md" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Yig'ma Dekanlar</h3>
+            <p className="text-amber-100 text-xs mb-4">Mavjud barcha fakultet dekanlari ro'yxati</p>
+            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm border border-white/10">
+              {users.filter((u: any) => u.role === "DEAN").length} ta dekan
+            </div>
+          </div>
+
+          {/* Fakultetsiz Xodimlar Kartochkasi */}
+          <div 
+            onClick={() => setActiveFacultyId("UNASSIGNED")}
+            className="group cursor-pointer bg-gradient-to-br from-rose-500 to-red-600 border border-red-600 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
+          >
+            <UserX className="w-24 h-24 text-white/5 absolute -bottom-4 -left-4 blur-sm group-hover:scale-125 transition-transform duration-500" />
+            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20">
+              <UserX className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Bo'sh Kadrlar</h3>
+            <p className="text-rose-100 text-xs mb-4">Hech bir kafedraga kirmagan izolyatsiya ro'yxati</p>
+            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
+              {users.filter((u: any) => u.role !== "ADMIN" && !u.facultyId).length} tasdiqsiz xodim
             </div>
           </div>
 

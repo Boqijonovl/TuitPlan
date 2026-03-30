@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Building2, Trash2, X, GraduationCap, Shield, UserPlus } from "lucide-react";
+import { Plus, Building2, Trash2, X, GraduationCap, Shield, UserPlus, Edit2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function FacultiesPage() {
@@ -12,10 +12,12 @@ export default function FacultiesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDepModalOpen, setIsDepModalOpen] = useState(false);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   
   const [facultyName, setFacultyName] = useState("");
   const [departmentName, setDepartmentName] = useState("");
   const [selectedFacultyId, setSelectedFacultyId] = useState("");
+  const [editTarget, setEditTarget] = useState({ id: "", name: "", type: "FACULTY" });
   
   const [userForm, setUserForm] = useState({ name: "", email: "", password: "", role: "TEACHER", facultyId: "", departmentId: "" });
 
@@ -133,6 +135,27 @@ export default function FacultiesPage() {
     }
   };
 
+  const handleEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const endpoint = editTarget.type === "FACULTY" ? `/api/faculties/${editTarget.id}` : `/api/departments/${editTarget.id}`;
+      const res = await fetch(endpoint, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: editTarget.name })
+      });
+      if (res.ok) {
+        setIsEditModalOpen(false);
+        toast.success("Muvaffaqiyatli tahrirlandi!");
+        fetchFaculties();
+      } else {
+        toast.error((await res.json()).error || "Xatolik yuz berdi");
+      }
+    } catch (e: any) {
+      toast.error(e.message || "Xatolik yuz berdi");
+    }
+  };
+
   if (currentUser?.role !== "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
@@ -190,13 +213,22 @@ export default function FacultiesPage() {
                     </div>
                   </div>
                 </div>
-                <button 
-                  onClick={() => handleDeleteFaculty(faculty.id)}
-                  className="text-white/40 hover:text-red-400 hover:bg-white/10 p-2.5 rounded-xl transition-all relative z-10 shrink-0"
-                  title="Fakultetni o'chirish"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                <div className="flex flex-col gap-1 relative z-10 shrink-0">
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); setEditTarget({ id: faculty.id, name: faculty.name, type: "FACULTY" }); setIsEditModalOpen(true); }}
+                    className="text-white/40 hover:text-white hover:bg-white/10 p-2 rounded-xl transition-all"
+                    title="Nomini tahrirlash"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button 
+                    onClick={() => handleDeleteFaculty(faculty.id)}
+                    className="text-white/40 hover:text-red-400 hover:bg-white/10 p-2 rounded-xl transition-all"
+                    title="Fakultetni o'chirish"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
               
               <div className="p-6 flex-1 space-y-4 relative z-10">
@@ -237,8 +269,14 @@ export default function FacultiesPage() {
                             <UserPlus className="w-4 h-4" />
                           </button>
                           <button 
+                            onClick={(e) => { e.stopPropagation(); setEditTarget({ id: dep.id, name: dep.name, type: "DEPARTMENT" }); setIsEditModalOpen(true); }}
+                            className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-100 rounded-lg transition-all" title="Nomini tahrirlash"
+                          >
+                            <Edit2 className="w-4 h-4" />
+                          </button>
+                          <button 
                             onClick={(e) => { e.stopPropagation(); handleDeleteDepartment(dep.id, dep.name); }}
-                            className="p-1.5 text-slate-400 hover:text-white hover:bg-red-500 rounded-lg transition-all" title="Kafedrani o'chirish"
+                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-100 rounded-lg transition-all" title="Kafedrani o'chirish"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -348,8 +386,33 @@ export default function FacultiesPage() {
                  <button type="button" onClick={() => setIsUserModalOpen(false)} className="px-6 py-2.5 hover:bg-slate-100 rounded-xl text-slate-600 font-bold text-sm transition-colors">Bekor qilish</button>
                  <button type="submit" className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold text-sm shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all">Ro'yxatdan o'tkazish</button>
                </div>
+              </form>
+           </div>
+        </div>
+      )}
+
+      {/* Edit Form Modal */}
+      {isEditModalOpen && (
+        <div className="fixed inset-0 bg-indigo-950/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
+           <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden transform transition-all border border-white/50">
+             <div className="bg-gradient-to-r from-amber-500 to-orange-500 p-6 text-white flex justify-between items-center">
+               <div className="flex items-center gap-3">
+                 <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><Edit2 className="w-5 h-5"/></div>
+                 <h2 className="font-bold text-lg tracking-wide">Nomini O'zgartirish</h2>
+               </div>
+               <button onClick={() => setIsEditModalOpen(false)} className="text-white/60 hover:text-white hover:bg-white/10 p-2 rounded-xl transition-all"><X className="w-5 h-5"/></button>
+             </div>
+             <form onSubmit={handleEdit} className="p-8 space-y-6">
+               <div className="space-y-2">
+                 <label className="block text-sm font-bold text-slate-700">{editTarget.type === "FACULTY" ? "Fakultet Nomi" : "Kafedra Nomi"}</label>
+                 <input type="text" required value={editTarget.name} onChange={e => setEditTarget({...editTarget, name: e.target.value})} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 font-medium outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 focus:bg-white transition-all shadow-inner" />
+               </div>
+               <div className="flex justify-end gap-3 pt-2">
+                 <button type="button" onClick={() => setIsEditModalOpen(false)} className="px-6 py-3 hover:bg-slate-100 rounded-2xl text-slate-600 font-bold text-sm transition-colors">Bekor qilish</button>
+                 <button type="submit" className="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl font-bold text-sm shadow-[0_8px_20px_-6px_rgba(245,158,11,0.5)] hover:shadow-[0_8px_25px_-6px_rgba(245,158,11,0.6)] transform hover:-translate-y-0.5 transition-all">Saqlash</button>
+               </div>
              </form>
-          </div>
+           </div>
         </div>
       )}
     </div>

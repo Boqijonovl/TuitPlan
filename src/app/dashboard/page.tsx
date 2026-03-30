@@ -118,7 +118,19 @@ export default function DashboardHome() {
       </div>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <StatCard href="/dashboard/users" title="Jami Foydalanuvchilar" value={stats?.totalUsers || 0} icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" />
+        <StatCard 
+          href="/dashboard/users" title="Jami Foydalanuvchilar" value={stats?.totalUsers || 0} 
+          icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" 
+          subtext={
+            user?.role === "ADMIN" ? (
+              <div className="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 text-[10px] font-bold">
+                <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-md border border-amber-200">{stats?.totalDeans || 0} Dekan</span>
+                <span className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-md border border-indigo-200">{stats?.totalHODs || 0} Mudir</span>
+                <span className="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-md border border-emerald-200">{stats?.totalTeachers || 0} O'qituvchi</span>
+              </div>
+            ) : null
+          }
+        />
         <StatCard href="/dashboard/plans" title="Faol Rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-indigo-500" />} color="bg-indigo-500/10 hover:border-indigo-300" />
         <StatCard href="/dashboard/tasks" title="Bajarilgan Vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-500/10 hover:border-emerald-300" />
         <StatCard href="/dashboard/tasks" title="Jarayondagi Vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-500/10 hover:border-amber-300" />
@@ -239,10 +251,10 @@ export default function DashboardHome() {
   );
 }
 
-function StatCard({ title, value, icon, color, href }: any) {
+function StatCard({ title, value, icon, color, href, subtext }: any) {
   return (
-    <Link href={href || "#"} className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all ${color}`}>
-      <div className="flex items-center justify-between">
+    <Link href={href || "#"} className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between ${color}`}>
+      <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-slate-500">{title}</p>
           <p className="text-3xl font-bold text-slate-900 mt-2">{value}</p>
@@ -251,6 +263,7 @@ function StatCard({ title, value, icon, color, href }: any) {
           {icon}
         </div>
       </div>
+      {subtext && <div className="mt-4 pt-4 border-t border-slate-200/50">{subtext}</div>}
     </Link>
   );
 }

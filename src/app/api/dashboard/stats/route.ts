@@ -28,7 +28,7 @@ export async function GET(req: Request) {
       }
     }
 
-    const [totalUsers, activePlans, completedTasks, inProgressTasks, recentPlans] = await Promise.all([
+    const [totalUsers, activePlans, completedTasks, inProgressTasks, recentPlans, totalDeans, totalHODs, totalTeachers] = await Promise.all([
       prisma.user.count({ where: whereUser }),
       prisma.plan.count({ where: wherePlan }),
       prisma.task.count({ where: whereTask }),
@@ -38,11 +38,17 @@ export async function GET(req: Request) {
         orderBy: { createdAt: "desc" },
         take: 5,
         include: { department: true, tasks: true }
-      })
+      }),
+      prisma.user.count({ where: { ...whereUser, role: "DEAN" } }),
+      prisma.user.count({ where: { ...whereUser, role: "HOD" } }),
+      prisma.user.count({ where: { ...whereUser, role: "TEACHER" } })
     ]);
 
     return NextResponse.json({
       totalUsers,
+      totalDeans,
+      totalHODs,
+      totalTeachers,
       activePlans,
       completedTasks,
       inProgressTasks,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Send, User as UserIcon, MessageSquare, Loader2, Paperclip, MoreVertical, Edit2, Trash2, X, File as FileIcon, FileText, Image as ImageIcon, ArrowLeft } from "lucide-react";
+import { Send, User as UserIcon, MessageSquare, Loader2, Paperclip, MoreVertical, Edit2, Trash2, X, File as FileIcon, FileText, Image as ImageIcon, ArrowLeft, Search } from "lucide-react";
 import toast from "react-hot-toast";
 import { createClient } from "@supabase/supabase-js";
 
@@ -21,6 +21,21 @@ export default function ChatPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [editingMessage, setEditingMessage] = useState<any>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  // Search logic
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
@@ -218,14 +233,25 @@ export default function ChatPage() {
       {/* Sidebar Contacts */}
       <div className={`w-full md:w-80 border-r border-slate-100 bg-slate-50 flex-col shrink-0 ${activeContact ? 'hidden md:flex' : 'flex'}`}>
         <div className="p-4 border-b border-slate-200 bg-white">
-          <h2 className="font-bold text-slate-800 flex items-center gap-2">
-            <MessageSquare className="w-5 h-5 text-indigo-500" /> Chatlar
+          <h2 className="font-bold text-slate-800 flex items-center justify-between gap-2">
+            <span className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-indigo-500" /> Xodimlar (Chat)</span>
           </h2>
+          <div className="relative mt-3 group">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-indigo-500 transition-colors" />
+            <input 
+              ref={searchInputRef}
+              type="text" 
+              placeholder="Qidirish... (Ctrl+K)" 
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all font-medium"
+            />
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto">
           {loadingContacts ? (
              <div className="flex justify-center p-8"><Loader2 className="w-6 h-6 animate-spin text-indigo-500"/></div>
-          ) : contacts.map(c => {
+          ) : contacts.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase())).map(c => {
             const online = isOnline(c.lastSeen);
             return (
             <button 
@@ -241,7 +267,9 @@ export default function ChatPage() {
               </div>
               <div className="overflow-hidden flex-1">
                 <div className="font-bold text-slate-800 truncate leading-tight">{c.name}</div>
-                <div className="text-[10px] text-slate-500 truncate uppercase mt-0.5">{c.role} {c.department ? `- ${c.department}` : ''}</div>
+                <div className="text-[10px] text-slate-500 truncate uppercase mt-0.5">
+                  {c.role === "ADMIN" ? "Admnistrator" : c.role === "DEAN" ? "Dekan" : c.role === "HOD" ? "Mudir" : "O'qituvchi"} {c.department ? `- ${c.department}` : ''}
+                </div>
               </div>
             </button>
           )})}

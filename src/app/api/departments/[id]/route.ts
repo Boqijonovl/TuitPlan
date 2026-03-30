@@ -18,3 +18,20 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     return NextResponse.json({ error: "Kafedrani o'chirishda xatolik yuz berdi" }, { status: 500 });
   }
 }
+
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const resolvedParams = await params;
+    const { name } = await request.json();
+    
+    if (!name) return NextResponse.json({ error: "Nomi kiritilishi shart" }, { status: 400 });
+
+    const updated = await prisma.department.update({
+      where: { id: resolvedParams.id },
+      data: { name }
+    });
+    return NextResponse.json(updated, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: "Kafedrani tahrirlashda xatolik yuz berdi" }, { status: 500 });
+  }
+}
