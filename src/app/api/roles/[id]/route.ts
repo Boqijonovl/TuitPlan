@@ -6,6 +6,14 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     const { id } = await params;
     const { name, permissions } = await req.json();
     
+    // Tizim rollari (ADMIN, DEAN, HOD, TEACHER) ismini o'zgartirib bo'lmaydi
+    const existingRole = await prisma.customRole.findUnique({ where: { id } });
+    if (!existingRole) return NextResponse.json({ error: "Rol topilmadi" }, { status: 404 });
+
+    if (["ADMIN", "DEAN", "HOD", "TEACHER"].includes(existingRole.name) && name !== existingRole.name) {
+       return NextResponse.json({ error: "Tizim (Baza) rollarining original nomini o'zgartirib bo'lmaydi! Faqat ruxsatlarni tahrirlang." }, { status: 403 });
+    }
+
     const role = await prisma.customRole.update({
       where: { id },
       data: { name, permissions }
@@ -20,6 +28,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
+    const existingRole = await prisma.customRole.findUnique({ where: { id } });
+    if (!existingRole) return NextResponse.json({ error: "Rol topilmadi" }, { status: 404 });
+
+    if (["ADMIN", "DEAN", "HOD", "TEACHER"].includes(existingRole.name)) {
+       return NextResponse.json({ error: "DIQQAT: Tizimning asosiy (Base) roli butunlay o'chirib yuborilishi mumkin emas! Xavfsizlik protokoli faollashdi." }, { status: 403 });
+    }
+
     await prisma.customRole.delete({ where: { id } });
     return NextResponse.json({ message: "Muvaffaqiyatli o'chirildi" }, { status: 200 });
   } catch (error) {

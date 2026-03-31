@@ -26,10 +26,8 @@ export async function POST(request: Request) {
     }
 
     let permissions: string[] = [];
-    if (!["ADMIN", "DEAN", "HOD", "TEACHER"].includes(user.role)) {
-       const customRole = await prisma.customRole.findUnique({ where: { name: user.role } });
-       if (customRole) permissions = customRole.permissions;
-    }
+    const customRole = await prisma.customRole.findUnique({ where: { name: user.role } });
+    if (customRole) permissions = customRole.permissions;
 
     const token = jwt.sign(
       { userId: user.id, email: user.email, role: user.role, name: user.name, permissions },

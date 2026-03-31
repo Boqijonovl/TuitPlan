@@ -110,16 +110,6 @@ export default function RolesPage() {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-         {/* Static Default Roles Info */}
-         <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm opacity-60 pointer-events-none grayscale">
-           <div className="flex items-center justify-between mb-4">
-              <div className="w-10 h-10 bg-slate-200 text-slate-600 rounded-lg flex items-center justify-center font-bold">A</div>
-              <span className="text-[10px] font-bold tracking-widest bg-slate-200 px-3 py-1 rounded-full text-slate-600">STATIC</span>
-           </div>
-           <h3 className="text-xl font-black text-slate-800">Admin / Dekan</h3>
-           <p className="text-xs font-semibold text-slate-500 mt-1">Tizimning doimiy o'zgarmas bazaviy rollari. Bular kashf etilgan va qattiq yozilib qo'yilgan.</p>
-         </div>
-
          {loading && roles.length === 0 ? (
            [1,2].map(i => <div key={i} className="h-48 bg-white border border-slate-100 animate-pulse rounded-xl"></div>)
          ) : (
@@ -144,7 +134,11 @@ export default function RolesPage() {
                
                <div className="mt-6 flex items-center gap-2 relative z-10 border-t border-slate-100 pt-4">
                  <button onClick={() => { setEditingRole(r); setRoleForm({ name: r.name, permissions: r.permissions }); setIsModalOpen(true); }} className="flex-1 bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-blue-100 flex items-center justify-center gap-1.5"><Edit2 className="w-3.5 h-3.5"/> Tahrirlash</button>
-                 <button onClick={() => handleDelete(r.id, r.name)} className="px-3 bg-slate-50 hover:bg-red-50 text-slate-400 hover:text-red-500 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-red-100"><Trash2 className="w-3.5 h-3.5"/></button>
+                 {["ADMIN", "DEAN", "HOD", "TEACHER"].includes(r.name) ? (
+                   <div className="px-3 bg-slate-50 text-slate-300 font-bold text-xs py-2 rounded-lg border border-transparent cursor-not-allowed" title="Tizim asosiy rolini o'chirib bo'lmaydi"><Trash2 className="w-3.5 h-3.5"/></div>
+                 ) : (
+                   <button onClick={() => handleDelete(r.id, r.name)} className="px-3 bg-slate-50 hover:bg-red-50 text-slate-400 hover:text-red-500 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-red-100"><Trash2 className="w-3.5 h-3.5"/></button>
+                 )}
                </div>
              </div>
            ))
@@ -164,8 +158,20 @@ export default function RolesPage() {
 
               <div className="p-8 overflow-y-auto flex-1 space-y-8">
                  <div className="space-y-2">
-                   <label className="text-sm font-bold text-slate-700">Korporativ Rol Nomi</label>
-                   <input required value={roleForm.name} onChange={e => setRoleForm({...roleForm, name: e.target.value})} className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-semibold px-4 py-3 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all" placeholder="Masalan: Moliya Auditori, Inspektor..." />
+                   <label className="text-sm font-bold text-slate-700 flex justify-between">
+                     Korporativ Rol Nomi
+                     {["ADMIN", "DEAN", "HOD", "TEACHER"].includes(roleForm.name) && (
+                       <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Ismi qulflangan</span>
+                     )}
+                   </label>
+                   <input 
+                     required 
+                     disabled={["ADMIN", "DEAN", "HOD", "TEACHER"].includes(roleForm.name)}
+                     value={roleForm.name} 
+                     onChange={e => setRoleForm({...roleForm, name: e.target.value})} 
+                     className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-semibold px-4 py-3 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed" 
+                     placeholder="Masalan: Moliya Auditori, Inspektor..." 
+                   />
                  </div>
 
                  <div className="space-y-4">

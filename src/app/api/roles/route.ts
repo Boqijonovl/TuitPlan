@@ -3,8 +3,22 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
   try {
+    const defaultRoles = [
+      { name: "ADMIN", permissions: ["VIEW_MONITORING", "VIEW_FACULTIES", "VIEW_USERS", "EDIT_USERS", "VIEW_HISTORY", "VIEW_SETTINGS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
+      { name: "DEAN", permissions: ["VIEW_FACULTIES", "VIEW_USERS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
+      { name: "HOD", permissions: ["VIEW_USERS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
+      { name: "TEACHER", permissions: ["VIEW_CHAT"] }
+    ];
+
+    for (const dr of defaultRoles) {
+      const exists = await prisma.customRole.findUnique({ where: { name: dr.name } });
+      if (!exists) {
+         await prisma.customRole.create({ data: dr });
+      }
+    }
+
     const roles = await prisma.customRole.findMany({
-      orderBy: { createdAt: "desc" }
+      orderBy: { name: "asc" } // Alifbo boyicha (ADMIN tepadaroq boladi doim)
     });
     return NextResponse.json(roles, { status: 200 });
   } catch (error) {
@@ -21,7 +35,7 @@ export async function POST(req: Request) {
 
     const exists = await prisma.customRole.findUnique({ where: { name } });
     if (exists) {
-      return NextResponse.json({ error: "Bunday rol allaqachon mavjud" }, { status: 400 });
+      return NextResponse.json({ error: "Bunday rol tizimda allaqachon mavjud" }, { status: 400 });
     }
 
     const newRole = await prisma.customRole.create({
