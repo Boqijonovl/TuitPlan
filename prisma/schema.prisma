@@ -198,5 +198,12 @@ model CustomRole {
   name        String   @unique
   permissions String[]
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+}
+
+model SystemSetting {
+  id               String   @id @default("GLOBAL")
+  maintenanceMode  Boolean  @default(false)
+  broadcastMessage String?
+  broadcastActive  Boolean  @default(false)
+  updatedAt        DateTime @updatedAt
 }

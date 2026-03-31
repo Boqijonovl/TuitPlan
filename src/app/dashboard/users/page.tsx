@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Users, User as UserIcon, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload, Download } from "lucide-react";
+import { Users, User as UserIcon, Plus, Shield, UserX, Edit2, Key, CheckCircle, Mail, Briefcase, GraduationCap, X, Search, UserCheck, Trash2, Building2, ChevronLeft, RefreshCw, FileText, Upload, Download, Award, ArrowUp, ArrowDown } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function UsersPage() {
@@ -14,6 +14,10 @@ export default function UsersPage() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [editingUserId, setEditingUserId] = useState<string | null>(null);
 
+  // Gamification KPI
+  const [kpiUserId, setKpiUserId] = useState<{id: string, name: string} | null>(null);
+  const [kpiAmount, setKpiAmount] = useState(10);
+  const [isUpdatingKpi, setIsUpdatingKpi] = useState(false);
   // 3-Level Navigation States
   const [activeFacultyId, setActiveFacultyId] = useState<string | "ADMIN" | "ALL_DEANS" | "UNASSIGNED" | null>(null);
   const [activeDepartmentId, setActiveDepartmentId] = useState<string | null>(null);
@@ -58,6 +62,22 @@ export default function UsersPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleKpiUpdate = async (action: "ADD" | "SUBTRACT") => {
+    if (!kpiUserId) return;
+    setIsUpdatingKpi(true);
+    try {
+      const res = await fetch(`/api/users/${kpiUserId.id}/points`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ points: kpiAmount, action })
+      });
+      if (!res.ok) throw new Error("Ball amaliyotida xatolik");
+      toast.success(action === "ADD" ? "Ball muvaffaqiyatli qo'shildi!" : "Ball olib tashlandi!");
+      fetchUsers();
+      setKpiUserId(null);
+      setKpiAmount(10);
+    } catch (e: any) { toast.error(e.message); } finally { setIsUpdatingKpi(false); }
   };
 
   const fetchFaculties = async () => {
@@ -465,6 +485,7 @@ export default function UsersPage() {
                   <th className="px-6 py-4">Foydalanuvchi</th>
                   <th className="px-6 py-4">Email</th>
                   <th className="px-6 py-4">Rol (Vazifa)</th>
+                  <th className="px-6 py-4">KPI Reyting</th>
                   <th className="px-6 py-4 text-right">Amallar</th>
                 </tr>
               </thead>
@@ -489,7 +510,20 @@ export default function UsersPage() {
                       {u.role === "MUDIR" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">MUDIR</span>}
                       {u.role === "OQITUVCHI" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">O'QITUVCHI</span>}
                     </td>
+                    <td className="px-6 py-4">
+                       <div className="flex items-center gap-1.5 bg-amber-50 text-amber-600 px-2.5 py-1 rounded-full text-xs font-bold border border-amber-100 w-fit">
+                         <Award className="w-4 h-4" /> {u.points || 0}
+                       </div>
+                    </td>
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
+                      {currentUser?.role === "ADMIN" && (
+                        <button 
+                          onClick={() => setKpiUserId({id: u.id, name: u.name})}
+                          className="text-amber-500 hover:text-amber-600 p-1.5 hover:bg-amber-50 rounded-lg transition-colors title='KPI qoshish'"
+                        >
+                          <Award className="w-4 h-4" />
+                        </button>
+                      )}
                       {currentUser?.role === "ADMIN" && currentUser?.id !== u.id && (
                         <button 
                           onClick={() => handleImpersonate(u.id, u.name)}
@@ -631,6 +665,41 @@ export default function UsersPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* KPI MODAL */}
+      {kpiUserId && (
+        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
+            <div className="p-6 text-center border-b border-slate-100 bg-amber-50/30">
+               <div className="w-16 h-16 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-amber-50">
+                 <Award className="w-8 h-8" />
+               </div>
+               <h3 className="font-extrabold text-slate-900 text-xl tracking-tight">Motivatsiya (KPI)</h3>
+               <p className="text-sm font-medium text-slate-500 mt-1">{kpiUserId.name}</p>
+            </div>
+            <div className="p-6 flex justify-between gap-4">
+               <div className="flex-1">
+                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block text-center">Rag'batlantirish</label>
+                 <button onClick={() => handleKpiUpdate("ADD")} disabled={isUpdatingKpi} className="w-full bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-600 font-bold border border-emerald-100 py-3 rounded-xl transition-colors flex items-center justify-center gap-1.5 text-sm">
+                   <ArrowUp className="w-4 h-4"/> Qo'shish
+                 </button>
+               </div>
+               <div className="flex-1">
+                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block text-center">Jazolash</label>
+                 <button onClick={() => handleKpiUpdate("SUBTRACT")} disabled={isUpdatingKpi} className="w-full bg-red-50 hover:bg-red-500 hover:text-white text-red-600 font-bold border border-red-100 py-3 rounded-xl transition-colors flex items-center justify-center gap-1.5 text-sm">
+                   <ArrowDown className="w-4 h-4"/> Ayirish
+                 </button>
+               </div>
+            </div>
+            <div className="px-6 pb-6 pt-0">
+               <div className="relative">
+                 <input type="number" min={1} value={kpiAmount || ""} onChange={e => setKpiAmount(Number(e.target.value))} className="w-full text-center font-bold text-lg px-4 py-2 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"/>
+               </div>
+               <button onClick={() => setKpiUserId(null)} className="w-full mt-3 py-2 text-slate-500 hover:bg-slate-50 rounded-lg text-sm font-semibold transition-colors">Yopish</button>
+            </div>
           </div>
         </div>
       )}

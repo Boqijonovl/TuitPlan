@@ -1,17 +1,81 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Settings, DownloadCloud, AlertTriangle, ShieldCheck, Database, HardDrive, RefreshCcw, CheckSquare } from "lucide-react";
+import { Settings, DownloadCloud, AlertTriangle, ShieldCheck, Database, HardDrive, RefreshCcw, CheckSquare, MessageSquare, Send } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(false);
-  const [maintenance, setMaintenance] = useState(false); // Bu joyda lokal konfiguratsiyaga simulyatsiya qilinmoqda
+  const [saving, setSaving] = useState(false);
+  
+  // Real database states
+  const [maintenance, setMaintenance] = useState(false);
+  const [broadcastActive, setBroadcastActive] = useState(false);
+  const [broadcastMessage, setBroadcastMessage] = useState("");
 
-  const handleMaintenanceToggle = () => {
-    // Kelajakda global middleware/server state lari yozilishi mumkin
-    setMaintenance(!maintenance);
-    toast.success(maintenance ? "Tizim barqaror holatga qaytdi" : "Tizim Texnik xizmat ko'rsatish rejimiga o'tkazildi!");
+  useEffect(() => {
+    fetch("/api/settings")
+      .then(res => res.json())
+      .then(data => {
+         if (data && !data.error) {
+           setMaintenance(data.maintenanceMode);
+           setBroadcastActive(data.broadcastActive);
+           setBroadcastMessage(data.broadcastMessage || "");
+         }
+      })
+      .catch(console.error);
+  }, []);
+
+  const handleSaveSettings = async (updates: any) => {
+    setSaving(true);
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          maintenanceMode: maintenance,
+          broadcastActive: broadcastActive,
+          broadcastMessage: broadcastMessage,
+          ...updates
+        })
+      });
+      if (!res.ok) throw new Error("Saqlashda xatolik");
+      return true;
+    } catch (e: any) {
+      toast.error(e.message);
+      return false;
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleMaintenanceToggle = async () => {
+    if (saving) return; // Prevent spam
+    const newState = !maintenance;
+    setMaintenance(newState);
+    const success = await handleSaveSettings({ maintenanceMode: newState });
+    if (success) {
+      toast.success(newState ? "Tizim Texnik xizmat ko'rsatish rejimiga o'tkazildi!" : "Tizim barqaror holatga qaytdi");
+    } else {
+      setMaintenance(!newState); // revert
+    }
+  };
+
+  const handleBroadcastToggle = async () => {
+    if (saving) return;
+    const newState = !broadcastActive;
+    setBroadcastActive(newState);
+    const success = await handleSaveSettings({ broadcastActive: newState });
+    if (success) {
+      toast.success(newState ? "Ommaviy e'lon faollashdi!" : "Ommaviy e'lon o'chirildi");
+    } else {
+      setBroadcastActive(!newState);
+    }
+  };
+
+  const handleSaveMessage = async () => {
+    const success = await handleSaveSettings({ broadcastMessage });
+    if (success) toast.success("E'lon matni saqlandi!");
   };
 
   const handleDownloadBackup = async () => {
@@ -68,6 +132,39 @@ export default function SettingsPage() {
                </div>
                <span className={`font-bold text-sm ${maintenance ? 'text-red-500' : 'text-slate-400'}`}>
                  {maintenance ? "FAOL (Boshqalar kirolmaydi)" : "O'CHIRILGAN (Barqaror)"}
+               </span>
+             </div>
+           </div>
+        </div>
+
+        {/* System Broadcast Blok */}
+        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
+           <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
+             <MessageSquare className="w-5 h-5 text-red-500" />
+             <h3 className="font-bold text-slate-900">Ommaviy Qizil E'lon (Broadcast)</h3>
+           </div>
+           <div className="p-6 space-y-4">
+             <p className="text-sm text-slate-600">
+               Joriy qilingan xabar tizimdagi barcha xodimlarning ekranining eng yuqorisida qip-qizil banner bo'lib portlab chiqadi.
+             </p>
+             <div className="flex flex-col gap-3">
+               <textarea 
+                 value={broadcastMessage}
+                 onChange={e => setBroadcastMessage(e.target.value)}
+                 rows={2}
+                 placeholder="Barcha dekanlar diqqatiga: Soat 12 dan keyin..."
+                 className="w-full text-sm bg-white border border-slate-200 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+               />
+               <button onClick={handleSaveMessage} disabled={saving} className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-sm transition-colors self-end flex items-center gap-2">
+                  <Send className="w-4 h-4"/> Matnni Saqlash
+               </button>
+             </div>
+             <div className="flex items-center gap-4 pt-3 border-t border-slate-100">
+               <div className={`w-14 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors ${broadcastActive ? 'bg-red-500' : 'bg-slate-200'}`} onClick={handleBroadcastToggle}>
+                 <div className={`bg-white w-6 h-6 rounded-full shadow-sm transform transition-transform ${broadcastActive ? 'translate-x-6' : 'translate-x-0'}`}></div>
+               </div>
+               <span className={`font-bold text-sm ${broadcastActive ? 'text-red-500' : 'text-slate-400'}`}>
+                 {broadcastActive ? "Barchaga Ko'rsatilmoqda" : "O'chirilgan"}
                </span>
              </div>
            </div>

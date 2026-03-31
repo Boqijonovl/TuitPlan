@@ -13,7 +13,7 @@ export default function TasksPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("ALL"); 
-  const [viewMode, setViewMode] = useState<"LIST" | "BOARD">("LIST");
+  const [viewMode, setViewMode] = useState<"LIST" | "BOARD">("BOARD");
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const limit = 10;

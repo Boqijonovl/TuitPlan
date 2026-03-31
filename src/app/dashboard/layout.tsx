@@ -16,6 +16,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [isMobile, setIsMobile] = useState(false);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [systemSettings, setSystemSettings] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/api/settings").then(res => res.json()).then(data => setSystemSettings(data)).catch(console.error);
+    const intervalSettings = setInterval(() => {
+      fetch("/api/settings").then(res => res.json()).then(data => setSystemSettings(data)).catch(console.error);
+    }, 30000);
+    return () => clearInterval(intervalSettings);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -66,6 +75,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   if (!user) return <div className="min-h-screen bg-slate-50"></div>;
+
+  if (systemSettings?.maintenanceMode && user?.role !== "ADMIN") {
+    return (
+      <div className="h-screen bg-slate-900 flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500">
+         <div className="w-24 h-24 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mb-8 border-4 border-red-500/20">
+           <ShieldAlert className="w-12 h-12" />
+         </div>
+         <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">Tizimda ta'mirlash ishlari bajarilmoqda!</h1>
+         <p className="text-slate-400 text-lg max-w-2xl mb-12">Hozirda baza va dastur doirasida yangilanishlar olib borilmoqda. Tizim qisqa vaqtlarda yana faol holatga qaytadi. Noqulayliklar uchun uzr so'raymiz.</p>
+         <button onClick={handleLogout} className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-xl font-bold transition-all border border-white/10 hover:border-white/30 flex items-center gap-2">
+            <LogOut className="w-5 h-5"/> Tizimdan chiqish
+         </button>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen bg-slate-50 flex overflow-hidden">
@@ -138,6 +162,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-screen w-full relative overflow-hidden transition-all duration-300 print:bg-white print:overflow-visible">
+        {systemSettings?.broadcastActive && systemSettings?.broadcastMessage && (
+           <div className="w-full bg-red-600 text-white font-bold text-center px-4 py-3 border-b-2 border-red-800 shadow-md sticky top-0 z-50 flex items-center justify-center gap-3">
+             <ShieldAlert className="w-5 h-5 animate-pulse" />
+             <span className="text-sm lg:text-base tracking-wide flex-1 md:flex-none">Tizim e'loni: {systemSettings.broadcastMessage}</span>
+           </div>
+        )}
         {/* Header - White */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-8 z-20 sticky top-0 shadow-sm print:hidden">
           <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="p-2 rounded-lg hover:bg-blue-50 text-slate-500 hover:text-blue-600 transition-colors focus:outline-none shrink-0 md:mr-4">
@@ -167,7 +197,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-sm border border-slate-100 p-4 z-50">
                     <h3 className="font-semibold text-slate-900 mb-3 flex items-center justify-between">
                       <span className="flex items-center gap-2"><Bell className="w-4 h-4 text-blue-500"/> Bildirishnomalar</span>
-                      <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-xs">Jami: {notifications.length} ta yuborilmagan</span>
+                      <div className="flex items-center gap-2">
+                         {notifications.length > 0 && (
+                           <button 
+                             onClick={async () => {
+                               try {
+                                 await fetch(`/api/notifications/read-all?userId=${user.id}`, { method: "PUT" });
+                                 setNotifications([]);
+                               } catch (e) {}
+                             }}
+                             className="text-[10px] text-blue-600 hover:underline font-bold"
+                           >
+                             Barchasini o'qish
+                           </button>
+                         )}
+                         <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-xs">Jami: {notifications.length}</span>
+                      </div>
                     </h3>
                     <div className="space-y-3 max-h-64 overflow-y-auto">
                       {notifications.length === 0 ? (
@@ -175,8 +220,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                        ) : notifications.map(notif => (
                          <button 
                            key={notif.id} 
-                           onClick={() => {
+                           onClick={async () => {
                              setShowNotifications(false);
+                             try {
+                               await fetch(`/api/notifications/${notif.id}`, { method: "PUT" });
+                               setNotifications(prev => prev.filter(n => n.id !== notif.id));
+                             } catch (e) {}
                              router.push(notif.link || `/dashboard/tasks?search=${encodeURIComponent(notif.title)}`);
                            }}
                            className="w-full text-left text-sm p-3 bg-slate-50 rounded-lg border border-slate-100 hover:bg-blue-50 hover:border-blue-100 transition-colors shadow-sm cursor-pointer"

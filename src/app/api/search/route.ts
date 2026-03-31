@@ -5,60 +5,62 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const q = searchParams.get("q");
-    const userId = searchParams.get("userId");
-    const role = searchParams.get("role");
+    const role = searchParams.get("role") || "OQITUVCHI"; // Kim qidirayapti
 
-    if (!q || q.length < 2) return NextResponse.json({ results: [] });
+    if (!q || q.length < 2) return NextResponse.json({ results: [] }, { status: 200 });
 
-    // 1. Search Users
+    const searchTerm = `%${q}%`;
+    const results: any[] = [];
+
+    // 1. Xodimlarni qidirish (Faqat ism yoki email bo'yicha)
     const users = await prisma.user.findMany({
       where: {
-        OR: [
-          { name: { contains: q } },
-          { email: { contains: q } }
+        AND: [
+          { isDeleted: false },
+          { OR: [{ name: { contains: q, mode: "insensitive" } }, { email: { contains: q, mode: "insensitive" } }] }
         ]
       },
       take: 5
     });
 
-    // 2. Search Plans (Restricted to User's faculty)
-    let planWhere: any = { title: { contains: q } };
-    if (userId && role !== "ADMIN") {
-      const dbUser = await prisma.user.findUnique({ where: { id: userId } });
-      if ((dbUser as any)?.facultyId) {
-        planWhere.OR = [
-          { department: { facultyId: (dbUser as any).facultyId } },
-          { departmentId: null }
-        ];
-      }
-    }
-    const plans = await prisma.plan.findMany({ where: planWhere, take: 5, include: { department: true } });
+    users.forEach(u => {
+      let roleName = u.role === "ADMIN" ? "Administrator" : u.role === "DEKAN" ? "Fakultet Dekani" : u.role === "MUDIR" ? "Kafedra Mudiri" : "O'qituvchi";
+      results.push({ type: "USER", id: u.id, title: u.name, subtitle: `${roleName} / ${u.email}`, link: "/dashboard/users" });
+    });
 
-    // 3. Search Tasks
-    let taskWhere: any = { title: { contains: q } };
-    if (userId && role !== "ADMIN") {
-      const dbUser = await prisma.user.findUnique({ where: { id: userId } });
-      if ((dbUser as any)?.facultyId) {
-        taskWhere.plan = {
-          OR: [
-            { department: { facultyId: (dbUser as any).facultyId } },
-            { departmentId: null }
-          ]
-        };
-      }
-    }
-    const tasks = await prisma.task.findMany({ where: taskWhere, take: 5, include: { plan: true } });
+    // 2. Rejalarni qidirish
+    const plans = await prisma.plan.findMany({
+      where: {
+        AND: [
+          { isDeleted: false },
+          { title: { contains: q, mode: "insensitive" } }
+        ]
+      },
+      take: 5
+    });
 
-    // Combine results into a normalized format
-    const results = [
-      ...users.map(u => ({ type: "USER", id: u.id, title: u.name, subtitle: u.role, link: "/dashboard/users" })),
-      ...plans.map(p => ({ type: "PLAN", id: p.id, title: p.title, subtitle: p.department?.name || "Umumiy", link: "/dashboard/plans" })),
-      ...tasks.map(t => ({ type: "TASK", id: t.id, title: t.title, subtitle: t.plan?.title || "Rejasiz", link: `/dashboard/tasks` }))
-    ];
+    plans.forEach(p => {
+      results.push({ type: "PLAN", id: p.id, title: p.title, subtitle: `${p.year}-yilgi reja`, link: "/dashboard/plans" });
+    });
 
-    return NextResponse.json({ results });
+    // 3. Vazifalarni qidirish
+    const tasks = await prisma.task.findMany({
+      where: {
+        AND: [
+          { isDeleted: false },
+          { OR: [{ title: { contains: q, mode: "insensitive" } }, { description: { contains: q, mode: "insensitive" } }] }
+        ]
+      },
+      take: 5
+    });
+
+    tasks.forEach(t => {
+      let statusName = t.status === "NEW" ? "Yangi" : t.status === "IN_PROGRESS" ? "Jarayonda" : "Yakunlandi";
+      results.push({ type: "TASK", id: t.id, title: t.title, subtitle: `Holati: ${statusName}`, link: "/dashboard/tasks" }); // Agar tasks alohida sahifa bo'lsa
+    });
+
+    return NextResponse.json({ results }, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Search failed" }, { status: 500 });
+    return NextResponse.json({ error: "Qidiruv tizimida xatolik" }, { status: 500 });
   }
 }
