@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Settings, DownloadCloud, AlertTriangle, ShieldCheck, Database, HardDrive, RefreshCcw } from "lucide-react";
+import { Settings, DownloadCloud, AlertTriangle, ShieldCheck, Database, HardDrive, RefreshCcw, CheckSquare } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function SettingsPage() {
