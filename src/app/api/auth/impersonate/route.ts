@@ -40,8 +40,14 @@ export async function POST(request: Request) {
       }
     });
 
+    let permissions: string[] = [];
+    if (!["ADMIN", "DEAN", "HOD", "TEACHER"].includes(targetUser.role)) {
+       const customRole = await prisma.customRole.findUnique({ where: { name: targetUser.role } });
+       if (customRole) permissions = customRole.permissions;
+    }
+
     const newToken = jwt.sign(
-      { userId: targetUser.id, email: targetUser.email, role: targetUser.role, name: targetUser.name },
+      { userId: targetUser.id, email: targetUser.email, role: targetUser.role, name: targetUser.name, permissions },
       process.env.JWT_SECRET || "fallback_secret",
       { expiresIn: "4h" }
     );
@@ -49,7 +55,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       message: `${targetUser.name} sifatida tizimga kirdingiz`,
       token: newToken,
-      user: { id: targetUser.id, name: targetUser.name, email: targetUser.email, role: targetUser.role, departmentId: targetUser.departmentId, facultyId: targetUser.facultyId, avatarUrl: targetUser.avatarUrl }
+      user: { id: targetUser.id, name: targetUser.name, email: targetUser.email, role: targetUser.role, permissions, departmentId: targetUser.departmentId, facultyId: targetUser.facultyId, avatarUrl: targetUser.avatarUrl }
     }, { status: 200 });
   } catch (error) {
     console.error("Impersonate API xatosi:", error);

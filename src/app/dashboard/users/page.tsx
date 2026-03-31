@@ -29,13 +29,23 @@ export default function UsersPage() {
     departmentId: ""
   });
 
+  const [customRoles, setCustomRoles] = useState<any[]>([]);
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setCurrentUser(JSON.parse(storedUser));
     
     fetchUsers();
     fetchFaculties();
+    fetchCustomRoles();
   }, []);
+
+  const fetchCustomRoles = async () => {
+    try {
+      const res = await fetch("/api/roles");
+      if (res.ok) setCustomRoles(await res.json());
+    } catch {}
+  };
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -563,13 +573,21 @@ export default function UsersPage() {
               {activeFacultyId !== "ADMIN" && (
                 <div className="pt-2 border-t border-slate-50">
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Vazifasi (Roli)</label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {["TEACHER", "HOD", "DEAN"].map(r => (
                        <button
                          key={r} type="button" onClick={() => handleRoleChange(r)}
-                         className={`px-3 py-2 border rounded-xl text-xs font-bold tracking-wide transition-colors ${newUser.role === r ? 'bg-blue-50 border-blue-500 text-blue-700 shadow-sm' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
+                         className={`px-3 py-1.5 border rounded-lg text-[11px] font-bold tracking-wide transition-colors ${newUser.role === r ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
                        >
-                         {r === "TEACHER" ? "Kafedra O'qituvchisi" : r === "HOD" ? "Kafedra Mudiri" : "Fakultet Dekani"}
+                         {r === "TEACHER" ? "O'qituvchi" : r === "HOD" ? "Mudiri" : "Dekan"}
+                       </button>
+                    ))}
+                    {customRoles.map((cr: any) => (
+                       <button
+                         key={cr.id} type="button" onClick={() => handleRoleChange(cr.name)}
+                         className={`px-3 py-1.5 border rounded-lg text-[11px] font-bold tracking-wide transition-colors ${newUser.role === cr.name ? 'bg-emerald-50 border-emerald-500 text-emerald-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                       >
+                         {cr.name} (Maxsus)
                        </button>
                     ))}
                   </div>

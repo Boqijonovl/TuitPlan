@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { LayoutDashboard, CalendarDays, Users, LogOut, CheckSquare, Menu, BookOpen, Bell, BarChart2, Calendar, Clock, History, FolderOpen, Search, MessageSquare, ShieldAlert, Settings } from "lucide-react";
+import { LayoutDashboard, CalendarDays, Users, LogOut, CheckSquare, Menu, BookOpen, Bell, BarChart2, Calendar, Clock, History, FolderOpen, Search, MessageSquare, ShieldAlert, Settings, Shield } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { GlobalSearch } from "@/components/GlobalSearch";
@@ -99,15 +99,26 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </>
           )}
           
-          {user.role === "ADMIN" && (
-            <>
-              <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin kuzatuv paneli" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
-              <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Fakultetlar" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
-              <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
-              <NavItem href="/dashboard/security-logs" icon={<ShieldAlert />} label="Xavfsizlik Jurnali" isOpen={isSidebarOpen} active={pathname.includes("/security-logs")} isMobile={isMobile} />
-              <NavItem href="/dashboard/settings" icon={<Settings />} label="Sozlamalar" isOpen={isSidebarOpen} active={pathname.includes("/settings")} isMobile={isMobile} />
-              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
-            </>
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_MONITORING")) && (
+             <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin kuzatuv paneli" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
+          )}
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_FACULTIES")) && (
+             <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Fakultetlar" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
+          )}
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_SETTINGS")) && (
+             <NavItem href="/dashboard/roles" icon={<Shield />} label="Rollar (RBAC)" isOpen={isSidebarOpen} active={pathname.includes("/roles")} isMobile={isMobile} />
+          )}
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_USERS")) && (
+             <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
+          )}
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_HISTORY")) && (
+             <NavItem href="/dashboard/security-logs" icon={<ShieldAlert />} label="Xavfsizlik Jurnali" isOpen={isSidebarOpen} active={pathname.includes("/security-logs")} isMobile={isMobile} />
+          )}
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_SETTINGS")) && (
+             <NavItem href="/dashboard/settings" icon={<Settings />} label="Sozlamalar" isOpen={isSidebarOpen} active={pathname.includes("/settings")} isMobile={isMobile} />
+          )}
+          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_CHAT")) && (
+             <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
           )}
           {user.role === "DEAN" && (
              <NavItem href="/dashboard/archive" icon={<FolderOpen />} label="Fayllar arxivi" isOpen={isSidebarOpen} active={pathname.includes("/archive")} isMobile={isMobile} />

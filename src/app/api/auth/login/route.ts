@@ -25,8 +25,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Parol noto'g'ri" }, { status: 401 });
     }
 
+    let permissions: string[] = [];
+    if (!["ADMIN", "DEAN", "HOD", "TEACHER"].includes(user.role)) {
+       const customRole = await prisma.customRole.findUnique({ where: { name: user.role } });
+       if (customRole) permissions = customRole.permissions;
+    }
+
     const token = jwt.sign(
-      { userId: user.id, email: user.email, role: user.role, name: user.name },
+      { userId: user.id, email: user.email, role: user.role, name: user.name, permissions },
       process.env.JWT_SECRET || "fallback_secret",
       { expiresIn: "1d" }
     );
@@ -41,7 +47,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       message: "Muvaffaqiyatli kirdingiz",
       token,
-      user: { id: user.id, name: user.name, email: user.email, role: user.role, departmentId: user.departmentId, facultyId: user.facultyId, avatarUrl: user.avatarUrl }
+      user: { id: user.id, name: user.name, email: user.email, role: user.role, permissions, departmentId: user.departmentId, facultyId: user.facultyId, avatarUrl: user.avatarUrl }
     }, { status: 200 });
   } catch (error) {
     console.error("Login error:", error);
