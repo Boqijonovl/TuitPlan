@@ -225,7 +225,7 @@ export default function MonitoringPage() {
                    <span className="text-2xl font-bold text-slate-800 z-10">{overallProgress}%</span>
                 </div>
                 <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-indigo-500" /> Umumiy Bajarilish
+                  <Activity className="w-5 h-5 text-indigo-500" /> Umumiy bajarilish
                 </h2>
              </div>
           </div>
@@ -236,19 +236,19 @@ export default function MonitoringPage() {
                <Grid className="w-4 h-4 text-indigo-300" />
              </div>
              <div className="flex flex-col justify-center p-6 flex-1 text-left -mt-4">
-                <h2 className="text-xl font-bold mb-2">Tizim Unumdorligi</h2>
+                <h2 className="text-xl font-bold mb-2">Tizim unumdorligi</h2>
                 <div className="space-y-3 relative z-0">
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
                     <TrendingUp className="w-6 h-6 text-emerald-300" />
                     <div>
-                      <p className="text-xs font-medium text-indigo-100">Jami Rejalar</p>
+                      <p className="text-xs font-medium text-indigo-100">Jami rejalar</p>
                       <p className="text-xl font-bold">{plans.length}</p>
                     </div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
                     <Users className="w-6 h-6 text-amber-300" />
                     <div>
-                      <p className="text-xs font-medium text-indigo-100">Topshirilgan Hisobotlar</p>
+                      <p className="text-xs font-medium text-indigo-100">Topshirilgan hisobotlar</p>
                       <p className="text-xl font-bold">{totalSubmissions} ta fayl</p>
                     </div>
                   </div>
@@ -259,7 +259,7 @@ export default function MonitoringPage() {
           {/* BarChart */}
           <div key="bar" className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-indigo-500/50 transition-shadow overflow-hidden">
              <div className="drag-handle w-full p-3 bg-slate-50/80 flex items-center justify-between cursor-move opacity-80 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
-               <h3 className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">Bo'linmalar Faolligi</h3>
+               <h3 className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">Bo'linmalar faolligi</h3>
                <Grid className="w-4 h-4 text-slate-400" />
              </div>
              <div className="flex-1 w-full h-full p-4 relative z-0">
@@ -285,7 +285,7 @@ export default function MonitoringPage() {
           <div key="pie" className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-indigo-500/50 transition-shadow overflow-hidden">
              <div className="drag-handle w-full p-3 bg-slate-50/80 flex items-center justify-between cursor-move opacity-80 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
                <h3 className="font-bold text-slate-800 text-[11px] uppercase tracking-wider flex items-center gap-1">
-                 <PieChartIcon className="w-3.5 h-3.5" /> Umumiy Vazifalar Holati
+                 <PieChartIcon className="w-3.5 h-3.5" /> Umumiy vazifalar holati
                </h3>
                <Grid className="w-4 h-4 text-slate-400" />
              </div>
@@ -313,7 +313,7 @@ export default function MonitoringPage() {
               <div className="flex items-center gap-3">
                 <Trophy className="w-5 h-5 text-amber-500" />
                 <div>
-                   <h2 className="text-sm font-bold text-slate-800">Liderlar Doskasi (KPI)</h2>
+                   <h2 className="text-sm font-bold text-slate-800">Liderlar doskasi (KPI)</h2>
                 </div>
               </div>
               <Grid className="w-4 h-4 text-amber-300" />
@@ -327,7 +327,7 @@ export default function MonitoringPage() {
                     <th className="px-4 py-3">Xodim</th>
                     <th className="px-4 py-3">Kafedra</th>
                     <th className="px-4 py-3 text-center">Topshiriqlar</th>
-                    <th className="px-4 py-3 text-right">Reyting Ball (KPI)</th>
+                    <th className="px-4 py-3 text-right">Reyting ball (KPI)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50">
@@ -376,7 +376,7 @@ export default function MonitoringPage() {
              <div className="drag-handle w-full p-4 bg-slate-50 flex items-center justify-between cursor-move opacity-90 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
                <h2 className="text-sm font-bold text-slate-800 flex items-center gap-2">
                  <BarChart2 className="w-4 h-4 text-blue-500" />
-                 Kengaytirilgan Yakuniy Monitoring
+                 Kengaytirilgan yakuniy monitoring
                </h2>
                <Grid className="w-4 h-4 text-slate-400" />
              </div>
@@ -385,11 +385,11 @@ export default function MonitoringPage() {
               <table className="w-full text-left text-sm whitespace-nowrap">
                 <thead className="bg-slate-50 text-slate-600 font-medium border-b border-slate-200 sticky top-0 z-10">
                   <tr>
-                    <th className="px-6 py-3 text-xs">Reja Nomi</th>
+                    <th className="px-6 py-3 text-xs">Reja nomi</th>
                     <th className="px-6 py-3 text-xs">Kaferdasi</th>
-                    <th className="px-6 py-3 text-center text-xs">Tasdiqlangan Vazifalar</th>
-                    <th className="px-6 py-3 text-center text-xs">Umumiy Hisobotlar</th>
-                    <th className="px-6 py-3 text-right text-xs">Bajarilish Foizi</th>
+                    <th className="px-6 py-3 text-center text-xs">Tasdiqlangan vazifalar</th>
+                    <th className="px-6 py-3 text-center text-xs">Umumiy hisobotlar</th>
+                    <th className="px-6 py-3 text-right text-xs">Bajarilish foizi</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">

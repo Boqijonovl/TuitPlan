@@ -80,7 +80,7 @@ export default function ProfilePage() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Akkaunt Sozlamalari</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-slate-900">Akkaunt sozlamalari</h1>
         <p className="text-sm text-slate-500 mt-1">Shaxsiy ma'lumotlaringizni va parolingizni o'zgartirishingiz mumkin.</p>
       </div>
 
@@ -96,7 +96,7 @@ export default function ProfilePage() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
               <User className="w-5 h-5 text-indigo-500" />
-              Asosiy Ma'lumotlar
+              Asosiy ma'lumotlar
             </h3>
             
             <div className="flex flex-col md:flex-row gap-8 items-start">
@@ -169,7 +169,7 @@ export default function ProfilePage() {
             </h3>
             
             <div className="max-w-md">
-              <label className="block text-sm font-medium text-slate-700 mb-1">Yangi Parol</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Yangi parol</label>
               <input 
                 type="password" 
                 value={password}

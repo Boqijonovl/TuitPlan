@@ -37,7 +37,7 @@ export default function NewsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Megaphone className="w-6 h-6 text-blue-500" /> Barcha Yangiliklar
+            <Megaphone className="w-6 h-6 text-blue-500" /> Barcha yangiliklar
           </h1>
           <p className="text-sm text-slate-500 mt-1">Universitet va ta'lim sohasiga oid barcha xabarlar tarixi.</p>
         </div>

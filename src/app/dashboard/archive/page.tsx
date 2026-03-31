@@ -117,7 +117,7 @@ export default function ArchivePage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Folder className="w-7 h-7 text-indigo-500" /> Fakultet Hujjatlar Arxivi
+            <Folder className="w-7 h-7 text-indigo-500" /> Fakultet hujjatlar arxivi
           </h1>
           <p className="text-sm text-slate-500 mt-1">Barcha xodimlar tomonidan tizimga yuklangan hisobot fayllari yagona bazasi.</p>
         </div>

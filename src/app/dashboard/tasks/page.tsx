@@ -319,7 +319,7 @@ export default function TasksPage() {
                     {/* Submissions List */}
                     {submissions.length > 0 && (
                       <div className="mt-2 pl-4 md:pl-10 pt-3 border-t border-slate-100">
-                        <h5 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Topshirilgan Hisobotlar ({submissions.length})</h5>
+                        <h5 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Topshirilgan hisobotlar ({submissions.length})</h5>
                         <div className="space-y-3">
                           {submissions.map((sub: any, i: number) => (
                             <div key={sub.id} className="bg-slate-50 p-3 rounded-xl border border-slate-100 flex flex-col gap-2">
@@ -446,7 +446,7 @@ export default function TasksPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Mening Vazifalarim</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Mening vazifalarim</h1>
           <p className="text-sm text-slate-500 mt-1">Rejalarga kiritilgan va bajarilishi kutilayotgan barcha vazifalar ro'yxati.</p>
         </div>
         
@@ -545,7 +545,7 @@ export default function TasksPage() {
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col">
             <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50">
               <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                <CheckCircle2 className="w-6 h-6 text-emerald-500"/> Vazifani Yakunlash
+                <CheckCircle2 className="w-6 h-6 text-emerald-500"/> Vazifani yakunlash
               </h2>
               <button onClick={() => setSelectedTask(null)} className="text-slate-400 hover:text-red-500 transition-colors bg-white hover:bg-red-50 p-1.5 rounded-lg border border-transparent hover:border-red-100">
                 <X className="w-5 h-5" />

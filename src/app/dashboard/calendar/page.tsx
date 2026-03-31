@@ -208,7 +208,7 @@ export default function CalendarPage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
             <CalendarIcon className="w-7 h-7 text-indigo-600" />
-            Vazifalar Taqivimi
+            Vazifalar taqvimi
           </h1>
           <p className="text-sm text-slate-500 mt-1">Rejadagi vazifalarning belgilangan muddatlari bo'yicha ko'rinishi.</p>
         </div>
@@ -285,7 +285,7 @@ export default function CalendarPage() {
            <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
              <div className="flex justify-between items-center p-5 border-b border-slate-100 bg-slate-50/80">
                <h3 className="font-bold text-slate-800 flex items-center gap-2">
-                 <Info className="w-5 h-5 text-indigo-500" /> Vazifa Ma'lumotlari
+                 <Info className="w-5 h-5 text-indigo-500" /> Vazifa ma'lumotlari
                </h3>
                <button onClick={() => setSelectedEvent(null)} className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-lg transition-colors">
                  <X className="w-5 h-5" />
@@ -304,7 +304,7 @@ export default function CalendarPage() {
                 
                 <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100">
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Biriktirilgan Rol</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Biriktirilgan rol</p>
                     <p className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
                       <Shield className="w-4 h-4 text-amber-500" />
                       {selectedEvent.assignedRole || "Hamma"}
@@ -320,7 +320,7 @@ export default function CalendarPage() {
                 </div>
 
                 <div className="pt-3 border-t border-slate-100">
-                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Holati va Hisobotlar</p>
+                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Holati va hisobotlar</p>
                    <div className="flex items-center gap-2 mb-3">
                       <span className={`px-3 py-1 text-xs font-bold rounded-lg border ${
                         selectedEvent.submissions?.length > 0 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :

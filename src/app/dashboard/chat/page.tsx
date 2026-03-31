@@ -284,7 +284,7 @@ export default function ChatPage() {
         {!activeContact ? (
           <div className="flex-1 flex flex-col items-center justify-center text-slate-400 text-center p-8">
             <MessageSquare className="w-16 h-16 mx-auto mb-4 opacity-20 text-indigo-500" />
-            <h3 className="text-xl font-bold text-slate-700 mb-1">Xavfsiz Birlashtirilgan Chat</h3>
+            <h3 className="text-xl font-bold text-slate-700 mb-1">Xavfsiz birlashtirilgan chat</h3>
             <p className="text-sm">Xodimlar bilan xabarlar va hujjatlar almashish uchun kontaktni tanlang.</p>
           </div>
         ) : (

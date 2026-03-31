@@ -170,7 +170,7 @@ export default function FacultiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-indigo-700">Tuzilma va Fakultetlar</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-indigo-700">Tuzilma va fakultetlar</h1>
           <p className="text-sm font-medium text-slate-500 mt-2">Oliy ta'lim muassasasining to'liq ierarxiyasini boshqarish</p>
         </div>
         <button 
@@ -178,7 +178,7 @@ export default function FacultiesPage() {
           className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-5 py-3 rounded-2xl font-bold shadow-xl shadow-blue-500/20 flex items-center gap-2 transition-all transform hover:-translate-y-0.5"
         >
           <Plus className="w-5 h-5 shadow-sm" />
-          Yangi Fakultet
+          Yangi fakultet
         </button>
       </div>
 
@@ -305,13 +305,13 @@ export default function FacultiesPage() {
              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><Building2 className="w-5 h-5"/></div>
-                 <h2 className="font-bold text-lg tracking-wide">Yangi Fakultet</h2>
+                 <h2 className="font-bold text-lg tracking-wide">Yangi fakultet</h2>
                </div>
                <button onClick={() => setIsModalOpen(false)} className="text-white/60 hover:text-white hover:bg-white/10 p-2 rounded-xl transition-all"><X className="w-5 h-5"/></button>
              </div>
              <form onSubmit={handleAddFaculty} className="p-8 space-y-6">
                <div className="space-y-2">
-                 <label className="block text-sm font-bold text-slate-700">Fakultet Nomi</label>
+                 <label className="block text-sm font-bold text-slate-700">Fakultet nomi</label>
                  <input type="text" required value={facultyName} onChange={e => setFacultyName(e.target.value)} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 font-medium outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white transition-all shadow-inner" placeholder="Masalan: Axborot Texnologiyalari Fakulteti" />
                </div>
                <div className="flex justify-end gap-3 pt-2">
@@ -330,13 +330,13 @@ export default function FacultiesPage() {
              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><GraduationCap className="w-5 h-5"/></div>
-                 <h2 className="font-bold text-lg tracking-wide">Yangi Kafedra Qo'shish</h2>
+                 <h2 className="font-bold text-lg tracking-wide">Yangi kafedra qo'shish</h2>
                </div>
                <button onClick={() => setIsDepModalOpen(false)} className="text-white/60 hover:text-white hover:bg-white/10 p-2 rounded-xl transition-all"><X className="w-5 h-5"/></button>
              </div>
              <form onSubmit={handleAddDepartment} className="p-8 space-y-6">
                <div className="space-y-2">
-                 <label className="block text-sm font-bold text-slate-700">Kafedra Nomi</label>
+                 <label className="block text-sm font-bold text-slate-700">Kafedra nomi</label>
                  <input type="text" required value={departmentName} onChange={e => setDepartmentName(e.target.value)} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 font-medium outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white transition-all shadow-inner" placeholder="Masalan: Dasturiy Injiniring Kafedrasi" />
                </div>
                <div className="flex justify-end gap-3 pt-2">
@@ -355,13 +355,13 @@ export default function FacultiesPage() {
              <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><UserPlus className="w-5 h-5"/></div>
-                 <h2 className="font-bold text-lg tracking-wide">Yangi Xodim Qo'shish</h2>
+                 <h2 className="font-bold text-lg tracking-wide">Yangi xodim qo'shish</h2>
                </div>
                <button onClick={() => setIsUserModalOpen(false)} className="text-white/60 hover:text-white hover:bg-white/10 p-2 rounded-xl transition-all"><X className="w-5 h-5"/></button>
              </div>
              <form onSubmit={handleAddUser} className="p-8 space-y-4">
                <div>
-                 <label className="block text-sm font-bold text-slate-700 mb-1.5">F.I.SH (Ism Familiya)</label>
+                 <label className="block text-sm font-bold text-slate-700 mb-1.5">F.I.SH (ism familiya)</label>
                  <input type="text" required value={userForm.name} onChange={e => setUserForm({...userForm, name: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="Masalan: Aliyev Vali" />
                </div>
                <div className="grid grid-cols-2 gap-4">
@@ -398,13 +398,13 @@ export default function FacultiesPage() {
              <div className="bg-gradient-to-r from-amber-500 to-orange-500 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><Edit2 className="w-5 h-5"/></div>
-                 <h2 className="font-bold text-lg tracking-wide">Nomini O'zgartirish</h2>
+                 <h2 className="font-bold text-lg tracking-wide">Nomini o'zgartirish</h2>
                </div>
                <button onClick={() => setIsEditModalOpen(false)} className="text-white/60 hover:text-white hover:bg-white/10 p-2 rounded-xl transition-all"><X className="w-5 h-5"/></button>
              </div>
              <form onSubmit={handleEdit} className="p-8 space-y-6">
                <div className="space-y-2">
-                 <label className="block text-sm font-bold text-slate-700">{editTarget.type === "FACULTY" ? "Fakultet Nomi" : "Kafedra Nomi"}</label>
+                 <label className="block text-sm font-bold text-slate-700">{editTarget.type === "FACULTY" ? "Fakultet nomi" : "Kafedra nomi"}</label>
                  <input type="text" required value={editTarget.name} onChange={e => setEditTarget({...editTarget, name: e.target.value})} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 font-medium outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 focus:bg-white transition-all shadow-inner" />
                </div>
                <div className="flex justify-end gap-3 pt-2">
