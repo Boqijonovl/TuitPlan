@@ -58,8 +58,8 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+          <div className="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-sm flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
             {error}
           </div>
         )}

@@ -239,8 +239,8 @@ export default function TasksPage() {
           ...draggableProvided?.draggableProps.style,
         }}
         className={`p-4 rounded-xl border transition-colors flex flex-col gap-4 overflow-hidden ${
-          hasSubmitted ? 'bg-emerald-50/30 border-emerald-100' :
-          globalStatus === 'JARAYONDA' ? 'bg-amber-50/30 border-amber-200 shadow-sm' :
+          hasSubmitted ? 'bg-blue-50/30 border-blue-100' :
+          globalStatus === 'JARAYONDA' ? 'bg-slate-50/30 border-slate-200 shadow-sm' :
           'bg-white border-slate-200 hover:border-blue-300 shadow-sm'
         }`}>
         
@@ -249,12 +249,12 @@ export default function TasksPage() {
                       <div className="flex gap-3 w-full">
                         <div className="mt-1">
                           <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                            hasSubmitted ? 'bg-emerald-500 border-emerald-500 text-white' : 
-                            globalStatus === 'JARAYONDA' ? 'border-amber-500' :
+                            hasSubmitted ? 'bg-blue-500 border-blue-500 text-white' : 
+                            globalStatus === 'JARAYONDA' ? 'border-slate-500' :
                             'border-slate-300'
                           }`}>
                             {hasSubmitted && <CheckSquare className="w-3.5 h-3.5" />}
-                            {!hasSubmitted && globalStatus === 'JARAYONDA' && <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />}
+                            {!hasSubmitted && globalStatus === 'JARAYONDA' && <div className="w-2 h-2 rounded-full bg-slate-500 animate-pulse" />}
                           </div>
                         </div>
                         
@@ -265,13 +265,13 @@ export default function TasksPage() {
                               <Shield className="w-3.5 h-3.5 text-blue-400" />
                               {task.assignedRole ? task.assignedRole : "Hamma uchun"}
                             </div>
-                            <div className="flex items-center gap-1.5 bg-slate-100 px-2 py-1.5 rounded-md text-amber-700">
+                            <div className="flex items-center gap-1.5 bg-slate-100 px-2 py-1.5 rounded-md text-slate-700">
                               <Calendar className="w-3.5 h-3.5" />
                               {task.timeframe || "Muddatsiz"}
                             </div>
                             
                             {hasSubmitted && (
-                              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-emerald-100 text-emerald-700">
+                              <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-100 text-blue-700">
                                 <CheckCircle2 className="w-3.5 h-3.5" />
                                 Siz Bazardiz
                               </div>
@@ -305,7 +305,7 @@ export default function TasksPage() {
                                 setNote("");
                                 setFile(null);
                               }}
-                              className={`w-full bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm shadow-emerald-500/20 transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
+                              className={`w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm shadow-blue-500/20 transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
                             >
                               <CheckCircle2 className="w-4 h-4" /> Yakunlash
                             </button>
@@ -325,7 +325,7 @@ export default function TasksPage() {
                             <div key={sub.id} className="bg-slate-50 p-3 rounded-xl border border-slate-100 flex flex-col gap-2">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2 text-sm font-medium text-slate-900">
-                                  <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                  <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
                                     <User className="w-3.5 h-3.5" />
                                   </div>
                                   {sub.user?.name || "Noma'lum Xodim"}
@@ -427,7 +427,7 @@ export default function TasksPage() {
   if (user?.role === "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
-        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4">
+        <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4">
           <AlertCircle className="w-8 h-8" />
         </div>
         <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan sahifa</h2>
@@ -545,9 +545,9 @@ export default function TasksPage() {
           <div className="bg-white rounded-xl shadow-sm w-full max-w-lg overflow-hidden flex flex-col">
             <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50">
               <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-                <CheckCircle2 className="w-6 h-6 text-emerald-500"/> Vazifani yakunlash
+                <CheckCircle2 className="w-6 h-6 text-blue-500"/> Vazifani yakunlash
               </h2>
-              <button onClick={() => setSelectedTask(null)} className="text-slate-400 hover:text-red-500 transition-colors bg-white hover:bg-red-50 p-1.5 rounded-lg border border-transparent hover:border-red-100">
+              <button onClick={() => setSelectedTask(null)} className="text-slate-400 hover:text-slate-500 transition-colors bg-white hover:bg-slate-50 p-1.5 rounded-lg border border-transparent hover:border-slate-100">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -565,7 +565,7 @@ export default function TasksPage() {
                   rows={4}
                   value={note}
                   onChange={e => setNote(e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition-all resize-none text-sm"
+                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none text-sm"
                   placeholder="Xulosa va natijalar..."
                 />
               </div>
@@ -607,7 +607,7 @@ export default function TasksPage() {
                 <button 
                   type="submit" 
                   disabled={submitting || !note.trim()}
-                  className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold shadow-sm shadow-emerald-500/20 transition-colors disabled:opacity-50 text-sm flex items-center gap-2"
+                  className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-sm shadow-blue-500/20 transition-colors disabled:opacity-50 text-sm flex items-center gap-2"
                 >
                   {submitting ? "Yuklanmoqda..." : "Tasdiqlash va Yuborish"}
                 </button>

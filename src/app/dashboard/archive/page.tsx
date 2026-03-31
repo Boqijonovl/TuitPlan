@@ -179,7 +179,7 @@ export default function ArchivePage() {
                          {doc.taskTitle}
                        </h4>
                        <p className="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
-                         <span className="w-2 h-2 rounded-full bg-emerald-500"></span> {doc.user?.name || "Noma'lum"}
+                         <span className="w-2 h-2 rounded-full bg-blue-500"></span> {doc.user?.name || "Noma'lum"}
                        </p>
                      </div>
                    </div>

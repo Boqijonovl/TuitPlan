@@ -88,7 +88,7 @@ export default function NewsPage() {
             <div className="space-y-4">
               {filteredNews.map(n => (
                 <div key={n.id} className="p-5 bg-slate-50 border border-slate-100 rounded-xl relative hover:border-blue-200 transition-colors">
-                  <span className={`absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${n.type === 'UNIVERSITET' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}`}>
+                  <span className={`absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${n.type === 'UNIVERSITET' ? 'bg-blue-100 text-blue-700' : 'bg-blue-100 text-blue-700'}`}>
                     {n.type}
                   </span>
                   <h3 className="font-bold text-lg text-slate-900 pr-24 leading-tight">{n.title}</h3>

@@ -88,7 +88,7 @@ export default function ProfilePage() {
         <form onSubmit={handleSave} className="p-6 md:p-8 space-y-6">
           
           {message.text && (
-            <div className={`p-4 rounded-xl text-sm font-medium ${message.type === 'success' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>
+            <div className={`p-4 rounded-xl text-sm font-medium ${message.type === 'success' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-slate-50 text-slate-600 border border-slate-100'}`}>
               {message.text}
             </div>
           )}
@@ -125,7 +125,7 @@ export default function ProfilePage() {
                     />
                   </label>
                 </div>
-                {avatarFile && <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">Yangi rasm tanlandi</span>}
+                {avatarFile && <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">Yangi rasm tanlandi</span>}
               </div>
 
               <div className="grid gap-4 w-full md:grid-cols-2">

@@ -88,15 +88,15 @@ export default function UserHistoryPage() {
                const formattedDate = date.toLocaleDateString("ru-RU", { day: '2-digit', month: '2-digit', year: 'numeric' });
                const formattedTime = date.toLocaleTimeString("ru-RU", { hour: '2-digit', minute: '2-digit' });
 
-               let icon = <CheckCircle2 className="w-4 h-4 text-emerald-600" />;
-               let bgClass = "bg-emerald-100 border-emerald-200";
+               let icon = <CheckCircle2 className="w-4 h-4 text-blue-600" />;
+               let bgClass = "bg-blue-100 border-blue-200";
                
                if (log.action.includes("Tizimga kirdi")) {
                  icon = <Shield className="w-4 h-4 text-blue-600" />;
                  bgClass = "bg-blue-100 border-blue-200";
                } else if (log.action.includes("Tizimdan chiqdi")) {
-                 icon = <Clock className="w-4 h-4 text-amber-600" />;
-                 bgClass = "bg-amber-100 border-amber-200";
+                 icon = <Clock className="w-4 h-4 text-slate-600" />;
+                 bgClass = "bg-slate-100 border-slate-200";
                }
 
                return (

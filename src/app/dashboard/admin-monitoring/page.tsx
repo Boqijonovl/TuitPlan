@@ -69,26 +69,26 @@ export default function AdminMonitoringPage() {
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
            <div>
              <p className="text-sm font-semibold text-slate-500">Tizim holati</p>
-             <p className="text-xl font-bold text-emerald-500 mt-2">100% Barqaror</p>
+             <p className="text-xl font-bold text-blue-500 mt-2">100% Barqaror</p>
            </div>
-           <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+           <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
              <Shield className="w-6 h-6" />
            </div>
         </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-         <div className="bg-amber-50 p-6 rounded-xl border border-amber-200 shadow-sm flex flex-col justify-between h-full">
+         <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
                  <p className="text-sm font-semibold text-slate-500">Dekanlar soni</p>
                  <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalDeans || 0}</p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
                  <UserCheck className="w-6 h-6" />
               </div>
             </div>
-            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-amber-600 hover:text-amber-700 w-max">
+            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-slate-600 hover:text-slate-700 w-max">
                Batafsil ro'yxat &rarr;
             </Link>
          </div>
@@ -108,17 +108,17 @@ export default function AdminMonitoringPage() {
             </Link>
          </div>
 
-         <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-200 shadow-sm flex flex-col justify-between h-full">
+         <div className="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
                  <p className="text-sm font-semibold text-slate-500">Tizim o'qituvchilari soni</p>
                  <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalTeachers || 0}</p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
                  <Users className="w-6 h-6" />
               </div>
             </div>
-            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-emerald-600 hover:text-emerald-700 w-max">
+            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-blue-600 hover:text-blue-700 w-max">
                Batafsil ro'yxat &rarr;
             </Link>
          </div>

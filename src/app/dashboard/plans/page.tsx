@@ -243,7 +243,7 @@ export default function PlansPage() {
   if (user?.role === "TEACHER" || user?.role === "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
-        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4"><AlertCircle className="w-8 h-8" /></div>
+        <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4"><AlertCircle className="w-8 h-8" /></div>
         <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan sahifa</h2>
         <p className="text-slate-500 mt-2">Kechirasiz, ushbu sahifaga kirish sizning rolingiz uchun yopilgan.</p>
       </div>
@@ -286,7 +286,7 @@ export default function PlansPage() {
                 </div>
                 
                 <div className="flex gap-2">
-                  <button onClick={() => handleExportWord(plan)} className="text-slate-400 hover:text-emerald-600 bg-slate-50 hover:bg-emerald-50 p-2 rounded-lg transition-colors border border-slate-100 title='Word fayl sifatida yuklab olish'">
+                  <button onClick={() => handleExportWord(plan)} className="text-slate-400 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Word fayl sifatida yuklab olish'">
                     <Eye className="w-4 h-4" />
                   </button>
                   {(user?.role !== "ADMIN" && (!plan.userId || plan.userId === user?.id)) && (
@@ -294,7 +294,7 @@ export default function PlansPage() {
                       <button onClick={() => openEditModal(plan)} className="text-slate-400 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Tahrirlash'">
                         <FileEdit className="w-4 h-4" />
                       </button>
-                      <button onClick={() => handleDeletePlan(plan.id)} className="text-slate-400 hover:text-red-600 bg-slate-50 hover:bg-red-50 p-2 rounded-lg transition-colors border border-slate-100 title='O`chirish'">
+                      <button onClick={() => handleDeletePlan(plan.id)} className="text-slate-400 hover:text-slate-600 bg-slate-50 hover:bg-slate-50 p-2 rounded-lg transition-colors border border-slate-100 title='O`chirish'">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </>
@@ -312,9 +312,9 @@ export default function PlansPage() {
             
             <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
               <span className={`px-2.5 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider ${
-                plan.status === 'APPROVED' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
+                plan.status === 'APPROVED' ? 'bg-blue-50 text-blue-600 border border-blue-100' :
                 plan.status === 'DRAFT' ? 'bg-slate-100 text-slate-600 border border-slate-200' :
-                'bg-amber-50 text-amber-600 border border-amber-100'
+                'bg-slate-50 text-slate-600 border border-slate-100'
               }`}>
                 {plan.status}
               </span>
@@ -343,7 +343,7 @@ export default function PlansPage() {
                 {currentPlan.id ? <Edit3 className="w-5 h-5 text-blue-500"/> : <Plus className="w-5 h-5 text-blue-500"/>}
                 {currentPlan.id ? "Rejani tahrirlash" : "Yangi reja yaratish"}
               </h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-slate-100">
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-500 transition-colors p-1 rounded-md hover:bg-slate-100">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -429,7 +429,7 @@ export default function PlansPage() {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Rejadagi vazifalar ({currentPlan.tasks.length})</h3>
                     <div className="flex items-center gap-2">
-                      <button type="button" onClick={loadTemplateTasks} className="text-sm font-medium text-emerald-600 hover:text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
+                      <button type="button" onClick={loadTemplateTasks} className="text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
                         <Copy className="w-4 h-4"/> Shablonlarni yuklash
                       </button>
                       <button type="button" onClick={addTaskRow} className="text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
@@ -473,7 +473,7 @@ export default function PlansPage() {
                              </select>
                           </div>
                           
-                          <button type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg shrink-0 transition-colors self-start mt-1">
+                          <button type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg shrink-0 transition-colors self-start mt-1">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>

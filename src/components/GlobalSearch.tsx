@@ -127,7 +127,7 @@ export function GlobalSearch() {
                     }}
                     className="w-full flex items-center gap-3 px-3 md:px-4 py-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-700 text-left transition-colors group"
                   >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${res.type === 'USER' ? 'bg-blue-100 text-blue-600' : res.type === 'PLAN' ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600'}`}>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${res.type === 'USER' ? 'bg-blue-100 text-blue-600' : res.type === 'PLAN' ? 'bg-slate-100 text-slate-600' : 'bg-blue-100 text-blue-600'}`}>
                       {res.type === 'USER' ? <Users className="w-4 h-4" /> : res.type === 'PLAN' ? <Map className="w-4 h-4" /> : <CheckSquare className="w-4 h-4" />}
                     </div>
                     <div className="flex-1 overflow-hidden">

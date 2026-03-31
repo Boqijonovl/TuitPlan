@@ -183,14 +183,14 @@ export default function MonitoringPage() {
           <div className="flex items-center gap-3 print:hidden">
             <button 
                onClick={handleExportExcel}
-               className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm shadow-emerald-500/30 transition-all shrink-0 text-sm"
+               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm shadow-blue-500/30 transition-all shrink-0 text-sm"
             >
                <Download className="w-4 h-4" />
                Excel yuklash
             </button>
             <button 
                onClick={handleExportPDF}
-               className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm shadow-rose-500/30 transition-all shrink-0 text-sm"
+               className="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm shadow-slate-500/30 transition-all shrink-0 text-sm"
             >
                <FileText className="w-4 h-4" />
                PDF yuklash
@@ -239,14 +239,14 @@ export default function MonitoringPage() {
                 <h2 className="text-xl font-bold mb-2">Tizim unumdorligi</h2>
                 <div className="space-y-3 relative z-0">
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
-                    <TrendingUp className="w-6 h-6 text-emerald-300" />
+                    <TrendingUp className="w-6 h-6 text-blue-300" />
                     <div>
                       <p className="text-xs font-medium text-blue-100">Jami rejalar</p>
                       <p className="text-xl font-bold">{plans.length}</p>
                     </div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
-                    <Users className="w-6 h-6 text-amber-300" />
+                    <Users className="w-6 h-6 text-slate-300" />
                     <div>
                       <p className="text-xs font-medium text-blue-100">Topshirilgan hisobotlar</p>
                       <p className="text-xl font-bold">{totalSubmissions} ta fayl</p>
@@ -311,12 +311,12 @@ export default function MonitoringPage() {
           <div key="leaderboard" className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-blue-500/50 transition-shadow overflow-hidden">
             <div className="drag-handle p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between cursor-move opacity-90 group-hover:opacity-100 transition-opacity z-10 shrink-0">
               <div className="flex items-center gap-3">
-                <Trophy className="w-5 h-5 text-amber-500" />
+                <Trophy className="w-5 h-5 text-slate-500" />
                 <div>
                    <h2 className="text-sm font-bold text-slate-900">Liderlar doskasi (KPI)</h2>
                 </div>
               </div>
-              <Grid className="w-4 h-4 text-amber-300" />
+              <Grid className="w-4 h-4 text-slate-300" />
             </div>
             
             <div className="flex-1 overflow-y-auto relative z-0">
@@ -332,11 +332,11 @@ export default function MonitoringPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-50">
                   {leaderboard.slice(0, 10).map((u, idx) => (
-                    <tr key={u.id} className={`hover:bg-amber-50/30 transition-colors ${currentUser?.id === u.id ? 'bg-blue-50/50' : ''}`}>
+                    <tr key={u.id} className={`hover:bg-slate-50/30 transition-colors ${currentUser?.id === u.id ? 'bg-blue-50/50' : ''}`}>
                       <td className="px-4 py-3 text-center font-bold">
-                        {idx === 0 ? <Medal className="w-5 h-5 text-yellow-500 mx-auto" strokeWidth={2.5}/> : 
+                        {idx === 0 ? <Medal className="w-5 h-5 text-slate-500 mx-auto" strokeWidth={2.5}/> : 
                          idx === 1 ? <Medal className="w-5 h-5 text-slate-400 mx-auto" strokeWidth={2.5}/> : 
-                         idx === 2 ? <Medal className="w-5 h-5 text-amber-600 mx-auto" strokeWidth={2.5}/> : 
+                         idx === 2 ? <Medal className="w-5 h-5 text-slate-600 mx-auto" strokeWidth={2.5}/> : 
                          <span className="text-slate-400">#{u.rank}</span>}
                       </td>
                       <td className="px-4 py-3">
@@ -355,7 +355,7 @@ export default function MonitoringPage() {
                         <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">{u.submissionsCount} ta</span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <div className="inline-flex items-center gap-1 bg-amber-500 text-white px-2 py-1 rounded text-xs font-black shadow-sm">
+                        <div className="inline-flex items-center gap-1 bg-slate-500 text-white px-2 py-1 rounded text-xs font-black shadow-sm">
                           {u.points} <span className="text-[8px] font-medium opacity-80">ball</span>
                         </div>
                       </td>
@@ -405,7 +405,7 @@ export default function MonitoringPage() {
                         <td className="px-6 py-3 text-slate-600 text-xs">{plan.department?.name || "Noma'lum"}</td>
                         <td className="px-6 py-3 text-center">
                           <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 rounded text-xs font-bold">
-                            <span className="text-emerald-600">{done}</span>
+                            <span className="text-blue-600">{done}</span>
                             <span className="text-slate-400">/</span>
                             <span className="text-slate-600">{total}</span>
                           </div>
@@ -418,7 +418,7 @@ export default function MonitoringPage() {
                         <td className="px-6 py-3">
                           <div className="flex items-center justify-end gap-3 text-xs">
                             <div className="w-full bg-slate-100 rounded-full h-1.5 max-w-[60px]">
-                              <div className={`h-1.5 rounded-full ${progress >= 80 ? 'bg-emerald-500' : progress >= 40 ? 'bg-amber-500' : 'bg-red-500'}`} style={{ width: `${progress}%` }}></div>
+                              <div className={`h-1.5 rounded-full ${progress >= 80 ? 'bg-blue-500' : progress >= 40 ? 'bg-slate-500' : 'bg-slate-500'}`} style={{ width: `${progress}%` }}></div>
                             </div>
                             <span className="font-bold text-slate-700 w-8 text-right">{progress}%</span>
                           </div>

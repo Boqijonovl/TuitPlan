@@ -130,8 +130,8 @@ export default function DashboardHome() {
           icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" 
         />
         <StatCard href="/dashboard/plans" title="Faol rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-blue-500" />} color="bg-blue-50/50 hover:border-blue-300" />
-        <StatCard href="/dashboard/tasks" title="Bajarilgan vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-50/50 hover:border-emerald-300" />
-        <StatCard href="/dashboard/tasks" title="Jarayondagi vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-50/50 hover:border-amber-300" />
+        <StatCard href="/dashboard/tasks" title="Bajarilgan vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-blue-500" />} color="bg-blue-50/50 hover:border-blue-300" />
+        <StatCard href="/dashboard/tasks" title="Jarayondagi vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-slate-500" />} color="bg-slate-50/50 hover:border-slate-300" />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mt-8">
@@ -188,11 +188,11 @@ export default function DashboardHome() {
                   <h3 className="font-semibold text-slate-900 pr-10">{n.title}</h3>
                   <div className="flex items-center gap-2">
                     {user?.id === n.authorId && (
-                      <button onClick={() => handleDeleteNews(n.id)} className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" title="O'chirish">
+                      <button onClick={() => handleDeleteNews(n.id)} className="p-1.5 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" title="O'chirish">
                         <Trash2 className="w-4 h-4"/>
                       </button>
                     )}
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${n.type === 'UNIVERSITET' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}`}>
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${n.type === 'UNIVERSITET' ? 'bg-blue-100 text-blue-700' : 'bg-blue-100 text-blue-700'}`}>
                       {n.type}
                     </span>
                   </div>

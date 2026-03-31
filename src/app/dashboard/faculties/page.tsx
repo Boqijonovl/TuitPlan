@@ -159,7 +159,7 @@ export default function FacultiesPage() {
   if (currentUser?.role !== "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
-        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4"><Shield className="w-8 h-8" /></div>
+        <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4"><Shield className="w-8 h-8" /></div>
         <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan hudud</h2>
         <p className="text-slate-500 mt-2">Tuzilmalarni boshqarish bo'limi faqatgina Bosh Admin uchun ochiq.</p>
       </div>
@@ -223,7 +223,7 @@ export default function FacultiesPage() {
                   </button>
                   <button 
                     onClick={() => handleDeleteFaculty(faculty.id)}
-                    className="text-white/40 hover:text-red-400 hover:bg-white/10 p-2 rounded-xl transition-all"
+                    className="text-white/40 hover:text-slate-400 hover:bg-white/10 p-2 rounded-xl transition-all"
                     title="Fakultetni o'chirish"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -270,13 +270,13 @@ export default function FacultiesPage() {
                           </button>
                           <button 
                             onClick={(e) => { e.stopPropagation(); setEditTarget({ id: dep.id, name: dep.name, type: "DEPARTMENT" }); setIsEditModalOpen(true); }}
-                            className="p-1.5 text-slate-400 hover:text-amber-600 hover:bg-amber-100 rounded-lg transition-all" title="Nomini tahrirlash"
+                            className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all" title="Nomini tahrirlash"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button 
                             onClick={(e) => { e.stopPropagation(); handleDeleteDepartment(dep.id, dep.name); }}
-                            className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-100 rounded-lg transition-all" title="Kafedrani o'chirish"
+                            className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all" title="Kafedrani o'chirish"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -352,7 +352,7 @@ export default function FacultiesPage() {
       {isUserModalOpen && (
         <div className="fixed inset-0 bg-blue-950/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-[2rem] shadow-sm w-full max-w-md overflow-hidden transform transition-all border border-white/50">
-             <div className="bg-emerald-500 p-6 text-white flex justify-between items-center">
+             <div className="bg-blue-500 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><UserPlus className="w-5 h-5"/></div>
                  <h2 className="font-bold text-lg tracking-wide">Yangi xodim qo'shish</h2>
@@ -362,12 +362,12 @@ export default function FacultiesPage() {
              <form onSubmit={handleAddUser} className="p-8 space-y-4">
                <div>
                  <label className="block text-sm font-bold text-slate-700 mb-1.5">F.I.SH (ism familiya)</label>
-                 <input type="text" required value={userForm.name} onChange={e => setUserForm({...userForm, name: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="Masalan: Aliyev Vali" />
+                 <input type="text" required value={userForm.name} onChange={e => setUserForm({...userForm, name: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Masalan: Aliyev Vali" />
                </div>
                <div className="grid grid-cols-2 gap-4">
                  <div>
                    <label className="block text-sm font-bold text-slate-700 mb-1.5">Mavqei (Role)</label>
-                   <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
+                   <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-semibold">
                      {userForm.departmentId === "" && <option value="DEAN">Dekan</option>}
                      {userForm.departmentId !== "" && <option value="HOD">Kafedra Mudiri</option>}
                      {userForm.departmentId !== "" && <option value="TEACHER">O'qituvchi</option>}
@@ -375,16 +375,16 @@ export default function FacultiesPage() {
                  </div>
                  <div>
                    <label className="block text-sm font-bold text-slate-700 mb-1.5">Tizimga Kirish (Login)</label>
-                   <input type="text" required value={userForm.email} onChange={e => setUserForm({...userForm, email: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="johndoe12" />
+                   <input type="text" required value={userForm.email} onChange={e => setUserForm({...userForm, email: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="johndoe12" />
                  </div>
                </div>
                <div>
                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Parol</label>
-                 <input type="text" required value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="Maxfiy kod..." />
+                 <input type="text" required value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="Maxfiy kod..." />
                </div>
                <div className="flex justify-end gap-3 pt-4">
                  <button type="button" onClick={() => setIsUserModalOpen(false)} className="px-6 py-2.5 hover:bg-slate-100 rounded-xl text-slate-600 font-bold text-sm transition-colors">Bekor qilish</button>
-                 <button type="submit" className="px-6 py-2.5 bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Ro'yxatdan o'tkazish</button>
+                 <button type="submit" className="px-6 py-2.5 bg-blue-500 text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Ro'yxatdan o'tkazish</button>
                </div>
               </form>
            </div>
@@ -395,7 +395,7 @@ export default function FacultiesPage() {
       {isEditModalOpen && (
         <div className="fixed inset-0 bg-blue-950/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
            <div className="bg-white rounded-[2rem] shadow-sm w-full max-w-md overflow-hidden transform transition-all border border-white/50">
-             <div className="bg-amber-500 p-6 text-white flex justify-between items-center">
+             <div className="bg-slate-500 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><Edit2 className="w-5 h-5"/></div>
                  <h2 className="font-bold text-lg tracking-wide">Nomini o'zgartirish</h2>
@@ -405,11 +405,11 @@ export default function FacultiesPage() {
              <form onSubmit={handleEdit} className="p-8 space-y-6">
                <div className="space-y-2">
                  <label className="block text-sm font-bold text-slate-700">{editTarget.type === "FACULTY" ? "Fakultet nomi" : "Kafedra nomi"}</label>
-                 <input type="text" required value={editTarget.name} onChange={e => setEditTarget({...editTarget, name: e.target.value})} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 focus:bg-white transition-all shadow-inner" />
+                 <input type="text" required value={editTarget.name} onChange={e => setEditTarget({...editTarget, name: e.target.value})} className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-medium outline-none focus:ring-4 focus:ring-slate-500/20 focus:border-slate-500 focus:bg-white transition-all shadow-inner" />
                </div>
                <div className="flex justify-end gap-3 pt-2">
                  <button type="button" onClick={() => setIsEditModalOpen(false)} className="px-6 py-3 hover:bg-slate-100 rounded-xl text-slate-600 font-bold text-sm transition-colors">Bekor qilish</button>
-                 <button type="submit" className="px-8 py-3 bg-amber-500 text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Saqlash</button>
+                 <button type="submit" className="px-8 py-3 bg-slate-500 text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Saqlash</button>
                </div>
              </form>
            </div>

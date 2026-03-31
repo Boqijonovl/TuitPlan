@@ -219,12 +219,12 @@ export default function CalendarPage() {
              <div className="text-xl font-bold text-slate-900">{stats.total}</div>
            </div>
            <div className="bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm text-center">
-             <div className="text-xs font-semibold text-emerald-500 uppercase">Bajarilgan</div>
-             <div className="text-xl font-bold text-emerald-600">{stats.completed}</div>
+             <div className="text-xs font-semibold text-blue-500 uppercase">Bajarilgan</div>
+             <div className="text-xl font-bold text-blue-600">{stats.completed}</div>
            </div>
            <div className="bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm text-center">
-             <div className="text-xs font-semibold text-amber-500 uppercase">Kutilayotgan</div>
-             <div className="text-xl font-bold text-amber-600">{stats.pending}</div>
+             <div className="text-xs font-semibold text-slate-500 uppercase">Kutilayotgan</div>
+             <div className="text-xl font-bold text-slate-600">{stats.pending}</div>
            </div>
         </div>
       </div>
@@ -235,10 +235,10 @@ export default function CalendarPage() {
            <div className="w-3 h-3 rounded-full bg-blue-500 shadow-sm border border-blue-600"></div> Yangi
          </div>
          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-           <div className="w-3 h-3 rounded-full bg-amber-500 shadow-sm border border-amber-600"></div> Jarayonda
+           <div className="w-3 h-3 rounded-full bg-slate-500 shadow-sm border border-slate-600"></div> Jarayonda
          </div>
          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-           <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-sm border border-emerald-600"></div> Bajarilgan
+           <div className="w-3 h-3 rounded-full bg-blue-500 shadow-sm border border-blue-600"></div> Bajarilgan
          </div>
       </div>
 
@@ -306,14 +306,14 @@ export default function CalendarPage() {
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Biriktirilgan rol</p>
                     <p className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
-                      <Shield className="w-4 h-4 text-amber-500" />
+                      <Shield className="w-4 h-4 text-slate-500" />
                       {selectedEvent.assignedRole || "Hamma"}
                     </p>
                   </div>
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Muddati</p>
                     <p className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-emerald-500" />
+                      <Clock className="w-4 h-4 text-blue-500" />
                       {selectedEvent.timeframe || "Muddatsiz"}
                     </p>
                   </div>
@@ -323,8 +323,8 @@ export default function CalendarPage() {
                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Holati va hisobotlar</p>
                    <div className="flex items-center gap-2 mb-3">
                       <span className={`px-3 py-1 text-xs font-bold rounded-lg border ${
-                        selectedEvent.submissions?.length > 0 ? 'bg-emerald-50 text-emerald-600 border-emerald-100' :
-                        selectedEvent.status === 'JARAYONDA' ? 'bg-amber-50 text-amber-600 border-amber-100' :
+                        selectedEvent.submissions?.length > 0 ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                        selectedEvent.status === 'JARAYONDA' ? 'bg-slate-50 text-slate-600 border-slate-100' :
                         'bg-blue-50 text-blue-600 border-blue-100'
                       }`}>
                         {selectedEvent.submissions?.length > 0 ? '✓ BAJARILGAN' : selectedEvent.status || 'YANGI'}

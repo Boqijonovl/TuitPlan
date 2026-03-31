@@ -146,7 +146,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 >
                   <Bell className="w-6 h-6" />
                   {notifications.length > 0 && (
-                    <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                    <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-slate-500 rounded-full border-2 border-white"></span>
                   )}
                 </button>
 
@@ -172,7 +172,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                            {notif.type === "TASK_REMINDER" ? (
                              <>
                                <p className="text-[11px] text-slate-500 mt-1 font-semibold line-clamp-1">{notif.plan?.title || ""}</p>
-                               <p className="text-xs text-amber-600 mt-1.5 flex items-center gap-1">Muddat: {notif.timeframe || notif.deadline || "Muddatsiz"}</p>
+                               <p className="text-xs text-slate-600 mt-1.5 flex items-center gap-1">Muddat: {notif.timeframe || notif.deadline || "Muddatsiz"}</p>
                              </>
                            ) : (
                              <p className="text-xs text-slate-600 mt-1.5 line-clamp-2">{notif.message}</p>

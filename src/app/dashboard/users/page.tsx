@@ -198,7 +198,7 @@ export default function UsersPage() {
   if (currentUser && currentUser.role !== "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
-        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4"><Shield className="w-8 h-8" /></div>
+        <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4"><Shield className="w-8 h-8" /></div>
         <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan hudud</h2>
         <p className="text-slate-500 mt-2">Kechirasiz, foydalanuvchilarni boshqarish bo'limi faqatgina Tizim Administratori uchun ochiq.</p>
       </div>
@@ -289,10 +289,10 @@ export default function UsersPage() {
                 />
                 <button 
                   onClick={() => fileInputRef.current?.click()}
-                  className="bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm shrink-0 text-sm"
+                  className="bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300 px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 transition-all shadow-sm shrink-0 text-sm"
                   title="Word ro'yxatni kiritish"
                 >
-                  <FileText className="w-4 h-4 text-emerald-500" />
+                  <FileText className="w-4 h-4 text-blue-500" />
                   <span className="hidden sm:inline">Word.docx Import</span>
                 </button>
               </>
@@ -335,7 +335,7 @@ export default function UsersPage() {
             className="group cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
           >
             <Users className="w-24 h-24 text-slate-100 absolute -top-4 -right-4 group-hover:scale-125 transition-transform duration-500" />
-            <div className="w-16 h-16 bg-amber-50 rounded-xl flex items-center justify-center mb-4 text-amber-600 border border-amber-100">
+            <div className="w-16 h-16 bg-slate-50 rounded-xl flex items-center justify-center mb-4 text-slate-600 border border-slate-100">
               <Briefcase className="w-8 h-8 drop-shadow-sm" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">Yig'ma dekanlar</h3>
@@ -351,7 +351,7 @@ export default function UsersPage() {
             className="group cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
           >
             <UserX className="w-24 h-24 text-slate-100 absolute -bottom-4 -left-4 group-hover:scale-125 transition-transform duration-500" />
-            <div className="w-16 h-16 bg-rose-50 rounded-xl flex items-center justify-center mb-4 text-rose-500 border border-rose-100">
+            <div className="w-16 h-16 bg-slate-50 rounded-xl flex items-center justify-center mb-4 text-slate-500 border border-slate-100">
               <UserX className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">Bo'sh kadrlar</h3>
@@ -443,7 +443,7 @@ export default function UsersPage() {
                     <td className="px-6 py-4 font-medium text-slate-900 flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold relative ${activeFacultyId === "ADMIN" ? 'bg-slate-800 text-white' : 'bg-blue-100 text-blue-600'}`}>
                         {u.name.charAt(0).toUpperCase()}
-                        <div className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white ${u.isDeleted ? 'bg-red-500' : 'bg-green-500'}`}></div>
+                        <div className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-white ${u.isDeleted ? 'bg-slate-500' : 'bg-blue-500'}`}></div>
                       </div>
                       {u.name}
                     </td>
@@ -454,9 +454,9 @@ export default function UsersPage() {
                     </td>
                     <td className="px-6 py-4">
                       {u.role === "ADMIN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 tracking-wider">ADMIN</span>}
-                      {u.role === "DEAN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-100/50 tracking-wider">DEKAN</span>}
+                      {u.role === "DEAN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-700 border border-slate-100/50 tracking-wider">DEKAN</span>}
                       {u.role === "HOD" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">MUDIR</span>}
-                      {u.role === "TEACHER" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100/50 tracking-wider">O'QITUVCHI</span>}
+                      {u.role === "TEACHER" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">O'QITUVCHI</span>}
                     </td>
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
                       <button 
@@ -467,7 +467,7 @@ export default function UsersPage() {
                       </button>
                       <button 
                         onClick={() => handleDeleteUser(u.id, u.name)}
-                        className="text-slate-400 hover:text-red-600 p-1.5 hover:bg-red-50 rounded-lg transition-colors title='Ochirish'"
+                        className="text-slate-400 hover:text-slate-600 p-1.5 hover:bg-slate-50 rounded-lg transition-colors title='Ochirish'"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
