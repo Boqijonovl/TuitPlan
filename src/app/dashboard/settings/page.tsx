@@ -155,7 +155,7 @@ export default function SettingsPage() {
                  placeholder="Barcha dekanlar diqqatiga: Soat 12 dan keyin..."
                  className="w-full text-sm bg-white border border-slate-200 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
                />
-               <button onClick={handleSaveMessage} disabled={saving} className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-sm transition-colors self-end flex items-center gap-2">
+               <button onClick={handleSaveMessage} disabled={saving} className="bg-[#309F4C] hover:bg-[#25823c] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm shadow-emerald-600/20 text-sm transition-colors self-end flex items-center gap-2">
                   <Send className="w-4 h-4"/> Matnni Saqlash
                </button>
              </div>

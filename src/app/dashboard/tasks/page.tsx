@@ -607,7 +607,7 @@ export default function TasksPage() {
                 <button 
                   type="submit" 
                   disabled={submitting || !note.trim()}
-                  className="px-6 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold shadow-sm shadow-blue-500/20 transition-colors disabled:opacity-50 text-sm flex items-center gap-2"
+                  className="px-6 py-2.5 bg-[#309F4C] hover:bg-[#25823c] text-white rounded-xl font-bold shadow-sm shadow-emerald-500/20 transition-colors disabled:opacity-50 text-sm flex items-center gap-2"
                 >
                   {submitting ? "Yuklanmoqda..." : "Tasdiqlash va Yuborish"}
                 </button>

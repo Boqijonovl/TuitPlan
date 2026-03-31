@@ -200,7 +200,7 @@ export default function RolesPage() {
 
               <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3 shrink-0">
                  <button onClick={() => setIsModalOpen(false)} className="px-6 py-2.5 hover:bg-slate-200 text-slate-600 font-bold rounded-xl transition-colors">Bekor qilish</button>
-                 <button onClick={handleSubmit} disabled={loading} className="px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-sm transition-transform transform hover:-translate-y-0.5 flex items-center gap-2">
+                 <button onClick={handleSubmit} disabled={loading} className="px-8 py-2.5 bg-[#309F4C] hover:bg-[#25823c] text-white font-bold rounded-xl shadow-sm shadow-emerald-600/20 transition-transform transform hover:-translate-y-0.5 flex items-center gap-2">
                    {loading ? "Saqlanmoqda..." : <><Save className="w-4 h-4"/> Saqlash</>}
                  </button>
               </div>

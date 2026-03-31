@@ -658,7 +658,7 @@ export default function UsersPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-sm transition-colors disabled:opacity-70 text-sm flex items-center gap-2"
+                  className="px-6 py-2 bg-[#309F4C] hover:bg-[#25823c] text-white rounded-xl font-medium shadow-sm transition-colors disabled:opacity-70 text-sm flex items-center gap-2"
                 >
                   {isSubmitting ? <span className="animate-spin w-4 h-4 rounded-full border-2 border-white/50 border-t-white"></span> : <CheckCircle className="w-4 h-4" />}
                   {isSubmitting ? "Saqlanmoqda..." : (editingUserId ? "O'zgarishlarni Saqlash" : "Xodimni Yaratish (Qo'shish)")}

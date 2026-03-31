@@ -184,7 +184,7 @@ export default function ProfilePage() {
             <button 
               type="submit" 
               disabled={isSaving}
-              className="bg-blue-600 py-2.5 px-6 rounded-xl hover:bg-blue-700 text-white font-medium shadow-sm shadow-blue-500/20 transition-all flex items-center gap-2 disabled:opacity-70"
+              className="bg-[#309F4C] py-2.5 px-6 rounded-xl hover:bg-[#25823c] text-white font-medium shadow-sm shadow-emerald-500/20 transition-all flex items-center gap-2 disabled:opacity-70"
             >
               <Save className="w-5 h-5" />
               {isSaving ? "Saqlanmoqda..." : "Saqlash"}

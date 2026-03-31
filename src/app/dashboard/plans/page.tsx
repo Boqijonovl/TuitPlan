@@ -495,7 +495,7 @@ export default function PlansPage() {
                 <button 
                   type="submit" 
                   disabled={saving || currentPlan.title.trim() === ""}
-                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-colors disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-[#309F4C] hover:bg-[#25823c] text-white rounded-lg font-medium shadow-sm transition-colors disabled:opacity-50 flex items-center gap-2"
                 >
                   {saving ? "Saqlanmoqda..." : "Saqlash va Tasdiqlash"}
                 </button>

@@ -316,7 +316,7 @@ export default function FacultiesPage() {
                </div>
                <div className="flex justify-end gap-3 pt-2">
                  <button type="button" onClick={() => setIsModalOpen(false)} className="px-6 py-3 hover:bg-slate-100 rounded-xl text-slate-600 font-bold text-sm transition-colors">Bekor qilish</button>
-                 <button type="submit" className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Saqlash</button>
+                 <button type="submit" className="px-8 py-3 bg-[#309F4C] hover:bg-[#25823c] text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Saqlash</button>
                </div>
              </form>
           </div>
@@ -341,7 +341,7 @@ export default function FacultiesPage() {
                </div>
                <div className="flex justify-end gap-3 pt-2">
                  <button type="button" onClick={() => setIsDepModalOpen(false)} className="px-6 py-3 hover:bg-slate-100 rounded-xl text-slate-600 font-bold text-sm transition-colors">Bekor qilish</button>
-                 <button type="submit" className="px-8 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Saqlash</button>
+                 <button type="submit" className="px-8 py-3 bg-[#309F4C] hover:bg-[#25823c] text-white rounded-xl font-bold text-sm shadow-sm hover:shadow-sm transform hover:-translate-y-0.5 transition-all">Saqlash</button>
                </div>
              </form>
            </div>
