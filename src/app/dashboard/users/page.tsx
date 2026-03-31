@@ -206,20 +206,20 @@ export default function UsersPage() {
   }
 
   // Sahifa Strukturasi Title lari
-  let viewTitle = "Xodimlar Boshqaruvi";
+  let viewTitle = "Xodimlar boshqaruvi";
   let viewSubtitle = "Fakultetlar va Kafedralar bo'ylab ko'rish rejimidasiz.";
   let filteredUsers: any[] = [];
 
   if (activeFacultyId === "ADMIN") {
-     viewTitle = "Oliy Tuzilma (Adminlar)";
+     viewTitle = "Oliy tuzilma (adminlar)";
      viewSubtitle = "Tizimni to'liq boshqaruvchi shaxslar";
      filteredUsers = users.filter((u: any) => u.role === "ADMIN");
   } else if (activeFacultyId === "ALL_DEANS") {
-     viewTitle = "Fakultet Dekanlari";
+     viewTitle = "Fakultet dekanlari";
      viewSubtitle = "Tizimdagi barcha ta'lim fakultetlari rahbarlari ro'yxati";
      filteredUsers = users.filter((u: any) => u.role === "DEAN");
   } else if (activeFacultyId === "UNASSIGNED") {
-     viewTitle = "Biriktirilmagan Kadrlar";
+     viewTitle = "Biriktirilmagan kadrlar";
      viewSubtitle = "Fakulteti yoki kafedrasi noma'lum izolyatsiyadagi xodimlar";
      filteredUsers = users.filter((u: any) => u.role !== "ADMIN" && !u.facultyId);
   } else if (activeFacultyId && !activeDepartmentId) {
@@ -322,7 +322,7 @@ export default function UsersPage() {
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20">
               <Shield className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Oliy Tuzilma</h3>
+            <h3 className="text-xl font-bold text-white mb-2">Oliy tuzilma</h3>
             <p className="text-slate-400 text-sm mb-4">Tizim administratorlari (Boshqaruvchi guruh)</p>
             <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
               <UserCheck className="w-4 h-4" /> {users.filter((u: any) => u.role === "ADMIN").length} xodim
@@ -338,7 +338,7 @@ export default function UsersPage() {
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
               <Briefcase className="w-8 h-8 drop-shadow-md" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Yig'ma Dekanlar</h3>
+            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Yig'ma dekanlar</h3>
             <p className="text-amber-100 text-xs mb-4">Mavjud barcha fakultet dekanlari ro'yxati</p>
             <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm border border-white/10">
               {users.filter((u: any) => u.role === "DEAN").length} ta dekan
@@ -354,7 +354,7 @@ export default function UsersPage() {
             <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20">
               <UserX className="w-8 h-8" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Bo'sh Kadrlar</h3>
+            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Bo'sh kadrlar</h3>
             <p className="text-rose-100 text-xs mb-4">Hech bir kafedraga kirmagan izolyatsiya ro'yxati</p>
             <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
               {users.filter((u: any) => u.role !== "ADMIN" && !u.facultyId).length} tasdiqsiz xodim

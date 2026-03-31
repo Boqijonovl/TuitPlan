@@ -101,14 +101,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           
           {user.role === "ADMIN" && (
             <>
-              <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin Kuzatuv" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
+              <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin kuzatuv paneli" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
               <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Tuzilma (Fakultetlar)" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
               <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
               <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
             </>
           )}
           {user.role === "DEAN" && (
-             <NavItem href="/dashboard/archive" icon={<FolderOpen />} label="Fayllar Arxivi" isOpen={isSidebarOpen} active={pathname.includes("/archive")} isMobile={isMobile} />
+             <NavItem href="/dashboard/archive" icon={<FolderOpen />} label="Fayllar arxivi" isOpen={isSidebarOpen} active={pathname.includes("/archive")} isMobile={isMobile} />
           )}
         </div>
 

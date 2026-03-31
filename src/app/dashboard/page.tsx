@@ -126,12 +126,12 @@ export default function DashboardHome() {
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mt-2">
         <StatCard 
-          title="Jami Foydalanuvchilar" value={stats?.totalUsers || 0} 
+          title="Jami foydalanuvchilar" value={stats?.totalUsers || 0} 
           icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" 
         />
-        <StatCard href="/dashboard/plans" title="Faol Rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-indigo-500" />} color="bg-indigo-500/10 hover:border-indigo-300" />
-        <StatCard href="/dashboard/tasks" title="Bajarilgan Vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-500/10 hover:border-emerald-300" />
-        <StatCard href="/dashboard/tasks" title="Jarayondagi Vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-500/10 hover:border-amber-300" />
+        <StatCard href="/dashboard/plans" title="Faol rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-indigo-500" />} color="bg-indigo-500/10 hover:border-indigo-300" />
+        <StatCard href="/dashboard/tasks" title="Bajarilgan vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-500/10 hover:border-emerald-300" />
+        <StatCard href="/dashboard/tasks" title="Jarayondagi vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-500/10 hover:border-amber-300" />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mt-8">
@@ -141,7 +141,7 @@ export default function DashboardHome() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-indigo-500" />
-              Yangi Qo'shilgan Rejalar
+              Yangi qo'shilgan rejalar
             </h2>
             <Link href="/dashboard/plans" className="text-sm font-medium text-indigo-600 hover:text-indigo-700 hover:underline">
               Barchasi
@@ -174,7 +174,7 @@ export default function DashboardHome() {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
               <Megaphone className="w-5 h-5 text-blue-500" />
-              Bugungi Yangiliklar
+              Bugungi yangiliklar
             </h2>
             <Link href="/dashboard/news" className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline">
               Barchasi
