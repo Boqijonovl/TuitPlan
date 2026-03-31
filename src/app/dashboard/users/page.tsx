@@ -154,6 +154,27 @@ export default function UsersPage() {
     }
   };
 
+  const handleImpersonate = async (targetId: string, name: string) => {
+    if (!confirm(`Haqiqatdan ham ${name} akkauntiga vaqtinchalik kirmoqchimisiz?`)) return;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("/api/auth/impersonate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ targetUserId: targetId })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      toast.success(data.message);
+      setTimeout(() => window.location.href = "/dashboard", 1000);
+    } catch (e: any) {
+      toast.error(e.message || "Xatolik yuz berdi");
+    }
+  };
+
   const handleWordUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !activeFacultyId || !activeDepartmentId) return;
@@ -459,6 +480,14 @@ export default function UsersPage() {
                       {u.role === "TEACHER" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">O'QITUVCHI</span>}
                     </td>
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
+                      {currentUser?.role === "ADMIN" && currentUser?.id !== u.id && (
+                        <button 
+                          onClick={() => handleImpersonate(u.id, u.name)}
+                          className="text-slate-400 hover:text-emerald-600 p-1.5 hover:bg-emerald-50 rounded-lg transition-colors title='Shu xodim nomidan kirish'"
+                        >
+                          <UserCheck className="w-4 h-4" />
+                        </button>
+                      )}
                       <button 
                         onClick={() => openEditModal(u)}
                         className="text-slate-400 hover:text-blue-600 p-1.5 hover:bg-blue-50 rounded-lg transition-colors title='Tahrirlash'"
