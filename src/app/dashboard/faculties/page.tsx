@@ -190,8 +190,8 @@ export default function FacultiesPage() {
             <div key={faculty.id} className="bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-sm hover:shadow-slate-200/50 transition-all duration-300 overflow-hidden flex flex-col group/card relative">
               <div className="absolute inset-0 bg-blue-50/50 opacity-0 group-hover/card:opacity-100 transition-opacity pointer-events-none"></div>
               
-              <div className="p-6 bg-slate-50 flex justify-between items-start relative overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+              <div className="p-6 bg-blue-600 flex justify-between items-start relative overflow-hidden shadow-inner">
+                <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center gap-4 relative z-10">
                   <div className="p-3 bg-white/10 backdrop-blur-md rounded-xl text-blue-100 shadow-inner border border-white/20">
                     <Building2 className="w-7 h-7" />

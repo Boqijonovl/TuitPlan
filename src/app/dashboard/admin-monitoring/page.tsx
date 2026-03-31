@@ -66,12 +66,6 @@ export default function AdminMonitoringPage() {
            </h1>
            <p className="text-sm font-medium text-slate-500 mt-2">Tizim holati, real vaqt faolligi va foydalanuvchilar harakatini tahlil qilish paneli.</p>
         </div>
-        <Link 
-          href="/dashboard/history" 
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-sm shadow-blue-600/20 transition-all flex items-center gap-2"
-        >
-          <Terminal className="w-4 h-4" /> Tizim jurnali (Logs)
-        </Link>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
