@@ -20,7 +20,7 @@ export async function GET(request: Request) {
       // @ts-ignore
       const userDepartmentId = dbUser?.departmentId || null;
       
-      if (role === "HOD" || role === "TEACHER") {
+      if (role === "MUDIR" || role === "OQITUVCHI") {
          conditions.push({
             OR: [
               userDepartmentId ? { departmentId: userDepartmentId } : {},
@@ -29,7 +29,7 @@ export async function GET(request: Request) {
             ]
          });
       } else {
-        // Defaults to DEAN faculty-only scope + Global Plans
+        // Defaults to DEKAN faculty-only scope + Global Plans
         conditions.push({
           OR: [
             { facultyId: userFacultyId },
@@ -82,9 +82,9 @@ export async function POST(request: Request) {
          // @ts-ignore
          userFacultyId = creator.facultyId;
       }
-      // Force department context for HOD explicitly to avoid cheating
+      // Force department context for MUDIR explicitly to avoid cheating
       // @ts-ignore
-      if (creator && creator.role === "HOD") {
+      if (creator && creator.role === "MUDIR") {
          // @ts-ignore
          userDepartmentId = creator.departmentId || userDepartmentId;
       }
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
     let targetDepartments: any[] = [];
     if (bulkDistribute) {
        const depFilters: any = { isDeleted: false };
-       if (creator && creator.role === "DEAN" && userFacultyId) {
+       if (creator && creator.role === "DEKAN" && userFacultyId) {
           depFilters.facultyId = userFacultyId;
        }
        targetDepartments = await prisma.department.findMany({ where: depFilters });

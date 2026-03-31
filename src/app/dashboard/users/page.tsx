@@ -24,7 +24,7 @@ export default function UsersPage() {
     name: "",
     email: "",
     password: "",
-    role: "TEACHER",
+    role: "OQITUVCHI",
     facultyId: "",
     departmentId: ""
   });
@@ -86,14 +86,14 @@ export default function UsersPage() {
     setNewUser(prev => ({
       ...prev, 
       role,
-      departmentId: (role === "ADMIN" || role === "DEAN") ? "" : prev.departmentId
+      departmentId: (role === "ADMIN" || role === "DEKAN") ? "" : prev.departmentId
     }));
   };
 
   const openModalForCurrentView = () => {
     setEditingUserId(null);
     // Determine target role and faculty mapping intelligently based on virtual active states
-    const targetRole = activeFacultyId === "ADMIN" ? "ADMIN" : activeFacultyId === "ALL_DEANS" ? "DEAN" : "TEACHER";
+    const targetRole = activeFacultyId === "ADMIN" ? "ADMIN" : activeFacultyId === "ALL_DEANS" ? "DEKAN" : "OQITUVCHI";
     const targetFaculty = ["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId as string) ? "" : (activeFacultyId || "");
 
     setNewUser({
@@ -248,7 +248,7 @@ export default function UsersPage() {
   } else if (activeFacultyId === "ALL_DEANS") {
      viewTitle = "Fakultet dekanlari";
      viewSubtitle = "Tizimdagi barcha ta'lim fakultetlari rahbarlari ro'yxati";
-     filteredUsers = users.filter((u: any) => u.role === "DEAN");
+     filteredUsers = users.filter((u: any) => u.role === "DEKAN");
   } else if (activeFacultyId === "UNASSIGNED") {
      viewTitle = "Biriktirilmagan kadrlar";
      viewSubtitle = "Fakulteti yoki kafedrasi noma'lum izolyatsiyadagi xodimlar";
@@ -372,7 +372,7 @@ export default function UsersPage() {
             <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">Yig'ma dekanlar</h3>
             <p className="text-slate-500 text-xs mb-4">Mavjud barcha fakultet dekanlari ro'yxati</p>
             <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 rounded-full text-slate-700 font-bold text-sm border border-slate-200">
-              {users.filter((u: any) => u.role === "DEAN").length} ta dekan
+              {users.filter((u: any) => u.role === "DEKAN").length} ta dekan
             </div>
           </div>
 
@@ -485,9 +485,9 @@ export default function UsersPage() {
                     </td>
                     <td className="px-6 py-4">
                       {u.role === "ADMIN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 tracking-wider">ADMIN</span>}
-                      {u.role === "DEAN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-700 border border-slate-100/50 tracking-wider">DEKAN</span>}
-                      {u.role === "HOD" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">MUDIR</span>}
-                      {u.role === "TEACHER" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">O'QITUVCHI</span>}
+                      {u.role === "DEKAN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-700 border border-slate-100/50 tracking-wider">DEKAN</span>}
+                      {u.role === "MUDIR" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">MUDIR</span>}
+                      {u.role === "OQITUVCHI" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">O'QITUVCHI</span>}
                     </td>
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
                       {currentUser?.role === "ADMIN" && currentUser?.id !== u.id && (
@@ -574,12 +574,12 @@ export default function UsersPage() {
                 <div className="pt-2 border-t border-slate-50">
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Vazifasi (Roli)</label>
                   <div className="flex flex-wrap gap-2">
-                    {["TEACHER", "HOD", "DEAN"].map(r => (
+                    {["OQITUVCHI", "MUDIR", "DEKAN"].map(r => (
                        <button
                          key={r} type="button" onClick={() => handleRoleChange(r)}
                          className={`px-3 py-1.5 border rounded-lg text-[11px] font-bold tracking-wide transition-colors ${newUser.role === r ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
                        >
-                         {r === "TEACHER" ? "O'qituvchi" : r === "HOD" ? "Mudiri" : "Dekan"}
+                         {r === "OQITUVCHI" ? "O'qituvchi" : r === "MUDIR" ? "Mudiri" : "Dekan"}
                        </button>
                     ))}
                     {customRoles.map((cr: any) => (
@@ -595,7 +595,7 @@ export default function UsersPage() {
               )}
 
               {/* Tahrirlanayotganda yoki Majburiy rejimda Kafedrani o'zgartirish imkoniyati (O'qituvchi va Mudirlar uchun) */}
-              {editingUserId && (newUser.role === "HOD" || newUser.role === "TEACHER") && activeFacultyId !== "ADMIN" && (
+              {editingUserId && (newUser.role === "MUDIR" || newUser.role === "OQITUVCHI") && activeFacultyId !== "ADMIN" && (
                 <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center gap-2">
                     <GraduationCap className="w-4 h-4 text-blue-500" />

@@ -30,8 +30,8 @@ export default function PlansPage() {
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setUser(parsed);
-      // Silent sync to self-heal stale login session data for active DEAN profiles
-      if (parsed.role === "DEAN" && !parsed.facultyId) {
+      // Silent sync to self-heal stale login session data for active DEKAN profiles
+      if (parsed.role === "DEKAN" && !parsed.facultyId) {
          fetch("/api/users").then(res=>res.json()).then(users => {
             if(Array.isArray(users)) {
                const me = users.find((u: any) => u.id === parsed.id);
@@ -80,7 +80,7 @@ export default function PlansPage() {
   const openNewPlanModal = () => {
     setCurrentPlan({
       ...defaultPlanState,
-      departmentId: user?.role === "HOD" ? (user?.departmentId || "") : ""
+      departmentId: user?.role === "MUDIR" ? (user?.departmentId || "") : ""
     });
     setIsModalOpen(true);
   };
@@ -121,11 +121,11 @@ export default function PlansPage() {
 
   const loadTemplateTasks = () => {
     const templateTasks = [
-      { title: "Ochiq dars o'tish (Ma'ruza yoki Amaliyot)", timeframe: "Sentyabr-Dekabr", assignedRole: "TEACHER" },
-      { title: "Xalqaro Scopus/Web of Science jurnalida maqola", timeframe: "Oktabr-May", assignedRole: "TEACHER" },
-      { title: "Kafedra ilmiy-uslubiy yig'ilishlarida qatnashish", timeframe: "Har oy", assignedRole: "TEACHER" },
-      { title: "Iqtidorli talabalar bilan ishlash va to'garak mashg'ulotlari", timeframe: "Muntazam", assignedRole: "TEACHER" },
-      { title: "Yangi avlod o'quv adabiyotlarini (Darslik/Qo'llanma) yaratish", timeframe: "Aprel-May", assignedRole: "TEACHER" }
+      { title: "Ochiq dars o'tish (Ma'ruza yoki Amaliyot)", timeframe: "Sentyabr-Dekabr", assignedRole: "OQITUVCHI" },
+      { title: "Xalqaro Scopus/Web of Science jurnalida maqola", timeframe: "Oktabr-May", assignedRole: "OQITUVCHI" },
+      { title: "Kafedra ilmiy-uslubiy yig'ilishlarida qatnashish", timeframe: "Har oy", assignedRole: "OQITUVCHI" },
+      { title: "Iqtidorli talabalar bilan ishlash va to'garak mashg'ulotlari", timeframe: "Muntazam", assignedRole: "OQITUVCHI" },
+      { title: "Yangi avlod o'quv adabiyotlarini (Darslik/Qo'llanma) yaratish", timeframe: "Aprel-May", assignedRole: "OQITUVCHI" }
     ];
     setCurrentPlan({
       ...currentPlan,
@@ -198,7 +198,7 @@ export default function PlansPage() {
 
     if (plan.tasks && plan.tasks.length > 0) {
       plan.tasks.forEach((t: any, idx: number) => {
-        const roleNames: Record<string, string> = { "TEACHER": "O'qituvchi", "HOD": "Kafedra Mudiri", "DEAN": "Fakultet Dekani" };
+        const roleNames: Record<string, string> = { "OQITUVCHI": "O'qituvchi", "MUDIR": "Kafedra Mudiri", "DEKAN": "Fakultet Dekani" };
         const rName = t.assignedRole ? (roleNames[t.assignedRole] || t.assignedRole) : "Hamma uchun";
         tasksHtml += `
           <tr>
@@ -240,7 +240,7 @@ export default function PlansPage() {
     // Generate word file logic ...
   }
 
-  if (user?.role === "TEACHER" || user?.role === "ADMIN") {
+  if (user?.role === "OQITUVCHI" || user?.role === "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
         <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4"><AlertCircle className="w-8 h-8" /></div>
@@ -385,7 +385,7 @@ export default function PlansPage() {
                         <option value="APPROVED">Tasdiqlangan (Faol)</option>
                       </select>
                     </div>
-                    {user?.role !== "HOD" && (
+                    {user?.role !== "MUDIR" && (
                       <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Bo'linma (Kafedra)</label>
                         <select 
@@ -395,14 +395,14 @@ export default function PlansPage() {
                         >
                           <option value="">Fakultet bo'yicha umumiy</option>
                           {departments
-                            .filter(dep => user?.role === "DEAN" ? dep.facultyId === user.facultyId : true)
+                            .filter(dep => user?.role === "DEKAN" ? dep.facultyId === user.facultyId : true)
                             .map(dep => (
                             <option key={dep.id} value={dep.id}>{dep.name}</option>
                           ))}
                         </select>
                       </div>
                     )}
-                    {user?.role === "HOD" && (
+                    {user?.role === "MUDIR" && (
                       <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Bo'linma (Kafedra)</label>
                         <div className="w-full px-4 py-2 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-semibold cursor-not-allowed">
@@ -410,7 +410,7 @@ export default function PlansPage() {
                         </div>
                       </div>
                     )}
-                    {user?.role !== "HOD" && !currentPlan.id && (
+                    {user?.role !== "MUDIR" && !currentPlan.id && (
                       <div className="col-span-full pt-2">
                         <label className="flex items-center gap-2 cursor-pointer bg-blue-50/50 p-3 rounded-xl border border-blue-100 transition-colors hover:bg-blue-50">
                           <input type="checkbox" checked={currentPlan.bulkDistribute} onChange={e => setCurrentPlan({...currentPlan, bulkDistribute: e.target.checked})} className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
@@ -467,9 +467,9 @@ export default function PlansPage() {
                                className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-slate-700 font-medium"
                              >
                                 <option value="">Hamma uchun</option>
-                                <option value="TEACHER">O'qituvchilar</option>
-                                {user?.role !== "HOD" && <option value="HOD">Kafedra Mudirlari</option>}
-                                {(user?.role === "ADMIN" || !user?.role) && <option value="DEAN">Dekanlar</option>}
+                                <option value="OQITUVCHI">O'qituvchilar</option>
+                                {user?.role !== "MUDIR" && <option value="MUDIR">Kafedra Mudirlari</option>}
+                                {(user?.role === "ADMIN" || !user?.role) && <option value="DEKAN">Dekanlar</option>}
                              </select>
                           </div>
                           

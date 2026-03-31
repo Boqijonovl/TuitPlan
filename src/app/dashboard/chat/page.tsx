@@ -268,7 +268,7 @@ export default function ChatPage() {
               <div className="overflow-hidden flex-1">
                 <div className="font-bold text-slate-900 truncate leading-tight">{c.name}</div>
                 <div className="text-[10px] text-slate-500 truncate uppercase mt-0.5">
-                  {c.role === "ADMIN" ? "Admnistrator" : c.role === "DEAN" ? "Dekan" : c.role === "HOD" ? "Mudir" : "O'qituvchi"} {c.department ? `- ${c.department}` : ''}
+                  {c.role === "ADMIN" ? "Admnistrator" : c.role === "DEKAN" ? "Dekan" : c.role === "MUDIR" ? "Mudir" : "O'qituvchi"} {c.department ? `- ${c.department}` : ''}
                 </div>
               </div>
             </button>

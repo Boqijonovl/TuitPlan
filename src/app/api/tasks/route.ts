@@ -20,7 +20,7 @@ export async function GET(request: Request) {
       // @ts-ignore
       const userDepartmentId = dbUser?.departmentId || null;
       
-      if (role === "HOD" || role === "TEACHER") {
+      if (role === "MUDIR" || role === "OQITUVCHI") {
          where.plan = {
             status: "APPROVED",
             OR: [

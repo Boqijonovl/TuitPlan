@@ -134,7 +134,7 @@ export default function RolesPage() {
                
                <div className="mt-6 flex items-center gap-2 relative z-10 border-t border-slate-100 pt-4">
                  <button onClick={() => { setEditingRole(r); setRoleForm({ name: r.name, permissions: r.permissions }); setIsModalOpen(true); }} className="flex-1 bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-blue-100 flex items-center justify-center gap-1.5"><Edit2 className="w-3.5 h-3.5"/> Tahrirlash</button>
-                 {["ADMIN", "DEAN", "HOD", "TEACHER"].includes(r.name) ? (
+                 {["ADMIN", "DEKAN", "MUDIR", "OQITUVCHI"].includes(r.name) ? (
                    <div className="px-3 bg-slate-50 text-slate-300 font-bold text-xs py-2 rounded-lg border border-transparent cursor-not-allowed" title="Tizim asosiy rolini o'chirib bo'lmaydi"><Trash2 className="w-3.5 h-3.5"/></div>
                  ) : (
                    <button onClick={() => handleDelete(r.id, r.name)} className="px-3 bg-slate-50 hover:bg-red-50 text-slate-400 hover:text-red-500 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-red-100"><Trash2 className="w-3.5 h-3.5"/></button>
@@ -160,13 +160,13 @@ export default function RolesPage() {
                  <div className="space-y-2">
                    <label className="text-sm font-bold text-slate-700 flex justify-between">
                      Korporativ Rol Nomi
-                     {["ADMIN", "DEAN", "HOD", "TEACHER"].includes(roleForm.name) && (
+                     {["ADMIN", "DEKAN", "MUDIR", "OQITUVCHI"].includes(roleForm.name) && (
                        <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded font-bold uppercase tracking-wider">Ismi qulflangan</span>
                      )}
                    </label>
                    <input 
                      required 
-                     disabled={["ADMIN", "DEAN", "HOD", "TEACHER"].includes(roleForm.name)}
+                     disabled={["ADMIN", "DEKAN", "MUDIR", "OQITUVCHI"].includes(roleForm.name)}
                      value={roleForm.name} 
                      onChange={e => setRoleForm({...roleForm, name: e.target.value})} 
                      className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-semibold px-4 py-3 rounded-xl focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed" 

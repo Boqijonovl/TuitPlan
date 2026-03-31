@@ -22,7 +22,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       if (role === 'ADMIN') {
          dataToUpdate.facultyId = null;
          dataToUpdate.departmentId = null;
-      } else if (role === 'DEAN') {
+      } else if (role === 'DEKAN') {
          dataToUpdate.facultyId = facultyId || null;
          dataToUpdate.departmentId = null;
       } else {

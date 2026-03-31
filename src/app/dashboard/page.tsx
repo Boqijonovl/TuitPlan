@@ -210,7 +210,7 @@ export default function DashboardHome() {
             )}
           </div>
 
-          {(user.role === "DEAN" || user.role === "HOD") && (
+          {(user.role === "DEKAN" || user.role === "MUDIR") && (
             <form onSubmit={handleAddNews} className="pt-4 border-t border-slate-100 shrink-0 space-y-3">
               <input 
                 type="text" 

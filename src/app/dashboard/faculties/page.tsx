@@ -19,7 +19,7 @@ export default function FacultiesPage() {
   const [selectedFacultyId, setSelectedFacultyId] = useState("");
   const [editTarget, setEditTarget] = useState({ id: "", name: "", type: "FACULTY" });
   
-  const [userForm, setUserForm] = useState({ name: "", email: "", password: "", role: "TEACHER", facultyId: "", departmentId: "" });
+  const [userForm, setUserForm] = useState({ name: "", email: "", password: "", role: "OQITUVCHI", facultyId: "", departmentId: "" });
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -93,7 +93,7 @@ export default function FacultiesPage() {
         body: JSON.stringify(userForm)
       });
       if (res.ok) {
-        setUserForm({ name: "", email: "", password: "", role: "TEACHER", facultyId: "", departmentId: "" });
+        setUserForm({ name: "", email: "", password: "", role: "OQITUVCHI", facultyId: "", departmentId: "" });
         setIsUserModalOpen(false);
         toast.success("Xodim muvaffaqiyatli ro'yxatga olindi!");
       } else {
@@ -203,7 +203,7 @@ export default function FacultiesPage() {
                        <button 
                          onClick={(e) => {
                             e.stopPropagation();
-                            setUserForm({ name: "", email: "", password: "", role: "DEAN", facultyId: faculty.id, departmentId: "" });
+                            setUserForm({ name: "", email: "", password: "", role: "DEKAN", facultyId: faculty.id, departmentId: "" });
                             setIsUserModalOpen(true);
                          }}
                          className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-wider uppercase transition-colors"
@@ -261,7 +261,7 @@ export default function FacultiesPage() {
                           <button 
                             onClick={(e) => { 
                                e.stopPropagation(); 
-                               setUserForm({ name: "", email: "", password: "", role: "HOD", facultyId: faculty.id, departmentId: dep.id });
+                               setUserForm({ name: "", email: "", password: "", role: "MUDIR", facultyId: faculty.id, departmentId: dep.id });
                                setIsUserModalOpen(true);
                             }}
                             className="p-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors title='Kafedra Mudiri yoki O`qituvchi qo`shish'"
@@ -368,9 +368,9 @@ export default function FacultiesPage() {
                  <div>
                    <label className="block text-sm font-bold text-slate-700 mb-1.5">Mavqei (Role)</label>
                    <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-semibold">
-                     {userForm.departmentId === "" && <option value="DEAN">Dekan</option>}
-                     {userForm.departmentId !== "" && <option value="HOD">Kafedra Mudiri</option>}
-                     {userForm.departmentId !== "" && <option value="TEACHER">O'qituvchi</option>}
+                     {userForm.departmentId === "" && <option value="DEKAN">Dekan</option>}
+                     {userForm.departmentId !== "" && <option value="MUDIR">Kafedra Mudiri</option>}
+                     {userForm.departmentId !== "" && <option value="OQITUVCHI">O'qituvchi</option>}
                    </select>
                  </div>
                  <div>

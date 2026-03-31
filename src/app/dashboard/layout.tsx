@@ -87,7 +87,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NavItem href="/dashboard/monitoring" icon={<BarChart2 />} label="Monitoring" isOpen={isSidebarOpen} active={pathname.includes("/monitoring")} isMobile={isMobile} />
           )}
           
-          {user.role !== "TEACHER" && user.role !== "ADMIN" && (
+          {user.role !== "OQITUVCHI" && user.role !== "ADMIN" && (
             <NavItem href="/dashboard/plans" icon={<CalendarDays />} label="Rejalar" isOpen={isSidebarOpen} active={pathname.includes("/plans")} isMobile={isMobile} />
           )}
 
@@ -120,7 +120,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {(user.role === "ADMIN" || user.permissions?.includes("VIEW_CHAT")) && (
              <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
           )}
-          {user.role === "DEAN" && (
+          {user.role === "DEKAN" && (
              <NavItem href="/dashboard/archive" icon={<FolderOpen />} label="Fayllar arxivi" isOpen={isSidebarOpen} active={pathname.includes("/archive")} isMobile={isMobile} />
           )}
         </div>

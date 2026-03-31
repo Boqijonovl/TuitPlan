@@ -54,9 +54,9 @@ export async function POST(request: Request) {
        const firstName = words[1];
        const roleDescription = words.slice(2).join(" ").toLowerCase();
 
-       let role = "TEACHER"; // Default
-       if (roleDescription.includes("mudir")) role = "HOD";
-       else if (roleDescription.includes("dekan")) role = "DEAN";
+       let role = "OQITUVCHI"; // Default
+       if (roleDescription.includes("mudir")) role = "MUDIR";
+       else if (roleDescription.includes("dekan")) role = "DEKAN";
        
        const email = generateEmail(lastName, firstName);
        const name = `${lastName} ${firstName}`;

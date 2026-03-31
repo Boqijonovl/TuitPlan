@@ -5,9 +5,9 @@ export async function GET() {
   try {
     const defaultRoles = [
       { name: "ADMIN", permissions: ["VIEW_MONITORING", "VIEW_FACULTIES", "VIEW_USERS", "EDIT_USERS", "VIEW_HISTORY", "VIEW_SETTINGS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
-      { name: "DEAN", permissions: ["VIEW_FACULTIES", "VIEW_USERS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
-      { name: "HOD", permissions: ["VIEW_USERS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
-      { name: "TEACHER", permissions: ["VIEW_CHAT"] }
+      { name: "DEKAN", permissions: ["VIEW_FACULTIES", "VIEW_USERS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
+      { name: "MUDIR", permissions: ["VIEW_USERS", "VIEW_ARCHIVE", "VIEW_CHAT"] },
+      { name: "OQITUVCHI", permissions: ["VIEW_CHAT"] }
     ];
 
     for (const dr of defaultRoles) {

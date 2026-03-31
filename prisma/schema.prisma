@@ -13,7 +13,7 @@ model User {
   name           String       
   email          String       @unique
   password       String
-  role           String       @default("TEACHER") // ADMIN, DEAN, HOD, TEACHER
+  role           String       @default("OQITUVCHI") // ADMIN, DEKAN, MUDIR, OQITUVCHI
   departmentId   String?
   department     Department?  @relation(fields: [departmentId], references: [id])
   facultyId      String?
@@ -93,7 +93,7 @@ model Task {
   timeframe      String?      // Masalan: "2024-yil, avgust"
   note           String?      // Izoh
   status         String       @default("NEW")
-  assignedRole   String?      // Masalan: "TEACHER", "HOD", "DEAN"
+  assignedRole   String?      // Masalan: "OQITUVCHI", "MUDIR", "DEKAN"
   fileUrl        String?      // Biriktirilgan hujjat manzili
   userId         String?
   user           User?        @relation(fields: [userId], references: [id])

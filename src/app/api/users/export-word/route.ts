@@ -37,8 +37,8 @@ export async function GET(request: Request) {
         
         let roleUz = "O'qituvchi";
         if (u.role === "ADMIN") roleUz = "Tizim Admini";
-        if (u.role === "DEAN") roleUz = "Dekan";
-        if (u.role === "HOD") roleUz = "Kafedra Mudiri";
+        if (u.role === "DEKAN") roleUz = "Dekan";
+        if (u.role === "MUDIR") roleUz = "Kafedra Mudiri";
 
         return `
             <tr>

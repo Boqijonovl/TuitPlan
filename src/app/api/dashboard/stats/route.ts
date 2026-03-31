@@ -39,9 +39,9 @@ export async function GET(req: Request) {
         take: 5,
         include: { department: true, tasks: true }
       }),
-      prisma.user.count({ where: { ...whereUser, role: "DEAN" } }),
-      prisma.user.count({ where: { ...whereUser, role: "HOD" } }),
-      prisma.user.count({ where: { ...whereUser, role: "TEACHER" } })
+      prisma.user.count({ where: { ...whereUser, role: "DEKAN" } }),
+      prisma.user.count({ where: { ...whereUser, role: "MUDIR" } }),
+      prisma.user.count({ where: { ...whereUser, role: "OQITUVCHI" } })
     ]);
 
     return NextResponse.json({
