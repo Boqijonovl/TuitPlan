@@ -28,6 +28,7 @@ export default function MonitoringPage() {
   
   const [layouts, setLayouts] = useState<any>({ lg: defaultLayout });
   const [isClient, setIsClient] = useState(false); // Prevents hydration mismatch
+  const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -166,7 +167,7 @@ export default function MonitoringPage() {
     { name: "Bajarilgan Vazifalar", value: totalCompletedGlobal },
     { name: "Qolib ketgan Vazifalar", value: totalTasksGlobal - totalCompletedGlobal }
   ];
-  const COLORS = ['#10b981', '#f43f5e'];
+  const COLORS = ['#2563eb', '#cbd5e1'];
 
   return (
     <div className="space-y-6">
@@ -175,9 +176,14 @@ export default function MonitoringPage() {
            <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
               Monitoring <span className="bg-blue-100 text-blue-600 text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:block">Widget Mode</span>
            </h1>
-           <button onClick={resetLayout} className="text-slate-400 hover:text-blue-600 hover:bg-slate-100 p-2 rounded-lg transition-colors border border-transparent hover:border-blue-100 title='Joylashuvlarni asliga qaytarish'">
-              <RotateCcw className="w-4 h-4" />
-           </button>
+           <div className="flex bg-slate-100 rounded-lg p-1 border border-slate-200">
+             <button onClick={() => setIsLocked(!isLocked)} className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${isLocked ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-900'}`} title="Panel bloklarini qulflash">
+                {isLocked ? "Qulflangan" : "Ochiq"}
+             </button>
+             <button onClick={resetLayout} disabled={isLocked} className="px-3 py-1.5 rounded-md text-slate-500 hover:text-slate-900 hover:bg-white text-xs font-bold transition-all disabled:opacity-30 disabled:hover:bg-transparent" title="Joylashuvlarni asliga qaytarish">
+                Qayta tiklash
+             </button>
+           </div>
         </div>
         {plans.length > 0 && (
           <div className="flex items-center gap-3 print:hidden">
@@ -209,6 +215,8 @@ export default function MonitoringPage() {
           rowHeight={120}
           onLayoutChange={onLayoutChange}
           draggableHandle=".drag-handle"
+          isDraggable={!isLocked}
+          isResizable={!isLocked}
           margin={[24, 24]}
         >
           {/* Umumiy Monitoring */}

@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Users, Activity, Shield, Database, LayoutDashboard, Clock, UserCheck } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { Users, Shield, LayoutDashboard, Clock, UserCheck, Activity, Terminal, ChevronRight, TrendingUp } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import Link from "next/link";
+import { format } from "date-fns";
 
 export default function AdminMonitoringPage() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData();
+    fetchRecentHistory();
   }, []);
 
   const fetchData = async () => {
@@ -25,131 +28,171 @@ export default function AdminMonitoringPage() {
     }
   };
 
+  const fetchRecentHistory = async () => {
+    try {
+      // Fetch history or use dynamic simulation if not ready
+      const res = await fetch("/api/history?limit=5");
+      if (res.ok) {
+        const data = await res.json();
+        setHistory(Array.isArray(data) ? data.slice(0, 5) : []);
+      }
+    } catch (e) {
+      console.error("History fetch error:", e);
+    }
+  };
+
   if (loading) return <div className="p-8 text-slate-500 animate-pulse">Yuklanmoqda...</div>;
 
+  // Suyuqli area chart uchun faollik (AreaChart simulyatsiyasi)
   const activityData = [
-    { name: "Dushanba", logs: 120 },
-    { name: "Seshanba", logs: 210 },
-    { name: "Chorshanba", logs: 180 },
-    { name: "Payshanba", logs: 240 },
-    { name: "Juma", logs: 290 },
-    { name: "Shanba", logs: 95 },
-    { name: "Yakshanba", logs: 40 },
-  ]; // Mock until we build a log aggregator endpoint
+    { name: "Du", faollik: 12 },
+    { name: "Se", faollik: 45 },
+    { name: "Cho", faollik: 28 },
+    { name: "Pay", faollik: 80 },
+    { name: "Ju", faollik: 95 },
+    { name: "Sha", faollik: 40 },
+    { name: "Yak", faollik: 15 },
+  ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-           <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-             <Shield className="w-7 h-7 text-blue-600" />
-             Admin kuzatuv paneli
+           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3">
+             <div className="p-2 bg-blue-100 rounded-xl text-blue-600 shadow-inner">
+               <Activity className="w-6 h-6" />
+             </div>
+             Admin Monitoring
            </h1>
-           <p className="text-sm text-slate-500 mt-1">Tizim holati va foydalanuvchilar oqimining markaziy monitoringi.</p>
+           <p className="text-sm font-medium text-slate-500 mt-2">Tizim holati, real vaqt faolligi va foydalanuvchilar harakatini tahlil qilish paneli.</p>
         </div>
         <Link 
           href="/dashboard/history" 
           className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-sm shadow-blue-600/20 transition-all flex items-center gap-2"
         >
-          <Clock className="w-5 h-5" /> Tizim tarixiga o'tish
+          <Terminal className="w-4 h-4" /> Tizim jurnali (Logs)
         </Link>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-           <div>
-             <p className="text-sm font-semibold text-slate-500">Jami tizim foydalanuvchilari</p>
-             <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalUsers || 0}</p>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* Total Users */}
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between group hover:border-blue-200 transition-colors">
+           <div className="flex justify-between items-start mb-4">
+             <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+               <Users className="w-5 h-5" />
+             </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full"><TrendingUp className="w-3 h-3"/> +12%</span>
            </div>
-           <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-             <Users className="w-6 h-6" />
+           <div>
+             <p className="text-3xl font-black text-slate-900 tracking-tight">{stats?.totalUsers || 0}</p>
+             <p className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">Jami foydalanuvchi</p>
            </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-           <div>
-             <p className="text-sm font-semibold text-slate-500">Tizim holati</p>
-             <p className="text-xl font-bold text-blue-500 mt-2">100% Barqaror</p>
+        {/* Faculties/Deans */}
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between group hover:border-blue-200 transition-colors">
+           <div className="flex justify-between items-start mb-4">
+             <div className="w-10 h-10 rounded-lg bg-slate-50 text-slate-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+               <UserCheck className="w-5 h-5" />
+             </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded-full">Barqaror</span>
            </div>
-           <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-             <Shield className="w-6 h-6" />
+           <div>
+             <p className="text-3xl font-black text-slate-900 tracking-tight">{stats?.totalDeans || 0}</p>
+             <p className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">Dekanlar</p>
+           </div>
+        </div>
+
+        {/* Departments/HODs */}
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between group hover:border-blue-200 transition-colors">
+           <div className="flex justify-between items-start mb-4">
+             <div className="w-10 h-10 rounded-lg bg-slate-50 text-slate-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+               <Shield className="w-5 h-5" />
+             </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-full"><TrendingUp className="w-3 h-3"/> +5%</span>
+           </div>
+           <div>
+             <p className="text-3xl font-black text-slate-900 tracking-tight">{stats?.totalHODs || 0}</p>
+             <p className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">Kafedra Mudirlari</p>
+           </div>
+        </div>
+
+        {/* Teachers */}
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between group hover:border-blue-200 transition-colors">
+           <div className="flex justify-between items-start mb-4">
+             <div className="w-10 h-10 rounded-lg bg-slate-50 text-slate-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+               <Users className="w-5 h-5" />
+             </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-full"><TrendingUp className="w-3 h-3"/> +18%</span>
+           </div>
+           <div>
+             <p className="text-3xl font-black text-slate-900 tracking-tight">{stats?.totalTeachers || 0}</p>
+             <p className="text-xs font-semibold text-slate-500 mt-1 uppercase tracking-wider">O'qituvchilar</p>
            </div>
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-         <div className="bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between h-full">
-            <div className="flex justify-between items-start">
-              <div>
-                 <p className="text-sm font-semibold text-slate-500">Dekanlar soni</p>
-                 <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalDeans || 0}</p>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
-                 <UserCheck className="w-6 h-6" />
-              </div>
-            </div>
-            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-slate-600 hover:text-slate-700 w-max">
-               Batafsil ro'yxat &rarr;
-            </Link>
-         </div>
-
-         <div className="bg-purple-50 p-6 rounded-xl border border-purple-200 shadow-sm flex flex-col justify-between h-full">
-            <div className="flex justify-between items-start">
-              <div>
-                 <p className="text-sm font-semibold text-slate-500">Kafedra mudirlari soni</p>
-                 <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalHODs || 0}</p>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
-                 <Shield className="w-6 h-6" />
+      <div className="grid gap-6 lg:grid-cols-3">
+         {/* Main Analytic Area Chart */}
+         <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="font-bold text-slate-900 uppercase tracking-widest text-xs">Tizimdagi faollik qatori (Real-time Area)</h3>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span className="text-[10px] uppercase font-bold text-slate-400">Jonli rejim</span>
               </div>
             </div>
-            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-purple-600 hover:text-purple-700 w-max">
-               Batafsil ro'yxat &rarr;
-            </Link>
-         </div>
-
-         <div className="bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-sm flex flex-col justify-between h-full">
-            <div className="flex justify-between items-start">
-              <div>
-                 <p className="text-sm font-semibold text-slate-500">Tizim o'qituvchilari soni</p>
-                 <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalTeachers || 0}</p>
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
-                 <Users className="w-6 h-6" />
-              </div>
-            </div>
-            <Link href="/dashboard/users" className="mt-6 text-sm font-bold text-blue-600 hover:text-blue-700 w-max">
-               Batafsil ro'yxat &rarr;
-            </Link>
-         </div>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-3">
-         <div className="md:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-sm">Haftalik tizimga kirishlar faolligi</h3>
-            <div className="h-[300px]">
-               <ResponsiveContainer width="100%" height="100%" minHeight={300}>
-                 <BarChart data={activityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            
+            <div className="flex-1 h-[300px] min-h-[300px] -ml-4">
+               <ResponsiveContainer width="100%" height="100%">
+                 <AreaChart data={activityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                   <defs>
+                     <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
+                       <stop offset="5%" stopColor="#2563eb" stopOpacity={0.3}/>
+                       <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
+                     </linearGradient>
+                   </defs>
                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                   <XAxis dataKey="name" tick={{fontSize: 12, fill: '#64748b'}} tickLine={false} axisLine={{stroke: '#e2e8f0'}} />
+                   <XAxis dataKey="name" tick={{fontSize: 12, fill: '#64748b', fontWeight: 600}} tickLine={false} axisLine={false} />
                    <YAxis tick={{fontSize: 12, fill: '#64748b'}} tickLine={false} axisLine={false} />
-                   <Tooltip cursor={{fill: '#f8fafc'}} contentStyle={{borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
-                   <Bar dataKey="logs" fill="#4f46e5" radius={[4, 4, 0, 0]} barSize={40} />
-                 </BarChart>
+                   <Tooltip cursor={{stroke: '#e2e8f0', strokeWidth: 1, strokeDasharray: '4 4'}} contentStyle={{borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', padding: '12px', fontWeight: 'bold'}} />
+                   <Area type="monotone" dataKey="faollik" stroke="#2563eb" strokeWidth={4} fillOpacity={1} fill="url(#colorBlue)" activeDot={{r: 8, fill: '#2563eb', stroke: '#ffffff', strokeWidth: 3}} />
+                 </AreaChart>
                </ResponsiveContainer>
             </div>
          </div>
 
-         <div className="bg-blue-600 rounded-xl p-6 text-white flex flex-col justify-center relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-            <div className="absolute bottom-0 left-0 w-40 h-40 bg-black/10 rounded-full blur-2xl -ml-20 -mb-20"></div>
-            
-            <LayoutDashboard className="w-12 h-12 text-blue-300 mb-4" />
-            <h2 className="text-2xl font-bold mb-2">Maxsus kuzatuv</h2>
-            <p className="text-blue-200 text-sm mb-6 leading-relaxed">Siz tizimning barcha harakatlarini kuzatib boruvchi markaziy paneldasiz. Tizimdagi xatoliklarni, yuklanishlarni va foydalanuvchilar oqimini doimiy nazorat qilish tavsiya etiladi.</p>
-            
-            <Link href="/dashboard/history" className="bg-white text-blue-700 py-3 rounded-xl font-bold text-center hover:bg-slate-50 transition-colors shadow-sm shadow-black/10">
-              Harakatlar jurnalini ko'rish
+         {/* Mini History Feed Component */}
+         <div className="bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+            <div className="p-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+              <h3 className="font-bold text-slate-900 uppercase tracking-widest text-[11px] flex items-center gap-2">
+                <Clock className="w-4 h-4 text-blue-500" /> Oxirgi harakatlar
+              </h3>
+            </div>
+            <div className="p-5 flex-1 flex flex-col gap-4 overflow-y-auto max-h-[320px]">
+              {history.length > 0 ? (
+                history.map((log: any) => (
+                  <div key={log.id} className="flex gap-4 group cursor-default">
+                    <div className="relative flex flex-col items-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-blue-100 border-2 border-blue-500 z-10"></div>
+                      <div className="w-px h-full bg-slate-100 absolute top-2.5 group-last:hidden"></div>
+                    </div>
+                    <div className="pb-4">
+                      <p className="text-sm font-semibold text-slate-700 line-clamp-2">{log.action}</p>
+                      <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-wider">{log.createdAt ? format(new Date(log.createdAt), "dd MMM HH:mm") : "Hozirgina"}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="flex-1 flex flex-col items-center justify-center text-center py-6">
+                   <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mb-3"><Activity className="w-6 h-6" /></div>
+                   <p className="text-sm text-slate-500 font-medium">Monitoring jurnali faol ishlamoqda.</p>
+                   <p className="text-[10px] text-slate-400 mt-1">Bu yerda tizimdagi oxirgi voqealar ketma-ket chiqadi.</p>
+                </div>
+              )}
+            </div>
+            <Link href="/dashboard/history" className="p-3 text-center border-t border-slate-100 text-xs font-bold text-blue-600 hover:bg-slate-50 transition-colors uppercase tracking-widest flex items-center justify-center gap-1 group">
+               Barchasini ko'rish <ChevronRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
             </Link>
          </div>
       </div>

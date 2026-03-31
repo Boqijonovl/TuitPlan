@@ -102,7 +102,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {user.role === "ADMIN" && (
             <>
               <NavItem href="/dashboard/admin-monitoring" icon={<LayoutDashboard />} label="Admin kuzatuv paneli" isOpen={isSidebarOpen} active={pathname.includes("/admin-monitoring")} isMobile={isMobile} />
-              <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Tuzilma (Fakultetlar)" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
+              <NavItem href="/dashboard/faculties" icon={<BookOpen />} label="Fakultetlar" isOpen={isSidebarOpen} active={pathname.includes("/faculties")} isMobile={isMobile} />
               <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
               <NavItem href="/dashboard/chat" icon={<MessageSquare />} label="Chat" isOpen={isSidebarOpen} active={pathname.includes("/chat")} isMobile={isMobile} />
             </>

@@ -161,7 +161,7 @@ export default function FacultiesPage() {
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
         <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4"><Shield className="w-8 h-8" /></div>
         <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan hudud</h2>
-        <p className="text-slate-500 mt-2">Tuzilmalarni boshqarish bo'limi faqatgina Bosh Admin uchun ochiq.</p>
+        <p className="text-slate-500 mt-2">Fakultetlarni boshqarish bo'limi faqatgina Bosh Admin uchun ochiq.</p>
       </div>
     );
   }
@@ -170,8 +170,8 @@ export default function FacultiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 text-slate-900">Tuzilma va fakultetlar</h1>
-          <p className="text-sm font-medium text-slate-500 mt-2">Oliy ta'lim muassasasining to'liq ierarxiyasini boshqarish</p>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">Fakultetlar</h1>
+          <p className="text-sm font-medium text-slate-500 mt-2">Muassasa fakultetlari va kafedralari boshqaruvi</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
@@ -395,7 +395,7 @@ export default function FacultiesPage() {
       {isEditModalOpen && (
         <div className="fixed inset-0 bg-blue-950/40 backdrop-blur-md z-50 flex items-center justify-center p-4">
            <div className="bg-white rounded-[2rem] shadow-sm w-full max-w-md overflow-hidden transform transition-all border border-white/50">
-             <div className="bg-slate-500 p-6 text-white flex justify-between items-center">
+             <div className="bg-blue-600 p-6 text-white flex justify-between items-center">
                <div className="flex items-center gap-3">
                  <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm"><Edit2 className="w-5 h-5"/></div>
                  <h2 className="font-bold text-lg tracking-wide">Nomini o'zgartirish</h2>
