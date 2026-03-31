@@ -199,7 +199,7 @@ export default function UsersPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
         <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4"><Shield className="w-8 h-8" /></div>
-        <h2 className="text-2xl font-bold text-slate-800">Ruxsat etilmagan hudud</h2>
+        <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan hudud</h2>
         <p className="text-slate-500 mt-2">Kechirasiz, foydalanuvchilarni boshqarish bo'limi faqatgina Tizim Administratori uchun ochiq.</p>
       </div>
     );
@@ -300,7 +300,7 @@ export default function UsersPage() {
 
             <button 
               onClick={openModalForCurrentView}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-lg shadow-blue-500/30 flex items-center gap-2 transition-colors shrink-0 text-sm"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-sm shadow-blue-500/30 flex items-center gap-2 transition-colors shrink-0 text-sm"
             >
               <Plus className="w-5 h-5" /> 
               {activeFacultyId === "ADMIN" ? "Admin Qo'shish" : activeFacultyId === "ALL_DEANS" ? "Dekan Qo'shish" : "Xodim Qo'shish"}
@@ -316,15 +316,15 @@ export default function UsersPage() {
           {/* Adminlar Kartochkasi */}
           <div 
             onClick={() => setActiveFacultyId("ADMIN")}
-            className="group cursor-pointer bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
+            className="group cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
           >
-            <Shield className="w-24 h-24 text-white/5 absolute -bottom-4 -right-4 blur-sm group-hover:scale-125 transition-transform duration-500" />
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20">
+            <Shield className="w-24 h-24 text-slate-100 absolute -bottom-4 -right-4 group-hover:scale-125 transition-transform duration-500" />
+            <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-4 text-blue-600 border border-blue-100">
               <Shield className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Oliy tuzilma</h3>
-            <p className="text-slate-400 text-sm mb-4">Tizim administratorlari (Boshqaruvchi guruh)</p>
-            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
+            <h3 className="text-xl font-bold text-slate-900 mb-2">Oliy tuzilma</h3>
+            <p className="text-slate-500 text-sm mb-4">Tizim administratorlari (Boshqaruvchi guruh)</p>
+            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 rounded-full text-slate-700 font-bold text-sm">
               <UserCheck className="w-4 h-4" /> {users.filter((u: any) => u.role === "ADMIN").length} xodim
             </div>
           </div>
@@ -332,15 +332,15 @@ export default function UsersPage() {
           {/* Dekanlar Kartochkasi */}
           <div 
             onClick={() => setActiveFacultyId("ALL_DEANS")}
-            className="group cursor-pointer bg-gradient-to-br from-amber-500 to-orange-600 border border-amber-600 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
+            className="group cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
           >
-            <Users className="w-24 h-24 text-white/5 absolute -top-4 -right-4 blur-sm group-hover:scale-125 transition-transform duration-500" />
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-              <Briefcase className="w-8 h-8 drop-shadow-md" />
+            <Users className="w-24 h-24 text-slate-100 absolute -top-4 -right-4 group-hover:scale-125 transition-transform duration-500" />
+            <div className="w-16 h-16 bg-amber-50 rounded-xl flex items-center justify-center mb-4 text-amber-600 border border-amber-100">
+              <Briefcase className="w-8 h-8 drop-shadow-sm" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Yig'ma dekanlar</h3>
-            <p className="text-amber-100 text-xs mb-4">Mavjud barcha fakultet dekanlari ro'yxati</p>
-            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm border border-white/10">
+            <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">Yig'ma dekanlar</h3>
+            <p className="text-slate-500 text-xs mb-4">Mavjud barcha fakultet dekanlari ro'yxati</p>
+            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 rounded-full text-slate-700 font-bold text-sm border border-slate-200">
               {users.filter((u: any) => u.role === "DEAN").length} ta dekan
             </div>
           </div>
@@ -348,22 +348,22 @@ export default function UsersPage() {
           {/* Fakultetsiz Xodimlar Kartochkasi */}
           <div 
             onClick={() => setActiveFacultyId("UNASSIGNED")}
-            className="group cursor-pointer bg-gradient-to-br from-rose-500 to-red-600 border border-red-600 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
+            className="group cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 flex flex-col items-center text-center overflow-hidden relative"
           >
-            <UserX className="w-24 h-24 text-white/5 absolute -bottom-4 -left-4 blur-sm group-hover:scale-125 transition-transform duration-500" />
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-4 text-white border border-white/20">
+            <UserX className="w-24 h-24 text-slate-100 absolute -bottom-4 -left-4 group-hover:scale-125 transition-transform duration-500" />
+            <div className="w-16 h-16 bg-rose-50 rounded-xl flex items-center justify-center mb-4 text-rose-500 border border-rose-100">
               <UserX className="w-8 h-8" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2 leading-tight">Bo'sh kadrlar</h3>
-            <p className="text-rose-100 text-xs mb-4">Hech bir kafedraga kirmagan izolyatsiya ro'yxati</p>
-            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full text-white font-bold text-sm">
+            <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight">Bo'sh kadrlar</h3>
+            <p className="text-slate-500 text-xs mb-4">Hech bir kafedraga kirmagan izolyatsiya ro'yxati</p>
+            <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-slate-100 rounded-full text-slate-700 font-bold text-sm">
               {users.filter((u: any) => u.role !== "ADMIN" && !u.facultyId).length} tasdiqsiz xodim
             </div>
           </div>
 
           {/* Fakultetlar Kartochkalari */}
           {loading ? (
-            [1,2,3].map(i => <div key={i} className="h-[250px] bg-white border border-slate-200 animate-pulse rounded-2xl"></div>)
+            [1,2,3].map(i => <div key={i} className="h-[250px] bg-white border border-slate-200 animate-pulse rounded-xl"></div>)
           ) : (
             faculties.map((faculty: any) => {
               const facUsersCount = users.filter((u: any) => u.facultyId === faculty.id).length;
@@ -371,12 +371,12 @@ export default function UsersPage() {
                 <div 
                   key={faculty.id}
                   onClick={() => setActiveFacultyId(faculty.id)}
-                  className="group cursor-pointer bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-200 transition-all duration-300 p-6 flex flex-col items-center text-center relative overflow-hidden"
+                  className="group cursor-pointer bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-sm hover:border-blue-200 transition-all duration-300 p-6 flex flex-col items-center text-center relative overflow-hidden"
                 >
-                  <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100 relative z-10">
+                  <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100 relative z-10">
                     <Building2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight group-hover:text-blue-600 transition-colors relative z-10">{faculty.name}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors relative z-10">{faculty.name}</h3>
                   <div className="flex items-center gap-1 text-slate-500 text-xs mb-4 font-medium px-3 py-1 bg-slate-50 rounded-lg relative z-10">
                     <GraduationCap className="w-4 h-4" /> {faculty.departments?.length || 0} Ta Kiruvchi Kafedra
                   </div>
@@ -399,19 +399,19 @@ export default function UsersPage() {
                 <div 
                   key={dept.id}
                   onClick={() => setActiveDepartmentId(dept.id)}
-                  className="group cursor-pointer bg-indigo-50 border border-indigo-100 rounded-2xl shadow-sm hover:shadow-md hover:border-indigo-300 transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden"
+                  className="group cursor-pointer bg-blue-50 border border-blue-100 rounded-xl shadow-sm hover:shadow-sm hover:border-blue-300 transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden"
                 >
                   <div>
                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                        <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
                           <Briefcase className="w-6 h-6" />
                         </div>
                      </div>
-                     <h3 className="text-base font-bold text-indigo-900 leading-snug mb-2">{dept.name}</h3>
+                     <h3 className="text-base font-bold text-blue-900 leading-snug mb-2">{dept.name}</h3>
                   </div>
-                  <div className="mt-6 flex items-center justify-between border-t border-indigo-200/50 pt-4">
-                     <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider">Bo'lim</span>
-                     <div className="inline-flex items-center gap-1.5 text-xs text-indigo-700 font-bold bg-indigo-100 px-3 py-1 rounded-full">
+                  <div className="mt-6 flex items-center justify-between border-t border-blue-200/50 pt-4">
+                     <span className="text-xs font-bold text-blue-500 uppercase tracking-wider">Bo'lim</span>
+                     <div className="inline-flex items-center gap-1.5 text-xs text-blue-700 font-bold bg-blue-100 px-3 py-1 rounded-full">
                        <UserIcon className="w-3.5 h-3.5" /> {deptUsersCount} mavjud kadr
                      </div>
                   </div>
@@ -426,7 +426,7 @@ export default function UsersPage() {
 
       {/* 3-QAVAT: TANLANGAN KAFEDRAGI (Yoki maxsus guruhlardagi) XODIMLAR JADVALI */}
       {activeFacultyId && (activeDepartmentId || ["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId)) && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[400px] animate-in slide-in-from-bottom-4 duration-300">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[400px] animate-in slide-in-from-bottom-4 duration-300">
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead className="text-xs text-slate-500 bg-slate-50 uppercase font-medium">
@@ -455,7 +455,7 @@ export default function UsersPage() {
                     <td className="px-6 py-4">
                       {u.role === "ADMIN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 tracking-wider">ADMIN</span>}
                       {u.role === "DEAN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-100/50 tracking-wider">DEKAN</span>}
-                      {u.role === "HOD" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100/50 tracking-wider">MUDIR</span>}
+                      {u.role === "HOD" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">MUDIR</span>}
                       {u.role === "TEACHER" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100/50 tracking-wider">O'QITUVCHI</span>}
                     </td>
                     <td className="px-6 py-4 text-right space-x-2 whitespace-nowrap">
@@ -486,7 +486,7 @@ export default function UsersPage() {
       {/* MODAL - Yangi Xodim Qo'shish & Tahrirlash */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-xl shadow-sm w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <UserCheck className="w-5 h-5 text-blue-500"/> 
@@ -538,7 +538,7 @@ export default function UsersPage() {
                     {["TEACHER", "HOD", "DEAN"].map(r => (
                        <button
                          key={r} type="button" onClick={() => handleRoleChange(r)}
-                         className={`px-3 py-2 border rounded-xl text-xs font-bold tracking-wide transition-colors ${newUser.role === r ? 'bg-indigo-50 border-indigo-500 text-indigo-700 shadow-sm' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
+                         className={`px-3 py-2 border rounded-xl text-xs font-bold tracking-wide transition-colors ${newUser.role === r ? 'bg-blue-50 border-blue-500 text-blue-700 shadow-sm' : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'}`}
                        >
                          {r === "TEACHER" ? "Kafedra O'qituvchisi" : r === "HOD" ? "Kafedra Mudiri" : "Fakultet Dekani"}
                        </button>
@@ -577,7 +577,7 @@ export default function UsersPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-md transition-colors disabled:opacity-70 text-sm flex items-center gap-2"
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-sm transition-colors disabled:opacity-70 text-sm flex items-center gap-2"
                 >
                   {isSubmitting ? <span className="animate-spin w-4 h-4 rounded-full border-2 border-white/50 border-t-white"></span> : <CheckCircle className="w-4 h-4" />}
                   {isSubmitting ? "Saqlanmoqda..." : (editingUserId ? "O'zgarishlarni Saqlash" : "Xodimni Yaratish (Qo'shish)")}

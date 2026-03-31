@@ -229,44 +229,44 @@ export default function ChatPage() {
   }, [messages]);
 
   return (
-    <div className="h-[80vh] min-h-[600px] bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+    <div className="h-[80vh] min-h-[600px] bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
       {/* Sidebar Contacts */}
       <div className={`w-full md:w-80 border-r border-slate-100 bg-slate-50 flex-col shrink-0 ${activeContact ? 'hidden md:flex' : 'flex'}`}>
         <div className="p-4 border-b border-slate-200 bg-white">
-          <h2 className="font-bold text-slate-800 flex items-center justify-between gap-2">
-            <span className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-indigo-500" /> Xodimlar (Chat)</span>
+          <h2 className="font-bold text-slate-900 flex items-center justify-between gap-2">
+            <span className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-blue-500" /> Xodimlar (Chat)</span>
           </h2>
           <div className="relative mt-3 group">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-indigo-500 transition-colors" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" />
             <input 
               ref={searchInputRef}
               type="text" 
               placeholder="Qidirish... (Ctrl+K)" 
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all font-medium"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all font-medium"
             />
           </div>
         </div>
         <div className="flex-1 overflow-y-auto">
           {loadingContacts ? (
-             <div className="flex justify-center p-8"><Loader2 className="w-6 h-6 animate-spin text-indigo-500"/></div>
+             <div className="flex justify-center p-8"><Loader2 className="w-6 h-6 animate-spin text-blue-500"/></div>
           ) : contacts.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase())).map(c => {
             const online = isOnline(c.lastSeen);
             return (
             <button 
               key={c.id} 
               onClick={() => { setActiveContact(c); setEditingMessage(null); setText(""); setSelectedFile(null); }}
-              className={`w-full text-left p-4 border-b border-slate-100 hover:bg-indigo-50 transition-colors flex items-center gap-3 ${activeContact?.id === c.id ? 'bg-indigo-50' : ''}`}
+              className={`w-full text-left p-4 border-b border-slate-100 hover:bg-blue-50 transition-colors flex items-center gap-3 ${activeContact?.id === c.id ? 'bg-blue-50' : ''}`}
             >
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center shrink-0 overflow-hidden border border-indigo-200">
-                  {c.avatarUrl ? <img src={c.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-indigo-500" />}
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 overflow-hidden border border-blue-200">
+                  {c.avatarUrl ? <img src={c.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-blue-500" />}
                 </div>
                 <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${online ? 'bg-emerald-500' : 'bg-slate-300'}`}></div>
               </div>
               <div className="overflow-hidden flex-1">
-                <div className="font-bold text-slate-800 truncate leading-tight">{c.name}</div>
+                <div className="font-bold text-slate-900 truncate leading-tight">{c.name}</div>
                 <div className="text-[10px] text-slate-500 truncate uppercase mt-0.5">
                   {c.role === "ADMIN" ? "Admnistrator" : c.role === "DEAN" ? "Dekan" : c.role === "HOD" ? "Mudir" : "O'qituvchi"} {c.department ? `- ${c.department}` : ''}
                 </div>
@@ -283,7 +283,7 @@ export default function ChatPage() {
       <div className={`flex-1 bg-slate-50 flex-col relative min-w-0 ${!activeContact ? 'hidden md:flex' : 'flex'}`} onClick={() => setActiveDropdown(null)}>
         {!activeContact ? (
           <div className="flex-1 flex flex-col items-center justify-center text-slate-400 text-center p-8">
-            <MessageSquare className="w-16 h-16 mx-auto mb-4 opacity-20 text-indigo-500" />
+            <MessageSquare className="w-16 h-16 mx-auto mb-4 opacity-20 text-blue-500" />
             <h3 className="text-xl font-bold text-slate-700 mb-1">Xavfsiz birlashtirilgan chat</h3>
             <p className="text-sm">Xodimlar bilan xabarlar va hujjatlar almashish uchun kontaktni tanlang.</p>
           </div>
@@ -295,11 +295,11 @@ export default function ChatPage() {
                 <button onClick={() => setActiveContact(null)} className="md:hidden p-1.5 -ml-1.5 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
                   <ArrowLeft className="w-5 h-5" />
                 </button>
-                <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center shrink-0 overflow-hidden border border-indigo-100">
-                  {activeContact.avatarUrl ? <img src={activeContact.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-indigo-500" />}
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 overflow-hidden border border-blue-100">
+                  {activeContact.avatarUrl ? <img src={activeContact.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-blue-500" />}
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-800">{activeContact.name}</h3>
+                  <h3 className="font-bold text-slate-900">{activeContact.name}</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className={`w-1.5 h-1.5 rounded-full inline-block ${isOnline(activeContact.lastSeen) ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -316,7 +316,7 @@ export default function ChatPage() {
             {/* Chat Messages */}
             <div id="chat-messages-container" className="flex-1 overflow-y-auto p-4 space-y-4 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-slate-50/80">
               {loadingMessages ? (
-                <div className="flex justify-center p-4"><Loader2 className="w-6 h-6 animate-spin text-indigo-500"/></div>
+                <div className="flex justify-center p-4"><Loader2 className="w-6 h-6 animate-spin text-blue-500"/></div>
               ) : messages.length === 0 ? (
                  <div className="h-full flex items-center justify-center text-sm text-slate-400">Hozircha xabarlar yo'q. Birinchi bo'lib yozing!</div>
               ) : messages.map((m: any) => {
@@ -325,26 +325,26 @@ export default function ChatPage() {
                  const isMe = m.senderId === user?.id;
                  return (
                    <div key={m.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'} group relative`}>
-                     <div className={`max-w-[80%] md:max-w-[65%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${isMe ? 'bg-indigo-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-800 rounded-tl-none'}`}>
+                     <div className={`max-w-[80%] md:max-w-[65%] rounded-xl px-4 py-2.5 text-sm shadow-sm ${isMe ? 'bg-blue-600 text-white rounded-tr-none' : 'bg-white border border-slate-200 text-slate-900 rounded-tl-none'}`}>
                        
                        {/* Xabar Matni */}
                        {m.text && <p className="whitespace-pre-wrap leading-relaxed">{m.text}</p>}
                        
                        {/* Fayl Biriktirilgan bo'lsa */}
                        {m.fileUrl && (
-                         <div className={`mt-2 mb-1 p-2 rounded-xl border flex items-center gap-3 ${isMe ? 'bg-indigo-700 border-indigo-500' : 'bg-slate-50 border-slate-200'}`}>
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isMe ? 'bg-indigo-500' : 'bg-slate-200'}`}>
+                         <div className={`mt-2 mb-1 p-2 rounded-xl border flex items-center gap-3 ${isMe ? 'bg-blue-700 border-blue-500' : 'bg-slate-50 border-slate-200'}`}>
+                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isMe ? 'bg-blue-500' : 'bg-slate-200'}`}>
                                {String(m.fileType).includes('image') ? <ImageIcon className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
                             </div>
                             <div className="overflow-hidden flex-1">
-                               <a href={m.fileUrl} target="_blank" className={`truncate block text-xs font-semibold hover:underline ${isMe ? 'text-indigo-100' : 'text-indigo-600'}`}>{m.fileName || "Fayl"}</a>
-                               <span className={`text-[9px] ${isMe ? 'text-indigo-300' : 'text-slate-400'}`}>Biriktirilgan hujjat</span>
+                               <a href={m.fileUrl} target="_blank" className={`truncate block text-xs font-semibold hover:underline ${isMe ? 'text-blue-100' : 'text-blue-600'}`}>{m.fileName || "Fayl"}</a>
+                               <span className={`text-[9px] ${isMe ? 'text-blue-300' : 'text-slate-400'}`}>Biriktirilgan hujjat</span>
                             </div>
                          </div>
                        )}
 
                         {/* Vaqt va Edit status */}
-                       <div className={`flex items-center justify-end gap-1.5 mt-1.5 ${isMe ? 'text-indigo-200' : 'text-slate-400'}`}>
+                       <div className={`flex items-center justify-end gap-1.5 mt-1.5 ${isMe ? 'text-blue-200' : 'text-slate-400'}`}>
                          {m.isEdited && <span className="text-[9px] italic">Tahrirlangan</span>}
                          <span className="text-[10px] font-medium block">
                            {new Date(m.createdAt).toLocaleTimeString('uz-UZ', {hour: '2-digit', minute:'2-digit'})}
@@ -355,12 +355,12 @@ export default function ChatPage() {
                            <div className="relative ml-1 flex items-center">
                               <button 
                                  onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === m.id ? null : m.id); }}
-                                 className={`p-1 rounded-full transition-colors ${isMe ? 'hover:bg-indigo-500 text-indigo-100' : 'hover:bg-slate-200 text-slate-400'}`}
+                                 className={`p-1 rounded-full transition-colors ${isMe ? 'hover:bg-blue-500 text-blue-100' : 'hover:bg-slate-200 text-slate-400'}`}
                               >
                                  <MoreVertical className="w-4 h-4" />
                               </button>
                               {activeDropdown === m.id && (
-                                 <div className="absolute right-0 bottom-6 w-32 bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden z-20 py-1" onClick={e => e.stopPropagation()}>
+                                 <div className="absolute right-0 bottom-6 w-32 bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden z-20 py-1" onClick={e => e.stopPropagation()}>
                                     <button 
                                       onClick={() => { setEditingMessage(m); setText(m.text || ""); setActiveDropdown(null); }}
                                       className="w-full text-left px-3 py-2 hover:bg-slate-50 text-xs font-medium text-slate-700 flex items-center gap-2"
@@ -414,13 +414,13 @@ export default function ChatPage() {
 
             {/* Selected File UI Indicator */}
             {selectedFile && !editingMessage && (
-               <div className="w-full bg-indigo-50 border-t border-indigo-100 px-4 py-2 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-indigo-700 text-xs">
+               <div className="w-full bg-blue-50 border-t border-blue-100 px-4 py-2 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-blue-700 text-xs">
                      <FileIcon className="w-3.5 h-3.5" />
                      <span className="font-semibold truncate max-w-[200px]">{selectedFile.name}</span>
-                     <span className="text-indigo-400">({Math.round(selectedFile.size / 1024)} KB)</span>
+                     <span className="text-blue-400">({Math.round(selectedFile.size / 1024)} KB)</span>
                   </div>
-                  <button onClick={() => setSelectedFile(null)} className="p-1 hover:bg-indigo-100 rounded-full text-indigo-500">
+                  <button onClick={() => setSelectedFile(null)} className="p-1 hover:bg-blue-100 rounded-full text-blue-500">
                      <X className="w-4 h-4" />
                   </button>
                </div>
@@ -442,7 +442,7 @@ export default function ChatPage() {
                     <button 
                        type="button"
                        onClick={() => fileInputRef.current?.click()}
-                       className="w-12 h-12 shrink-0 rounded-full bg-slate-50 text-slate-500 flex items-center justify-center hover:bg-slate-100 transition-colors border border-slate-200 hover:text-indigo-600"
+                       className="w-12 h-12 shrink-0 rounded-full bg-slate-50 text-slate-500 flex items-center justify-center hover:bg-slate-100 transition-colors border border-slate-200 hover:text-blue-600"
                     >
                       <Paperclip className="w-5 h-5" />
                     </button>
@@ -459,14 +459,14 @@ export default function ChatPage() {
                      }
                   }}
                   placeholder={editingMessage ? "Yangi matnni kiriting..." : "Xabaringizni yozing... (Enter yuborish)"} 
-                  className="flex-1 px-5 py-3.5 min-h-[48px] max-h-[120px] bg-slate-50 border border-slate-200 rounded-2xl md:rounded-full focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition-all shadow-inner resize-none"
+                  className="flex-1 px-5 py-3.5 min-h-[48px] max-h-[120px] bg-slate-50 border border-slate-200 rounded-xl md:rounded-full focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all shadow-inner resize-none"
                   rows={1}
                 />
 
                 <button 
                   type="submit" 
                   disabled={(!text.trim() && !selectedFile) || uploading} 
-                  className="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 shrink-0 shadow-md shadow-indigo-600/20"
+                  className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:hover:scale-100 shrink-0 shadow-sm shadow-blue-600/20"
                 >
                   {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5 -ml-0.5" />}
                 </button>

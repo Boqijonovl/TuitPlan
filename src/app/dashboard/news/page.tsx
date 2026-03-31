@@ -43,7 +43,7 @@ export default function NewsPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row gap-4 justify-between">
           <div className="relative w-full max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -91,7 +91,7 @@ export default function NewsPage() {
                   <span className={`absolute top-5 right-5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${n.type === 'UNIVERSITET' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'}`}>
                     {n.type}
                   </span>
-                  <h3 className="font-bold text-lg text-slate-800 pr-24 leading-tight">{n.title}</h3>
+                  <h3 className="font-bold text-lg text-slate-900 pr-24 leading-tight">{n.title}</h3>
                   <p className="text-slate-600 mt-3 whitespace-pre-wrap">{n.content}</p>
                   <div className="mt-4 pt-4 border-t border-slate-200/60 text-xs text-slate-500 font-medium flex items-center gap-2">
                     <span className="bg-white px-2 py-1 rounded border border-slate-100 shadow-sm">Muallif: {n.author?.name || "Noma'lum"}</span>

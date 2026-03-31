@@ -130,17 +130,17 @@ export default function MonitoringPage() {
     <div className="space-y-6">
       <div className="flex justify-between items-center"><Skeleton className="h-8 w-48" /><Skeleton className="h-10 w-32" /></div>
       <div className="grid gap-6 md:grid-cols-2 mt-6">
-        <Skeleton className="h-[300px] w-full rounded-2xl" />
-        <Skeleton className="h-[300px] w-full rounded-2xl" />
+        <Skeleton className="h-[300px] w-full rounded-xl" />
+        <Skeleton className="h-[300px] w-full rounded-xl" />
       </div>
-      <Skeleton className="h-[400px] w-full rounded-2xl mt-6" />
+      <Skeleton className="h-[400px] w-full rounded-xl mt-6" />
     </div>
   );
 
   if (currentUser?.role === "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
-        <h2 className="text-2xl font-bold text-slate-800">Ruxsat etilmagan sahifa</h2>
+        <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan sahifa</h2>
         <p className="text-slate-500 mt-2">Bosh admin xodimlarning ko'rsatkichlarini o'lchamaydi, bu panel hisobotlar monitoringi uchun.</p>
       </div>
     );
@@ -173,9 +173,9 @@ export default function MonitoringPage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
            <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-              Monitoring <span className="bg-indigo-100 text-indigo-600 text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:block">Widget Mode</span>
+              Monitoring <span className="bg-blue-100 text-blue-600 text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:block">Widget Mode</span>
            </h1>
-           <button onClick={resetLayout} className="text-slate-400 hover:text-indigo-600 hover:bg-slate-100 p-2 rounded-lg transition-colors border border-transparent hover:border-indigo-100 title='Joylashuvlarni asliga qaytarish'">
+           <button onClick={resetLayout} className="text-slate-400 hover:text-blue-600 hover:bg-slate-100 p-2 rounded-lg transition-colors border border-transparent hover:border-blue-100 title='Joylashuvlarni asliga qaytarish'">
               <RotateCcw className="w-4 h-4" />
            </button>
         </div>
@@ -183,14 +183,14 @@ export default function MonitoringPage() {
           <div className="flex items-center gap-3 print:hidden">
             <button 
                onClick={handleExportExcel}
-               className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/30 transition-all shrink-0 text-sm"
+               className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm shadow-emerald-500/30 transition-all shrink-0 text-sm"
             >
                <Download className="w-4 h-4" />
                Excel yuklash
             </button>
             <button 
                onClick={handleExportPDF}
-               className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-rose-500/30 transition-all shrink-0 text-sm"
+               className="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2.5 rounded-xl font-bold flex items-center gap-2 shadow-sm shadow-rose-500/30 transition-all shrink-0 text-sm"
             >
                <FileText className="w-4 h-4" />
                PDF yuklash
@@ -212,28 +212,28 @@ export default function MonitoringPage() {
           margin={[24, 24]}
         >
           {/* Umumiy Monitoring */}
-          <div key="general" className="rounded-2xl border border-slate-200 bg-white shadow-sm flex flex-col overflow-hidden bg-white/80 backdrop-blur-sm group hover:ring-2 ring-indigo-500/50 transition-shadow">
-             <div className="drag-handle w-full h-8 bg-slate-100/50 flex items-center justify-center cursor-move opacity-0 group-hover:opacity-100 transition-opacity border-b border-transparent hover:border-indigo-100 z-10 shrink-0">
+          <div key="general" className="rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col overflow-hidden bg-white/80 backdrop-blur-sm group hover:ring-2 ring-blue-500/50 transition-shadow">
+             <div className="drag-handle w-full h-8 bg-slate-100/50 flex items-center justify-center cursor-move opacity-0 group-hover:opacity-100 transition-opacity border-b border-transparent hover:border-blue-100 z-10 shrink-0">
                <Grid className="w-4 h-4 text-slate-400" />
              </div>
              <div className="flex flex-col items-center justify-center p-6 flex-1 text-center -mt-4">
                 <div className="w-32 h-32 rounded-full border-4 border-slate-100 flex items-center justify-center relative mb-4">
                    <div 
-                     className="absolute inset-0 rounded-full border-4 border-indigo-500 transition-all duration-1000"
+                     className="absolute inset-0 rounded-full border-4 border-blue-500 transition-all duration-1000"
                      style={{ clipPath: `polygon(0 0, 100% 0, 100% ${overallProgress}%, 0 ${overallProgress}%)` }}
                    ></div>
-                   <span className="text-2xl font-bold text-slate-800 z-10">{overallProgress}%</span>
+                   <span className="text-2xl font-bold text-slate-900 z-10">{overallProgress}%</span>
                 </div>
-                <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-indigo-500" /> Umumiy bajarilish
+                <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-blue-500" /> Umumiy bajarilish
                 </h2>
              </div>
           </div>
 
           {/* Tezkor reyting kabi */}
-          <div key="stats" className="rounded-2xl border border-slate-200 bg-indigo-600 text-white shadow-sm flex flex-col overflow-hidden group hover:ring-2 ring-indigo-400 transition-shadow">
-             <div className="drag-handle w-full h-8 bg-indigo-700/50 flex items-center justify-center cursor-move opacity-0 group-hover:opacity-100 transition-opacity border-b border-transparent z-10 shrink-0">
-               <Grid className="w-4 h-4 text-indigo-300" />
+          <div key="stats" className="rounded-xl border border-slate-200 bg-blue-600 text-white shadow-sm flex flex-col overflow-hidden group hover:ring-2 ring-blue-400 transition-shadow">
+             <div className="drag-handle w-full h-8 bg-blue-700/50 flex items-center justify-center cursor-move opacity-0 group-hover:opacity-100 transition-opacity border-b border-transparent z-10 shrink-0">
+               <Grid className="w-4 h-4 text-blue-300" />
              </div>
              <div className="flex flex-col justify-center p-6 flex-1 text-left -mt-4">
                 <h2 className="text-xl font-bold mb-2">Tizim unumdorligi</h2>
@@ -241,14 +241,14 @@ export default function MonitoringPage() {
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
                     <TrendingUp className="w-6 h-6 text-emerald-300" />
                     <div>
-                      <p className="text-xs font-medium text-indigo-100">Jami rejalar</p>
+                      <p className="text-xs font-medium text-blue-100">Jami rejalar</p>
                       <p className="text-xl font-bold">{plans.length}</p>
                     </div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
                     <Users className="w-6 h-6 text-amber-300" />
                     <div>
-                      <p className="text-xs font-medium text-indigo-100">Topshirilgan hisobotlar</p>
+                      <p className="text-xs font-medium text-blue-100">Topshirilgan hisobotlar</p>
                       <p className="text-xl font-bold">{totalSubmissions} ta fayl</p>
                     </div>
                   </div>
@@ -257,9 +257,9 @@ export default function MonitoringPage() {
           </div>
 
           {/* BarChart */}
-          <div key="bar" className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-indigo-500/50 transition-shadow overflow-hidden">
+          <div key="bar" className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-blue-500/50 transition-shadow overflow-hidden">
              <div className="drag-handle w-full p-3 bg-slate-50/80 flex items-center justify-between cursor-move opacity-80 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
-               <h3 className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">Bo'linmalar faolligi</h3>
+               <h3 className="font-bold text-slate-900 text-[11px] uppercase tracking-wider">Bo'linmalar faolligi</h3>
                <Grid className="w-4 h-4 text-slate-400" />
              </div>
              <div className="flex-1 w-full h-full p-4 relative z-0">
@@ -282,9 +282,9 @@ export default function MonitoringPage() {
           </div>
             
           {/* PieChart */}
-          <div key="pie" className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-indigo-500/50 transition-shadow overflow-hidden">
+          <div key="pie" className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-blue-500/50 transition-shadow overflow-hidden">
              <div className="drag-handle w-full p-3 bg-slate-50/80 flex items-center justify-between cursor-move opacity-80 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
-               <h3 className="font-bold text-slate-800 text-[11px] uppercase tracking-wider flex items-center gap-1">
+               <h3 className="font-bold text-slate-900 text-[11px] uppercase tracking-wider flex items-center gap-1">
                  <PieChartIcon className="w-3.5 h-3.5" /> Umumiy vazifalar holati
                </h3>
                <Grid className="w-4 h-4 text-slate-400" />
@@ -308,12 +308,12 @@ export default function MonitoringPage() {
           </div>
 
           {/* 🏆 KPI Liderlar Doskasi */}
-          <div key="leaderboard" className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-indigo-500/50 transition-shadow overflow-hidden">
-            <div className="drag-handle p-4 border-b border-slate-100 bg-gradient-to-r from-amber-50 to-orange-50/50 flex items-center justify-between cursor-move opacity-90 group-hover:opacity-100 transition-opacity z-10 shrink-0">
+          <div key="leaderboard" className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-blue-500/50 transition-shadow overflow-hidden">
+            <div className="drag-handle p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between cursor-move opacity-90 group-hover:opacity-100 transition-opacity z-10 shrink-0">
               <div className="flex items-center gap-3">
                 <Trophy className="w-5 h-5 text-amber-500" />
                 <div>
-                   <h2 className="text-sm font-bold text-slate-800">Liderlar doskasi (KPI)</h2>
+                   <h2 className="text-sm font-bold text-slate-900">Liderlar doskasi (KPI)</h2>
                 </div>
               </div>
               <Grid className="w-4 h-4 text-amber-300" />
@@ -332,7 +332,7 @@ export default function MonitoringPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-50">
                   {leaderboard.slice(0, 10).map((u, idx) => (
-                    <tr key={u.id} className={`hover:bg-amber-50/30 transition-colors ${currentUser?.id === u.id ? 'bg-indigo-50/50' : ''}`}>
+                    <tr key={u.id} className={`hover:bg-amber-50/30 transition-colors ${currentUser?.id === u.id ? 'bg-blue-50/50' : ''}`}>
                       <td className="px-4 py-3 text-center font-bold">
                         {idx === 0 ? <Medal className="w-5 h-5 text-yellow-500 mx-auto" strokeWidth={2.5}/> : 
                          idx === 1 ? <Medal className="w-5 h-5 text-slate-400 mx-auto" strokeWidth={2.5}/> : 
@@ -340,12 +340,12 @@ export default function MonitoringPage() {
                          <span className="text-slate-400">#{u.rank}</span>}
                       </td>
                       <td className="px-4 py-3">
-                        <div className="font-bold text-slate-800 flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full overflow-hidden bg-indigo-100 border border-slate-50 shrink-0 flex items-center justify-center text-indigo-500 font-bold text-[10px]">
+                        <div className="font-bold text-slate-900 flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full overflow-hidden bg-blue-100 border border-slate-50 shrink-0 flex items-center justify-center text-blue-500 font-bold text-[10px]">
                              {u.avatarUrl ? <img src={u.avatarUrl} className="w-full h-full object-cover" /> : u.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-xs">{u.name} {currentUser?.id === u.id && <span className="bg-indigo-100 text-indigo-700 text-[8px] px-1 ml-1 rounded-sm">Siz</span>}</span>
+                            <span className="text-xs">{u.name} {currentUser?.id === u.id && <span className="bg-blue-100 text-blue-700 text-[8px] px-1 ml-1 rounded-sm">Siz</span>}</span>
                             <span className="text-[9px] text-slate-400 font-normal">{u.role}</span>
                           </div>
                         </div>
@@ -355,7 +355,7 @@ export default function MonitoringPage() {
                         <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">{u.submissionsCount} ta</span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <div className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-2 py-1 rounded text-xs font-black shadow-sm">
+                        <div className="inline-flex items-center gap-1 bg-amber-500 text-white px-2 py-1 rounded text-xs font-black shadow-sm">
                           {u.points} <span className="text-[8px] font-medium opacity-80">ball</span>
                         </div>
                       </td>
@@ -372,9 +372,9 @@ export default function MonitoringPage() {
           </div>
 
           {/* Kengaytirilgan Yakuniy Monitoring */}
-          <div key="table" className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-indigo-500/50 transition-shadow overflow-hidden">
+          <div key="table" className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-blue-500/50 transition-shadow overflow-hidden">
              <div className="drag-handle w-full p-4 bg-slate-50 flex items-center justify-between cursor-move opacity-90 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
-               <h2 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+               <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                  <BarChart2 className="w-4 h-4 text-blue-500" />
                  Kengaytirilgan yakuniy monitoring
                </h2>
@@ -411,7 +411,7 @@ export default function MonitoringPage() {
                           </div>
                         </td>
                         <td className="px-6 py-3 text-center">
-                           <span className="bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded text-[10px] font-bold border border-indigo-100">
+                           <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-[10px] font-bold border border-blue-100">
                              {planSubmissions} ta
                            </span>
                         </td>

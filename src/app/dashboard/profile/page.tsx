@@ -84,7 +84,7 @@ export default function ProfilePage() {
         <p className="text-sm text-slate-500 mt-1">Shaxsiy ma'lumotlaringizni va parolingizni o'zgartirishingiz mumkin.</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <form onSubmit={handleSave} className="p-6 md:p-8 space-y-6">
           
           {message.text && (
@@ -95,7 +95,7 @@ export default function ProfilePage() {
 
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-              <User className="w-5 h-5 text-indigo-500" />
+              <User className="w-5 h-5 text-blue-500" />
               Asosiy ma'lumotlar
             </h3>
             
@@ -103,7 +103,7 @@ export default function ProfilePage() {
               {/* Avatar Uploader UI */}
               <div className="flex flex-col items-center gap-3 shrink-0 mx-auto md:mx-0">
                 <div className="relative group cursor-pointer">
-                  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-slate-50 shadow-md bg-indigo-100 flex items-center justify-center text-indigo-500 font-bold text-4xl">
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm bg-blue-100 flex items-center justify-center text-blue-500 font-bold text-4xl">
                     {avatarFile ? (
                       <img src={URL.createObjectURL(avatarFile)} alt="Preview" className="w-full h-full object-cover" />
                     ) : avatarUrl ? (
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                   type="text" 
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                 />
               </div>
               
@@ -164,7 +164,7 @@ export default function ProfilePage() {
 
           <div className="space-y-4 pt-4">
             <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-2">
-              <Lock className="w-5 h-5 text-indigo-500" />
+              <Lock className="w-5 h-5 text-blue-500" />
               Xavfsizlik
             </h3>
             
@@ -175,7 +175,7 @@ export default function ProfilePage() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Bo'sh qoldirsangiz, o'zgarmaydi"
-                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
               />
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function ProfilePage() {
             <button 
               type="submit" 
               disabled={isSaving}
-              className="bg-indigo-600 py-2.5 px-6 rounded-xl hover:bg-indigo-700 text-white font-medium shadow-md shadow-indigo-500/20 transition-all flex items-center gap-2 disabled:opacity-70"
+              className="bg-blue-600 py-2.5 px-6 rounded-xl hover:bg-blue-700 text-white font-medium shadow-sm shadow-blue-500/20 transition-all flex items-center gap-2 disabled:opacity-70"
             >
               <Save className="w-5 h-5" />
               {isSaving ? "Saqlanmoqda..." : "Saqlash"}

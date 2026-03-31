@@ -66,23 +66,23 @@ export default function UserHistoryPage() {
         </Link>
         <div>
            <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-             <History className="w-7 h-7 text-indigo-600" />
+             <History className="w-7 h-7 text-blue-600" />
              Xodimning Harakatlar Tarixi
            </h1>
            {userInfo && (
              <p className="text-sm font-semibold text-slate-500 mt-1 flex items-center gap-2">
-               <User className="w-4 h-4"/> {userInfo.name} &bull; <span className="text-indigo-500 uppercase">{userInfo.role}</span>
+               <User className="w-4 h-4"/> {userInfo.name} &bull; <span className="text-blue-500 uppercase">{userInfo.role}</span>
              </p>
            )}
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden relative p-8">
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative p-8">
         
         {logs.length === 0 ? (
           <div className="text-center py-12 text-slate-500">Bu foydalanuvchi hali tizimda hech qanday amal bajarmagan.</div>
         ) : (
-          <div className="relative border-l-2 border-indigo-100 ml-4 md:ml-6 space-y-8 pb-4">
+          <div className="relative border-l-2 border-blue-100 ml-4 md:ml-6 space-y-8 pb-4">
             {logs.map(log => {
                const date = new Date(log.createdAt);
                const formattedDate = date.toLocaleDateString("ru-RU", { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -92,8 +92,8 @@ export default function UserHistoryPage() {
                let bgClass = "bg-emerald-100 border-emerald-200";
                
                if (log.action.includes("Tizimga kirdi")) {
-                 icon = <Shield className="w-4 h-4 text-indigo-600" />;
-                 bgClass = "bg-indigo-100 border-indigo-200";
+                 icon = <Shield className="w-4 h-4 text-blue-600" />;
+                 bgClass = "bg-blue-100 border-blue-200";
                } else if (log.action.includes("Tizimdan chiqdi")) {
                  icon = <Clock className="w-4 h-4 text-amber-600" />;
                  bgClass = "bg-amber-100 border-amber-200";
@@ -105,11 +105,11 @@ export default function UserHistoryPage() {
                      {icon}
                    </div>
                    
-                   <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl hover:border-indigo-100 transition-colors hover:shadow-sm">
+                   <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl hover:border-blue-100 transition-colors hover:shadow-sm">
                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                       <h3 className="font-bold text-slate-800">{log.action}</h3>
+                       <h3 className="font-bold text-slate-900">{log.action}</h3>
                        <span className="text-xs font-semibold text-slate-500 bg-white px-2.5 py-1 rounded-md border border-slate-200 shadow-sm flex items-center gap-1.5 w-fit">
-                         <Clock className="w-3.5 h-3.5 text-indigo-400" />
+                         <Clock className="w-3.5 h-3.5 text-blue-400" />
                          {formattedDate} <span className="text-slate-300">|</span> {formattedTime}
                        </span>
                      </div>

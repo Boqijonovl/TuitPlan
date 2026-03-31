@@ -74,8 +74,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       )}
 
       {/* Sidebar - Blue Theme */}
-      <aside className={`fixed lg:static top-0 left-0 bg-blue-900 text-white h-screen transition-all z-40 flex flex-col ${isSidebarOpen ? 'w-64' : 'w-0 lg:w-20'} overflow-hidden shadow-2xl lg:shadow-none print:hidden`}>
-        <div className="py-2 px-1 border-b border-indigo-500/30 flex items-center justify-center shrink-0 h-24 transition-all cursor-pointer hover:bg-white/5 group">
+      <aside className={`fixed lg:static top-0 left-0 bg-blue-900 text-white h-screen transition-all z-40 flex flex-col ${isSidebarOpen ? 'w-64' : 'w-0 lg:w-20'} overflow-hidden shadow-sm lg:shadow-none print:hidden`}>
+        <div className="py-2 px-1 border-b border-blue-800/50 flex items-center justify-center shrink-0 h-24 transition-all cursor-pointer hover:bg-white/5 group">
           <img src="/logo.png" alt="TUIT" className={`h-full w-auto object-contain transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'scale-75 w-12' : 'scale-[1.15] w-auto group-hover:scale-[1.2]'}`} />
         </div>
         
@@ -141,7 +141,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <div className="relative">
                 <button 
                   onClick={() => setShowNotifications(!showNotifications)}
-                  className="relative p-2 text-slate-500 hover:text-indigo-600 transition-colors"
+                  className="relative p-2 text-slate-500 hover:text-blue-600 transition-colors"
                   title="Bildirishnomalar"
                 >
                   <Bell className="w-6 h-6" />
@@ -151,10 +151,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 </button>
 
                 {showNotifications && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-100 p-4 z-50">
-                    <h3 className="font-semibold text-slate-800 mb-3 flex items-center justify-between">
-                      <span className="flex items-center gap-2"><Bell className="w-4 h-4 text-indigo-500"/> Bildirishnomalar</span>
-                      <span className="bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded text-xs">Jami: {notifications.length} ta yuborilmagan</span>
+                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-sm border border-slate-100 p-4 z-50">
+                    <h3 className="font-semibold text-slate-900 mb-3 flex items-center justify-between">
+                      <span className="flex items-center gap-2"><Bell className="w-4 h-4 text-blue-500"/> Bildirishnomalar</span>
+                      <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-xs">Jami: {notifications.length} ta yuborilmagan</span>
                     </h3>
                     <div className="space-y-3 max-h-64 overflow-y-auto">
                       {notifications.length === 0 ? (
@@ -166,9 +166,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                              setShowNotifications(false);
                              router.push(notif.link || `/dashboard/tasks?search=${encodeURIComponent(notif.title)}`);
                            }}
-                           className="w-full text-left text-sm p-3 bg-slate-50 rounded-xl border border-slate-100 hover:bg-indigo-50 hover:border-indigo-100 transition-colors shadow-sm cursor-pointer"
+                           className="w-full text-left text-sm p-3 bg-slate-50 rounded-lg border border-slate-100 hover:bg-blue-50 hover:border-blue-100 transition-colors shadow-sm cursor-pointer"
                          >
-                           <p className="font-medium text-slate-800 line-clamp-1 group-hover:text-indigo-700">{notif.title}</p>
+                           <p className="font-medium text-slate-900 line-clamp-1 group-hover:text-blue-700">{notif.title}</p>
                            {notif.type === "TASK_REMINDER" ? (
                              <>
                                <p className="text-[11px] text-slate-500 mt-1 font-semibold line-clamp-1">{notif.plan?.title || ""}</p>
@@ -188,13 +188,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <ThemeToggle />
 
             <div className="hidden sm:flex flex-col text-right">
-              <span className="text-sm font-semibold text-slate-800">{user.name}</span>
+              <span className="text-sm font-semibold text-slate-900">{user.name}</span>
               <span className="text-[10px] uppercase font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-0.5 rounded-full mt-0.5 self-end tracking-wider">{user.role}</span>
             </div>
             <Link 
               href="/dashboard/profile"
               title="Akkaunt sozlamalari"
-              className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center text-white font-bold shadow-md ring-2 ring-blue-100 cursor-pointer overflow-hidden border border-blue-200"
+              className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center text-white font-bold shadow-sm ring-2 ring-blue-100 cursor-pointer overflow-hidden border border-blue-200"
             >
               {(user as any).avatarUrl ? (
                 <img src={(user as any).avatarUrl} alt="User Avatar" className="w-full h-full object-cover" />
@@ -229,7 +229,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
 function NavItem({ href, icon, label, isOpen, active, isMobile }: { href: string, icon: React.ReactNode, label: string, isOpen: boolean, active: boolean, isMobile: boolean }) {
   return (
-    <Link href={href} className={`flex items-center px-3 py-3 rounded-xl transition-all duration-200 ${active ? 'bg-white text-blue-700 shadow-md' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}>
+    <Link href={href} className={`flex items-center px-3 py-3 rounded-lg transition-all duration-200 ${active ? 'bg-white text-blue-700 shadow-sm' : 'text-blue-200 hover:bg-blue-800 hover:text-white'}`}>
       <span className={`shrink-0 transition-transform group-hover:scale-110`}>{icon}</span>
       <span className={`ml-3 font-medium whitespace-nowrap transition-opacity duration-200 ${!isOpen && !isMobile ? 'opacity-0 lg:hidden' : 'opacity-100'}`}>{label}</span>
       {active && isOpen && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-600"></div>}

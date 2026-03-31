@@ -244,7 +244,7 @@ export default function PlansPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
         <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4"><AlertCircle className="w-8 h-8" /></div>
-        <h2 className="text-2xl font-bold text-slate-800">Ruxsat etilmagan sahifa</h2>
+        <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan sahifa</h2>
         <p className="text-slate-500 mt-2">Kechirasiz, ushbu sahifaga kirish sizning rolingiz uchun yopilgan.</p>
       </div>
     );
@@ -253,7 +253,7 @@ export default function PlansPage() {
   if (loading) return (
     <div className="space-y-6">
        <div className="flex justify-between items-center"><Skeleton className="h-8 w-48" /><Skeleton className="h-10 w-32" /></div>
-       <Skeleton className="h-[600px] w-full rounded-2xl" />
+       <Skeleton className="h-[600px] w-full rounded-xl" />
     </div>
   );
 
@@ -267,7 +267,7 @@ export default function PlansPage() {
         {user?.role !== "ADMIN" && (
           <button 
             onClick={openNewPlanModal}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-lg shadow-indigo-500/30 flex items-center gap-2 transition-colors shrink-0"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium shadow-sm flex items-center gap-2 transition-colors shrink-0"
           >
             <Plus className="w-5 h-5" />
             Yangi reja
@@ -277,11 +277,11 @@ export default function PlansPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {plans?.map((plan) => (
-          <div key={plan.id} className="bg-white border border-slate-200 hover:border-indigo-300 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all group relative overflow-hidden flex flex-col justify-between">
-            <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 group-hover:bg-indigo-600 transition-colors"></div>
+          <div key={plan.id} className="bg-white border border-slate-200 hover:border-blue-300 rounded-xl p-6 shadow-sm hover:shadow-sm transition-all group relative overflow-hidden flex flex-col justify-between">
+            <div className="absolute top-0 left-0 w-1 h-full bg-blue-500 group-hover:bg-blue-600 transition-colors"></div>
             <div>
               <div className="flex justify-between items-start mb-4">
-                <div className="p-3 bg-indigo-50 rounded-xl text-indigo-600 group-hover:scale-110 transition-transform">
+                <div className="p-3 bg-blue-50 rounded-lg text-blue-600 group-hover:scale-110 transition-transform">
                   <BookOpen className="w-6 h-6" />
                 </div>
                 
@@ -291,7 +291,7 @@ export default function PlansPage() {
                   </button>
                   {(user?.role !== "ADMIN" && (!plan.userId || plan.userId === user?.id)) && (
                     <>
-                      <button onClick={() => openEditModal(plan)} className="text-slate-400 hover:text-indigo-600 bg-slate-50 hover:bg-indigo-50 p-2 rounded-lg transition-colors border border-slate-100 title='Tahrirlash'">
+                      <button onClick={() => openEditModal(plan)} className="text-slate-400 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Tahrirlash'">
                         <FileEdit className="w-4 h-4" />
                       </button>
                       <button onClick={() => handleDeletePlan(plan.id)} className="text-slate-400 hover:text-red-600 bg-slate-50 hover:bg-red-50 p-2 rounded-lg transition-colors border border-slate-100 title='O`chirish'">
@@ -303,7 +303,7 @@ export default function PlansPage() {
               </div>
               <h3 className="font-semibold text-lg text-slate-900 mb-1 leading-tight">{plan.title}</h3>
               <div className="flex items-center gap-2 text-sm text-slate-500 mb-4 font-medium">
-                <Clock className="w-4 h-4 text-indigo-400" />
+                <Clock className="w-4 h-4 text-blue-400" />
                 {plan.year}-yil
                 <span className="text-slate-300">|</span>
                 <span className="truncate">{plan.department?.name || "Umumiy Reja"}</span>
@@ -325,7 +325,7 @@ export default function PlansPage() {
           </div>
         ))}
         {plans?.length === 0 && !loading && (
-          <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+          <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
             <div className="mx-auto w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mb-4">
               <BookOpen className="w-8 h-8" />
             </div>
@@ -337,10 +337,10 @@ export default function PlansPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
             <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50 shrink-0">
-              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                {currentPlan.id ? <Edit3 className="w-5 h-5 text-indigo-500"/> : <Plus className="w-5 h-5 text-indigo-500"/>}
+              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                {currentPlan.id ? <Edit3 className="w-5 h-5 text-blue-500"/> : <Plus className="w-5 h-5 text-blue-500"/>}
                 {currentPlan.id ? "Rejani tahrirlash" : "Yangi reja yaratish"}
               </h2>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-slate-100">
@@ -360,7 +360,7 @@ export default function PlansPage() {
                       type="text" required
                       value={currentPlan.title}
                       onChange={e => setCurrentPlan({...currentPlan, title: e.target.value})}
-                      className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                      className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                       placeholder="Masalan: 2024-yilgi o'quv ishlari bo'yicha reja"
                     />
                   </div>
@@ -371,7 +371,7 @@ export default function PlansPage() {
                         type="number" required
                         value={currentPlan.year}
                         onChange={e => setCurrentPlan({...currentPlan, year: parseInt(e.target.value)})}
-                        className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                        className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                       />
                     </div>
                     <div>
@@ -379,7 +379,7 @@ export default function PlansPage() {
                       <select 
                         value={currentPlan.status}
                         onChange={e => setCurrentPlan({...currentPlan, status: e.target.value})}
-                        className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 font-bold text-indigo-600 outline-none transition-all"
+                        className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 font-bold text-blue-600 outline-none transition-all"
                       >
                         <option value="DRAFT">Loyiha (Qoralama)</option>
                         <option value="APPROVED">Tasdiqlangan (Faol)</option>
@@ -391,7 +391,7 @@ export default function PlansPage() {
                         <select 
                           value={currentPlan.departmentId}
                           onChange={e => setCurrentPlan({...currentPlan, departmentId: e.target.value})}
-                          className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all cursor-pointer"
+                          className="w-full px-4 py-2 bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all cursor-pointer"
                         >
                           <option value="">Fakultet bo'yicha umumiy</option>
                           {departments
@@ -412,11 +412,11 @@ export default function PlansPage() {
                     )}
                     {user?.role !== "HOD" && !currentPlan.id && (
                       <div className="col-span-full pt-2">
-                        <label className="flex items-center gap-2 cursor-pointer bg-indigo-50/50 p-3 rounded-xl border border-indigo-100 transition-colors hover:bg-indigo-50">
-                          <input type="checkbox" checked={currentPlan.bulkDistribute} onChange={e => setCurrentPlan({...currentPlan, bulkDistribute: e.target.checked})} className="w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                        <label className="flex items-center gap-2 cursor-pointer bg-blue-50/50 p-3 rounded-xl border border-blue-100 transition-colors hover:bg-blue-50">
+                          <input type="checkbox" checked={currentPlan.bulkDistribute} onChange={e => setCurrentPlan({...currentPlan, bulkDistribute: e.target.checked})} className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
                           <div>
-                            <span className="text-sm font-bold text-indigo-700 block">Shablonlarni barcha kafedralarga tarqatish (smart distributor)</span>
-                            <span className="text-xs text-indigo-400 font-medium">Belgilansa, ushbu reja fakultetdagi barcha kafedralar uchun alohida avtomatik ravishda yaratiladi.</span>
+                            <span className="text-sm font-bold text-blue-700 block">Shablonlarni barcha kafedralarga tarqatish (smart distributor)</span>
+                            <span className="text-xs text-blue-400 font-medium">Belgilansa, ushbu reja fakultetdagi barcha kafedralar uchun alohida avtomatik ravishda yaratiladi.</span>
                           </div>
                         </label>
                       </div>
@@ -432,7 +432,7 @@ export default function PlansPage() {
                       <button type="button" onClick={loadTemplateTasks} className="text-sm font-medium text-emerald-600 hover:text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
                         <Copy className="w-4 h-4"/> Shablonlarni yuklash
                       </button>
-                      <button type="button" onClick={addTaskRow} className="text-sm font-medium text-indigo-600 hover:text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
+                      <button type="button" onClick={addTaskRow} className="text-sm font-medium text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors">
                         <Plus className="w-4 h-4"/> Qator qo'shish
                       </button>
                     </div>
@@ -445,26 +445,26 @@ export default function PlansPage() {
                   ) : (
                     <div className="space-y-3">
                       {currentPlan.tasks.map((task, index) => (
-                        <div key={index} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center bg-white border border-slate-200 p-3 rounded-xl shadow-sm hover:border-indigo-200 transition-colors">
+                        <div key={index} className="flex flex-col sm:flex-row gap-3 items-start sm:items-center bg-white border border-slate-200 p-3 rounded-xl shadow-sm hover:border-blue-200 transition-colors">
                           <div className="flex-1 w-full">
                             <input 
                               type="text" required placeholder="Vazifa nomi..." 
                               value={task.title} onChange={e => handleTaskChange(index, "title", e.target.value)}
-                              className="w-full text-sm font-medium px-3 py-2 border-b border-transparent hover:border-slate-200 focus:border-indigo-500 bg-transparent outline-none transition-colors"
+                              className="w-full text-sm font-medium px-3 py-2 border-b border-transparent hover:border-slate-200 focus:border-blue-500 bg-transparent outline-none transition-colors"
                             />
                           </div>
                           <div className="w-full sm:w-40 shrink-0">
                             <input 
                               type="text" placeholder="Muddat (Masalan: Avgust, 2024)" 
                               value={task.timeframe} onChange={e => handleTaskChange(index, "timeframe", e.target.value)}
-                              className="w-full text-xs px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none"
+                              className="w-full text-xs px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none"
                             />
                           </div>
                           <div className="w-full sm:w-40 shrink-0 flex items-center gap-2">
                              <Shield className="w-4 h-4 text-slate-400 hidden lg:block" />
                              <select
                                value={task.assignedRole} onChange={e => handleTaskChange(index, "assignedRole", e.target.value)}
-                               className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-indigo-500 outline-none text-slate-700 font-medium"
+                               className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-slate-700 font-medium"
                              >
                                 <option value="">Hamma uchun</option>
                                 <option value="TEACHER">O'qituvchilar</option>
@@ -488,14 +488,14 @@ export default function PlansPage() {
                 <button 
                   type="button" 
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 text-slate-600 hover:text-slate-800 hover:bg-slate-200/50 rounded-xl font-medium transition-colors"
+                  className="px-5 py-2.5 text-slate-600 hover:text-slate-900 hover:bg-slate-200/50 rounded-xl font-medium transition-colors"
                 >
                   Bekor qilish
                 </button>
                 <button 
                   type="submit" 
                   disabled={saving || currentPlan.title.trim() === ""}
-                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-medium shadow-md shadow-indigo-500/20 transition-colors disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium shadow-sm transition-colors disabled:opacity-50 flex items-center gap-2"
                 >
                   {saving ? "Saqlanmoqda..." : "Saqlash va Tasdiqlash"}
                 </button>

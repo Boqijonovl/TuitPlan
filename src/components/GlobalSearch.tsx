@@ -80,7 +80,7 @@ export function GlobalSearch() {
     <>
       <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-start justify-center pt-[10vh] px-4" onClick={() => setIsOpen(false)}>
         <div 
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden border border-slate-200 flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-200"
+          className="bg-white rounded-xl shadow-sm w-full max-w-2xl overflow-hidden border border-slate-200 flex flex-col max-h-[80vh] animate-in fade-in zoom-in-95 duration-200"
           onClick={e => e.stopPropagation()}
         >
           <div className="flex items-center px-4 py-3 border-b border-slate-100">
@@ -94,7 +94,7 @@ export function GlobalSearch() {
               onChange={e => setQuery(e.target.value)}
             />
             {loading ? (
-              <Loader2 className="w-5 h-5 text-indigo-500 animate-spin shrink-0" />
+              <Loader2 className="w-5 h-5 text-blue-500 animate-spin shrink-0" />
             ) : (
               <button onClick={() => setIsOpen(false)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors shrink-0">
                 <X className="w-5 h-5" />
@@ -125,16 +125,16 @@ export function GlobalSearch() {
                       setIsOpen(false);
                       router.push(`${res.link}?search=${encodeURIComponent(res.title)}`);
                     }}
-                    className="w-full flex items-center gap-3 px-3 md:px-4 py-2.5 rounded-xl hover:bg-indigo-50 hover:text-indigo-700 text-left transition-colors group"
+                    className="w-full flex items-center gap-3 px-3 md:px-4 py-2.5 rounded-xl hover:bg-blue-50 hover:text-blue-700 text-left transition-colors group"
                   >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${res.type === 'USER' ? 'bg-indigo-100 text-indigo-600' : res.type === 'PLAN' ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600'}`}>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${res.type === 'USER' ? 'bg-blue-100 text-blue-600' : res.type === 'PLAN' ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600'}`}>
                       {res.type === 'USER' ? <Users className="w-4 h-4" /> : res.type === 'PLAN' ? <Map className="w-4 h-4" /> : <CheckSquare className="w-4 h-4" />}
                     </div>
                     <div className="flex-1 overflow-hidden">
-                      <p className="font-semibold text-sm text-slate-900 group-hover:text-indigo-700 truncate">{res.title}</p>
+                      <p className="font-semibold text-sm text-slate-900 group-hover:text-blue-700 truncate">{res.title}</p>
                       <p className="text-xs text-slate-500 truncate mt-0.5">{res.subtitle}</p>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all shrink-0" />
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all shrink-0" />
                   </button>
                 ))}
               </div>

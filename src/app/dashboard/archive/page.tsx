@@ -106,7 +106,7 @@ export default function ArchivePage() {
   if (user?.role === "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
-        <h2 className="text-2xl font-bold text-slate-800">Ruxsat etilmagan sahifa</h2>
+        <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan sahifa</h2>
         <p className="text-slate-500 mt-2">Bosh admin xodimlarning fayllar arhivini bevosita ko'ra olmaydi.</p>
       </div>
     );
@@ -117,13 +117,13 @@ export default function ArchivePage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-            <Folder className="w-7 h-7 text-indigo-500" /> Fakultet hujjatlar arxivi
+            <Folder className="w-7 h-7 text-blue-500" /> Fakultet hujjatlar arxivi
           </h1>
           <p className="text-sm text-slate-500 mt-1">Barcha xodimlar tomonidan tizimga yuklangan hisobot fayllari yagona bazasi.</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[500px]">
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[500px]">
         <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div className="relative w-full max-w-sm shrink-0">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -131,7 +131,7 @@ export default function ArchivePage() {
               type="text" 
               placeholder="Fayl yoki xodim nomi orqali qidirish..." 
               value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white"
+              className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none text-sm bg-white"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -141,7 +141,7 @@ export default function ArchivePage() {
             <button 
               onClick={handleBulkDownload}
               disabled={isZipping || filteredDocs.length === 0}
-              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white rounded-lg text-sm font-bold shadow-md transition-all"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-lg text-sm font-bold shadow-sm transition-all"
             >
               {isZipping ? (
                  <div className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin"></div>
@@ -156,7 +156,7 @@ export default function ArchivePage() {
         <div className="p-6">
           {loading ? (
              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-               {[1,2,3,4,5,6].map(i => <Skeleton key={i} className="h-32 w-full rounded-2xl" />)}
+               {[1,2,3,4,5,6].map(i => <Skeleton key={i} className="h-32 w-full rounded-xl" />)}
              </div>
           ) : filteredDocs.length === 0 ? (
              <div className="py-20 text-center">
@@ -169,13 +169,13 @@ export default function ArchivePage() {
           ) : (
              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                {filteredDocs.map((doc: any, idx: number) => (
-                 <div key={idx} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-md hover:border-indigo-300 transition-all group flex flex-col justify-between">
+                 <div key={idx} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm hover:shadow-sm hover:border-blue-300 transition-all group flex flex-col justify-between">
                    <div className="flex items-start gap-4">
-                     <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                     <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                        <FileText className="w-6 h-6" />
                      </div>
                      <div className="flex-1 overflow-hidden">
-                       <h4 className="font-semibold text-slate-900 text-sm line-clamp-2 leading-snug group-hover:text-indigo-600 transition-colors" title={doc.taskTitle}>
+                       <h4 className="font-semibold text-slate-900 text-sm line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors" title={doc.taskTitle}>
                          {doc.taskTitle}
                        </h4>
                        <p className="text-xs text-slate-500 mt-1 flex items-center gap-1 font-medium">
@@ -189,7 +189,7 @@ export default function ArchivePage() {
                        <Calendar className="w-3 h-3 inline mr-1" />
                        {new Date(doc.createdAt).toLocaleDateString("uz-UZ")}
                      </div>
-                     <a href={doc.fileUrl} download target="_blank" className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-colors">
+                     <a href={doc.fileUrl} download target="_blank" className="flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors">
                        <Download className="w-3.5 h-3.5" /> Yuklab olish
                      </a>
                    </div>

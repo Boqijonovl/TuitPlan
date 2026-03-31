@@ -42,21 +42,21 @@ export default function AdminMonitoringPage() {
       <div className="flex items-center justify-between">
         <div>
            <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-             <Shield className="w-7 h-7 text-indigo-600" />
+             <Shield className="w-7 h-7 text-blue-600" />
              Admin kuzatuv paneli
            </h1>
            <p className="text-sm text-slate-500 mt-1">Tizim holati va foydalanuvchilar oqimining markaziy monitoringi.</p>
         </div>
         <Link 
           href="/dashboard/history" 
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-md shadow-indigo-600/20 transition-all flex items-center gap-2"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold shadow-sm shadow-blue-600/20 transition-all flex items-center gap-2"
         >
           <Clock className="w-5 h-5" /> Tizim tarixiga o'tish
         </Link>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
            <div>
              <p className="text-sm font-semibold text-slate-500">Jami tizim foydalanuvchilari</p>
              <p className="text-3xl font-bold text-slate-900 mt-2">{stats?.totalUsers || 0}</p>
@@ -66,7 +66,7 @@ export default function AdminMonitoringPage() {
            </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
            <div>
              <p className="text-sm font-semibold text-slate-500">Tizim holati</p>
              <p className="text-xl font-bold text-emerald-500 mt-2">100% Barqaror</p>
@@ -78,7 +78,7 @@ export default function AdminMonitoringPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-         <div className="bg-amber-50 p-6 rounded-2xl border border-amber-200 shadow-sm flex flex-col justify-between h-full">
+         <div className="bg-amber-50 p-6 rounded-xl border border-amber-200 shadow-sm flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
                  <p className="text-sm font-semibold text-slate-500">Dekanlar soni</p>
@@ -93,7 +93,7 @@ export default function AdminMonitoringPage() {
             </Link>
          </div>
 
-         <div className="bg-purple-50 p-6 rounded-2xl border border-purple-200 shadow-sm flex flex-col justify-between h-full">
+         <div className="bg-purple-50 p-6 rounded-xl border border-purple-200 shadow-sm flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
                  <p className="text-sm font-semibold text-slate-500">Kafedra mudirlari soni</p>
@@ -108,7 +108,7 @@ export default function AdminMonitoringPage() {
             </Link>
          </div>
 
-         <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 shadow-sm flex flex-col justify-between h-full">
+         <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-200 shadow-sm flex flex-col justify-between h-full">
             <div className="flex justify-between items-start">
               <div>
                  <p className="text-sm font-semibold text-slate-500">Tizim o'qituvchilari soni</p>
@@ -125,8 +125,8 @@ export default function AdminMonitoringPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
-         <div className="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <h3 className="font-bold text-slate-800 mb-6 uppercase tracking-wider text-sm">Haftalik tizimga kirishlar faolligi</h3>
+         <div className="md:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+            <h3 className="font-bold text-slate-900 mb-6 uppercase tracking-wider text-sm">Haftalik tizimga kirishlar faolligi</h3>
             <div className="h-[300px]">
                <ResponsiveContainer width="100%" height="100%" minHeight={300}>
                  <BarChart data={activityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -140,15 +140,15 @@ export default function AdminMonitoringPage() {
             </div>
          </div>
 
-         <div className="bg-indigo-600 rounded-2xl p-6 text-white flex flex-col justify-center relative overflow-hidden">
+         <div className="bg-blue-600 rounded-xl p-6 text-white flex flex-col justify-center relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-black/10 rounded-full blur-2xl -ml-20 -mb-20"></div>
             
-            <LayoutDashboard className="w-12 h-12 text-indigo-300 mb-4" />
+            <LayoutDashboard className="w-12 h-12 text-blue-300 mb-4" />
             <h2 className="text-2xl font-bold mb-2">Maxsus kuzatuv</h2>
-            <p className="text-indigo-200 text-sm mb-6 leading-relaxed">Siz tizimning barcha harakatlarini kuzatib boruvchi markaziy paneldasiz. Tizimdagi xatoliklarni, yuklanishlarni va foydalanuvchilar oqimini doimiy nazorat qilish tavsiya etiladi.</p>
+            <p className="text-blue-200 text-sm mb-6 leading-relaxed">Siz tizimning barcha harakatlarini kuzatib boruvchi markaziy paneldasiz. Tizimdagi xatoliklarni, yuklanishlarni va foydalanuvchilar oqimini doimiy nazorat qilish tavsiya etiladi.</p>
             
-            <Link href="/dashboard/history" className="bg-white text-indigo-700 py-3 rounded-xl font-bold text-center hover:bg-slate-50 transition-colors shadow-lg shadow-black/10">
+            <Link href="/dashboard/history" className="bg-white text-blue-700 py-3 rounded-xl font-bold text-center hover:bg-slate-50 transition-colors shadow-sm shadow-black/10">
               Harakatlar jurnalini ko'rish
             </Link>
          </div>

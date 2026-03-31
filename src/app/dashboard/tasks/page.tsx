@@ -184,7 +184,7 @@ export default function TasksPage() {
        <Skeleton className="h-8 w-48" />
        <div className="flex items-center gap-4"><Skeleton className="h-10 w-64" /><Skeleton className="h-10 w-48" /></div>
        <div className="space-y-4">
-         {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-24 w-full rounded-2xl" />)}
+         {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-24 w-full rounded-xl" />)}
        </div>
     </div>
   );
@@ -241,7 +241,7 @@ export default function TasksPage() {
         className={`p-4 rounded-xl border transition-colors flex flex-col gap-4 overflow-hidden ${
           hasSubmitted ? 'bg-emerald-50/30 border-emerald-100' :
           globalStatus === 'JARAYONDA' ? 'bg-amber-50/30 border-amber-200 shadow-sm' :
-          'bg-white border-slate-200 hover:border-indigo-300 shadow-sm'
+          'bg-white border-slate-200 hover:border-blue-300 shadow-sm'
         }`}>
         
         {/* Header */}
@@ -262,7 +262,7 @@ export default function TasksPage() {
                           <h4 className={`font-semibold text-slate-900 mb-1 leading-snug break-words ${isBoard ? 'text-sm' : 'text-base'}`}>{task.title}</h4>
                           <div className={`flex flex-wrap items-center gap-2 mt-2 text-xs text-slate-500 font-medium ${isBoard ? 'flex-col items-start gap-1.5' : ''}`}>
                             <div className="flex items-center gap-1.5 bg-slate-100 px-2 py-1.5 rounded-md text-slate-600">
-                              <Shield className="w-3.5 h-3.5 text-indigo-400" />
+                              <Shield className="w-3.5 h-3.5 text-blue-400" />
                               {task.assignedRole ? task.assignedRole : "Hamma uchun"}
                             </div>
                             <div className="flex items-center gap-1.5 bg-slate-100 px-2 py-1.5 rounded-md text-amber-700">
@@ -292,7 +292,7 @@ export default function TasksPage() {
                           {(globalStatus === 'NEW' || globalStatus === 'BAJARILMAGAN') && (
                             <button 
                               onClick={() => handleStartTask(task.id)}
-                              className={`w-full bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
+                              className={`w-full bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
                             >
                               <PlayCircle className="w-4 h-4" /> Ishni Boshlash
                             </button>
@@ -305,7 +305,7 @@ export default function TasksPage() {
                                 setNote("");
                                 setFile(null);
                               }}
-                              className={`w-full bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md shadow-emerald-500/20 transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
+                              className={`w-full bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-sm shadow-emerald-500/20 transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
                             >
                               <CheckCircle2 className="w-4 h-4" /> Yakunlash
                             </button>
@@ -324,7 +324,7 @@ export default function TasksPage() {
                           {submissions.map((sub: any, i: number) => (
                             <div key={sub.id} className="bg-slate-50 p-3 rounded-xl border border-slate-100 flex flex-col gap-2">
                               <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2 text-sm font-medium text-slate-800">
+                                <div className="flex items-center gap-2 text-sm font-medium text-slate-900">
                                   <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                     <User className="w-3.5 h-3.5" />
                                   </div>
@@ -361,7 +361,7 @@ export default function TasksPage() {
                     <div className="mt-2 pt-3 border-t border-slate-100 flex justify-end">
                        <button 
                          onClick={() => toggleComments(task.id)}
-                         className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5"
+                         className="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl transition-colors flex items-center gap-1.5"
                        >
                          {showComments[task.id] ? "Muhokamani bekitish" : `Muhokama (${comments.length})`}
                        </button>
@@ -369,7 +369,7 @@ export default function TasksPage() {
 
                     {/* Comments Section */}
                     {showComments[task.id] && (
-                      <div className="mt-3 bg-slate-50 rounded-2xl p-4 border border-slate-200">
+                      <div className="mt-3 bg-slate-50 rounded-xl p-4 border border-slate-200">
                         <h5 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Muhokama va Savollar</h5>
                         
                         <div className="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
@@ -379,15 +379,15 @@ export default function TasksPage() {
                             const isMe = c.user?.id === user?.id;
                             return (
                               <div key={c.id} className={`flex gap-3 text-sm ${isMe ? 'flex-row-reverse' : ''}`}>
-                                <div className={`w-8 h-8 rounded-full flex shrink-0 items-center justify-center font-bold text-white ${isMe ? 'bg-indigo-500' : 'bg-slate-400'}`}>
+                                <div className={`w-8 h-8 rounded-full flex shrink-0 items-center justify-center font-bold text-white ${isMe ? 'bg-blue-500' : 'bg-slate-400'}`}>
                                   {c.user?.name?.charAt(0)}
                                 </div>
-                                <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 ${isMe ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm'}`}>
-                                  <div className={`text-[10px] font-bold mb-1 ${isMe ? 'text-indigo-200' : 'text-slate-400'}`}>
+                                <div className={`max-w-[80%] rounded-xl px-4 py-2.5 ${isMe ? 'bg-blue-600 text-white rounded-tr-sm' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm'}`}>
+                                  <div className={`text-[10px] font-bold mb-1 ${isMe ? 'text-blue-200' : 'text-slate-400'}`}>
                                     {c.user?.name}
                                   </div>
                                   <p className="leading-snug break-words">{c.text}</p>
-                                  <div className={`text-[9px] text-right mt-1.5 ${isMe ? 'text-indigo-300' : 'text-slate-400'}`}>
+                                  <div className={`text-[9px] text-right mt-1.5 ${isMe ? 'text-blue-300' : 'text-slate-400'}`}>
                                     {new Date(c.createdAt).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}
                                   </div>
                                 </div>
@@ -403,7 +403,7 @@ export default function TasksPage() {
                              value={commentText[task.id] || ""}
                              onChange={(e) => setCommentText(prev => ({ ...prev, [task.id]: e.target.value }))}
                              placeholder="Xabar yozing..."
-                             className="flex-1 text-sm bg-white border border-slate-200 px-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                             className="flex-1 text-sm bg-white border border-slate-200 px-4 py-2.5 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                              onKeyDown={(e) => {
                                if (e.key === 'Enter') handlePostComment(task.id);
                              }}
@@ -411,7 +411,7 @@ export default function TasksPage() {
                            <button 
                              onClick={() => handlePostComment(task.id)}
                              disabled={submittingComment[task.id] || !(commentText[task.id]?.trim())}
-                             className="bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md transition-colors"
+                             className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-sm transition-colors"
                            >
                              Yuborish
                            </button>
@@ -430,7 +430,7 @@ export default function TasksPage() {
         <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-4">
           <AlertCircle className="w-8 h-8" />
         </div>
-        <h2 className="text-2xl font-bold text-slate-800">Ruxsat etilmagan sahifa</h2>
+        <h2 className="text-2xl font-bold text-slate-900">Ruxsat etilmagan sahifa</h2>
         <p className="text-slate-500 mt-2">Bosh admin vazifalar qatoriga aralashmasligi kerak.</p>
       </div>
     );
@@ -453,20 +453,20 @@ export default function TasksPage() {
         <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
            <button 
              onClick={() => setViewMode("LIST")}
-             className={`px-4 py-2 flex items-center gap-2 rounded-lg text-sm font-semibold transition-all ${viewMode === "LIST" ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+             className={`px-4 py-2 flex items-center gap-2 rounded-lg text-sm font-semibold transition-all ${viewMode === "LIST" ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
            >
              <LayoutList className="w-4 h-4" /> Ro'yxat
            </button>
            <button 
              onClick={() => setViewMode("BOARD")}
-             className={`px-4 py-2 flex items-center gap-2 rounded-lg text-sm font-semibold transition-all ${viewMode === "BOARD" ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+             className={`px-4 py-2 flex items-center gap-2 rounded-lg text-sm font-semibold transition-all ${viewMode === "BOARD" ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
            >
              <LayoutGrid className="w-4 h-4" /> Doska
            </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[500px]">
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[500px]">
         <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row gap-4 items-center justify-between bg-slate-50/50">
           <div className="relative w-full max-w-sm">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -474,7 +474,7 @@ export default function TasksPage() {
               type="text"
               placeholder="Vazifa yoki reja nomini qidirish..."
               value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
         </div>
@@ -505,7 +505,7 @@ export default function TasksPage() {
                        <div 
                          ref={provided.innerRef}
                          {...provided.droppableProps}
-                         className={`flex flex-col gap-4 flex-1 min-w-[320px] max-w-[420px] w-full bg-slate-100/50 p-4 rounded-2xl border ${snapshot.isDraggingOver ? 'border-indigo-300 ring-2 ring-indigo-500/20' : 'border-slate-200'}`}
+                         className={`flex flex-col gap-4 flex-1 min-w-[320px] max-w-[420px] w-full bg-slate-100/50 p-4 rounded-xl border ${snapshot.isDraggingOver ? 'border-blue-300 ring-2 ring-blue-500/20' : 'border-slate-200'}`}
                        >
                          <h3 className="font-bold text-slate-700 flex items-center justify-between pb-2 border-b border-slate-200/50">
                             {col.title} <span className="bg-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-sm text-slate-500">{col.items.length}</span>
@@ -530,7 +530,7 @@ export default function TasksPage() {
             <div className="p-6 pt-2 flex justify-center border-t border-slate-100">
               <button 
                 onClick={handleLoadMore}
-                className="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 font-bold px-6 py-2.5 rounded-xl transition-colors text-sm shadow-sm"
+                className="bg-blue-50 hover:bg-blue-100 text-blue-600 font-bold px-6 py-2.5 rounded-xl transition-colors text-sm shadow-sm"
               >
                 Yana yuklash
               </button>
@@ -542,9 +542,9 @@ export default function TasksPage() {
       {/* Completion Modal */}
       {selectedTask && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col">
+          <div className="bg-white rounded-xl shadow-sm w-full max-w-lg overflow-hidden flex flex-col">
             <div className="flex justify-between items-center p-6 border-b border-slate-100 bg-slate-50/50">
-              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+              <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                 <CheckCircle2 className="w-6 h-6 text-emerald-500"/> Vazifani yakunlash
               </h2>
               <button onClick={() => setSelectedTask(null)} className="text-slate-400 hover:text-red-500 transition-colors bg-white hover:bg-red-50 p-1.5 rounded-lg border border-transparent hover:border-red-100">
@@ -573,11 +573,11 @@ export default function TasksPage() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">Hujjat faylini yuklash (ixtiyoriy)</label>
                 <div className="flex items-center justify-center w-full">
-                  <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 hover:border-indigo-400 transition-colors">
+                  <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 hover:border-blue-400 transition-colors">
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
                           <Upload className="w-8 h-8 mb-2 text-slate-400" />
                           <p className="mb-1 text-sm text-slate-500 font-medium">
-                            {file ? <span className="text-indigo-600 font-bold">{file.name}</span> : "Faylni tanlash uchun bosing"}
+                            {file ? <span className="text-blue-600 font-bold">{file.name}</span> : "Faylni tanlash uchun bosing"}
                           </p>
                           <p className="text-xs text-slate-400">PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX (MAX. 10MB)</p>
                       </div>
@@ -607,7 +607,7 @@ export default function TasksPage() {
                 <button 
                   type="submit" 
                   disabled={submitting || !note.trim()}
-                  className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold shadow-md shadow-emerald-500/20 transition-colors disabled:opacity-50 text-sm flex items-center gap-2"
+                  className="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold shadow-sm shadow-emerald-500/20 transition-colors disabled:opacity-50 text-sm flex items-center gap-2"
                 >
                   {submitting ? "Yuklanmoqda..." : "Tasdiqlash va Yuborish"}
                 </button>

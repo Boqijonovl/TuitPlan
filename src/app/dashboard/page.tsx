@@ -110,10 +110,10 @@ export default function DashboardHome() {
     <div className="space-y-6">
       <Skeleton className="h-8 w-48 mb-6" />
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-28 w-full rounded-2xl" />)}
+        {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-28 w-full rounded-xl" />)}
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mt-8">
-        {[...Array(2)].map((_, i) => <Skeleton key={i} className="h-[500px] w-full rounded-2xl" />)}
+        {[...Array(2)].map((_, i) => <Skeleton key={i} className="h-[500px] w-full rounded-xl" />)}
       </div>
     </div>
   );
@@ -129,21 +129,21 @@ export default function DashboardHome() {
           title="Jami foydalanuvchilar" value={stats?.totalUsers || 0} 
           icon={<Users className="h-6 w-6 text-blue-500" />} color="bg-blue-500/10 hover:border-blue-300" 
         />
-        <StatCard href="/dashboard/plans" title="Faol rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-indigo-500" />} color="bg-indigo-500/10 hover:border-indigo-300" />
-        <StatCard href="/dashboard/tasks" title="Bajarilgan vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-500/10 hover:border-emerald-300" />
-        <StatCard href="/dashboard/tasks" title="Jarayondagi vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-500/10 hover:border-amber-300" />
+        <StatCard href="/dashboard/plans" title="Faol rejalar" value={stats?.activePlans || 0} icon={<BookOpen className="h-6 w-6 text-blue-500" />} color="bg-blue-50/50 hover:border-blue-300" />
+        <StatCard href="/dashboard/tasks" title="Bajarilgan vazifalar" value={stats?.completedTasks || 0} icon={<CheckCircle className="h-6 w-6 text-emerald-500" />} color="bg-emerald-50/50 hover:border-emerald-300" />
+        <StatCard href="/dashboard/tasks" title="Jarayondagi vazifalar" value={stats?.inProgressTasks || 0} icon={<Clock className="h-6 w-6 text-amber-500" />} color="bg-amber-50/50 hover:border-amber-300" />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 mt-8">
         
         {/* So'nggi 5 ta reja */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col h-[500px]">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col h-[500px]">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-indigo-500" />
+            <h2 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-blue-500" />
               Yangi qo'shilgan rejalar
             </h2>
-            <Link href="/dashboard/plans" className="text-sm font-medium text-indigo-600 hover:text-indigo-700 hover:underline">
+            <Link href="/dashboard/plans" className="text-sm font-medium text-blue-600 hover:text-blue-700 hover:underline">
               Barchasi
             </Link>
           </div>
@@ -153,7 +153,7 @@ export default function DashboardHome() {
               <Link href="/dashboard/plans" key={plan.id} className="block hover:bg-slate-50 p-3 rounded-xl border border-slate-100 transition-colors">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-sm font-semibold text-slate-800 line-clamp-1">{plan.title}</h3>
+                    <h3 className="text-sm font-semibold text-slate-900 line-clamp-1">{plan.title}</h3>
                     <p className="text-xs text-slate-500 mt-1">{plan.department?.name || "Kafedra yo'q"} - {plan.year}-yil</p>
                   </div>
                   <div className="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded text-xs text-slate-600 font-medium">
@@ -170,9 +170,9 @@ export default function DashboardHome() {
         </div>
 
         {/* Yangiliklar qismi */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col h-[500px]">
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col h-[500px]">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold text-slate-800 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
               <Megaphone className="w-5 h-5 text-blue-500" />
               Bugungi yangiliklar
             </h2>
@@ -185,7 +185,7 @@ export default function DashboardHome() {
             {todaysNews.map(n => (
               <div key={n.id} className="p-4 bg-slate-50 border border-slate-100 rounded-xl relative hover:border-blue-200 transition-colors group">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold text-slate-800 pr-10">{n.title}</h3>
+                  <h3 className="font-semibold text-slate-900 pr-10">{n.title}</h3>
                   <div className="flex items-center gap-2">
                     {user?.id === n.authorId && (
                       <button onClick={() => handleDeleteNews(n.id)} className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" title="O'chirish">
@@ -267,14 +267,14 @@ function StatCard({ title, value, icon, color, href, subtext }: any) {
 
   if (href) {
     return (
-      <Link href={href} className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between ${color}`}>
+      <Link href={href} className={`block rounded-xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-sm transition-all h-full flex flex-col justify-between ${color}`}>
         {content}
       </Link>
     );
   }
 
   return (
-    <div className={`block rounded-2xl border border-slate-200 bg-white p-6 shadow-sm h-full flex flex-col justify-between ${color}`}>
+    <div className={`block rounded-xl border border-slate-200 bg-white p-6 shadow-sm h-full flex flex-col justify-between ${color}`}>
       {content}
     </div>
   );
