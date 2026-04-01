@@ -31,7 +31,7 @@ export default function AdminMonitoringPage() {
   const fetchRecentHistory = async () => {
     try {
       // Fetch history or use dynamic simulation if not ready
-      const res = await fetch("/api/history?limit=5");
+      const res = await fetch("/api/logs?limit=5");
       if (res.ok) {
         const data = await res.json();
         setHistory(Array.isArray(data) ? data.slice(0, 5) : []);

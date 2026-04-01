@@ -10,7 +10,7 @@ export async function GET() {
     // First time setup
     if (!settings) {
       settings = await prisma.systemSetting.create({
-        data: { id: "GLOBAL", maintenanceMode: false, broadcastActive: false }
+        data: { id: "GLOBAL", maintenanceMode: false, broadcastActive: false, academicYear: "2026-2027", lockStructure: false }
       });
     }
 
@@ -22,16 +22,18 @@ export async function GET() {
 
 export async function PUT(req: Request) {
   try {
-    const { maintenanceMode, broadcastMessage, broadcastActive } = await req.json();
+    const { maintenanceMode, broadcastMessage, broadcastActive, academicYear, lockStructure } = await req.json();
 
     const updated = await prisma.systemSetting.upsert({
       where: { id: "GLOBAL" },
-      update: { maintenanceMode, broadcastMessage, broadcastActive },
+      update: { maintenanceMode, broadcastMessage, broadcastActive, academicYear, lockStructure },
       create: {
         id: "GLOBAL",
         maintenanceMode: maintenanceMode || false,
         broadcastMessage: broadcastMessage || null,
-        broadcastActive: broadcastActive || false
+        broadcastActive: broadcastActive || false,
+        academicYear: academicYear || "2026-2027",
+        lockStructure: lockStructure || false
       }
     });
 

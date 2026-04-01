@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Settings, DownloadCloud, AlertTriangle, ShieldCheck, Database, HardDrive, RefreshCcw, CheckSquare, MessageSquare, Send } from "lucide-react";
+import { Settings, DownloadCloud, AlertTriangle, ShieldCheck, Database, HardDrive, RefreshCcw, CheckSquare, MessageSquare, Send, Calendar, Lock } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function SettingsPage() {
@@ -12,6 +12,8 @@ export default function SettingsPage() {
   const [maintenance, setMaintenance] = useState(false);
   const [broadcastActive, setBroadcastActive] = useState(false);
   const [broadcastMessage, setBroadcastMessage] = useState("");
+  const [academicYear, setAcademicYear] = useState("2026-2027");
+  const [lockStructure, setLockStructure] = useState(false);
 
   useEffect(() => {
     fetch("/api/settings")
@@ -21,6 +23,8 @@ export default function SettingsPage() {
            setMaintenance(data.maintenanceMode);
            setBroadcastActive(data.broadcastActive);
            setBroadcastMessage(data.broadcastMessage || "");
+           if (data.academicYear) setAcademicYear(data.academicYear);
+           if (data.lockStructure !== undefined) setLockStructure(data.lockStructure);
          }
       })
       .catch(console.error);
@@ -36,6 +40,8 @@ export default function SettingsPage() {
           maintenanceMode: maintenance,
           broadcastActive: broadcastActive,
           broadcastMessage: broadcastMessage,
+          academicYear: academicYear,
+          lockStructure: lockStructure,
           ...updates
         })
       });
@@ -71,6 +77,23 @@ export default function SettingsPage() {
     } else {
       setBroadcastActive(!newState);
     }
+  };
+
+  const handleLockToggle = async () => {
+    if (saving) return;
+    const newState = !lockStructure;
+    setLockStructure(newState);
+    const success = await handleSaveSettings({ lockStructure: newState });
+    if (success) {
+      toast.success(newState ? "Tizim Strukturasi Qulflab qo'yildi!" : "Struktura blokirovka qulfdan yechildi");
+    } else {
+      setLockStructure(!newState);
+    }
+  };
+
+  const handleSaveAcademicYear = async () => {
+    const success = await handleSaveSettings({ academicYear });
+    if (success) toast.success("Standart O'quv yili saqlandi!");
   };
 
   const handleSaveMessage = async () => {
@@ -145,7 +168,7 @@ export default function SettingsPage() {
            </div>
            <div className="p-6 space-y-4">
              <p className="text-sm text-slate-600">
-               Joriy qilingan xabar tizimdagi barcha xodimlarning ekranining eng yuqorisida qip-qizil banner bo'lib portlab chiqadi.
+               Joriy qilingan xabar tizimdagi barcha xodimlarning ekranining eng yuqorisida qip-qizil banner bo'lib chiquvchi ommaviy signaldik namoyish qilinadi.
              </p>
              <div className="flex flex-col gap-3">
                <textarea 
@@ -153,7 +176,7 @@ export default function SettingsPage() {
                  onChange={e => setBroadcastMessage(e.target.value)}
                  rows={2}
                  placeholder="Barcha dekanlar diqqatiga: Soat 12 dan keyin..."
-                 className="w-full text-sm bg-white border border-slate-200 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                 className="w-full text-sm bg-white border border-slate-200 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#309F4C] transition-all resize-none"
                />
                <button onClick={handleSaveMessage} disabled={saving} className="bg-[#309F4C] hover:bg-[#25823c] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm shadow-emerald-600/20 text-sm transition-colors self-end flex items-center gap-2">
                   <Send className="w-4 h-4"/> Matnni Saqlash
@@ -170,15 +193,60 @@ export default function SettingsPage() {
            </div>
         </div>
 
+        {/* Academic Year Blok */}
+        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
+           <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
+             <Calendar className="w-5 h-5 text-indigo-500" />
+             <h3 className="font-bold text-slate-900">Standart O'quv Yili Boshqaruvi</h3>
+           </div>
+           <div className="p-6 space-y-4">
+             <p className="text-sm text-slate-600">
+               Har yili Dekan/Mudirlar yangi reja yaratganda u avvalambor Global o'quv yiliga bog'lanadi. Yoz oylarida buni kelasi yilga yangilab qo'ying.
+             </p>
+             <div className="flex flex-col gap-3">
+               <input 
+                 value={academicYear}
+                 onChange={e => setAcademicYear(e.target.value)}
+                 placeholder="Masalan: 2026-2027"
+                 className="w-full text-base font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-center"
+               />
+               <button onClick={handleSaveAcademicYear} disabled={saving} className="bg-[#309F4C] hover:bg-[#25823c] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm shadow-emerald-600/20 text-sm transition-colors w-full flex items-center justify-center gap-2">
+                  <CheckSquare className="w-4 h-4"/> Yilni Tasdiqlash
+               </button>
+             </div>
+           </div>
+        </div>
+
+        {/* Structure Lock Blok */}
+        <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
+           <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
+             <Lock className="w-5 h-5 text-orange-500" />
+             <h3 className="font-bold text-slate-900">Enterprise Tizim Olib qochishiga (Qulflash)</h3>
+           </div>
+           <div className="p-6 space-y-4">
+             <p className="text-sm text-slate-600">
+               G'arazli hujumlar yeki bilmasdan nimanidir o'chirib yuborishdan mudofaa qiling. "Qulflash" yoqilganda hech bir kafedra yeki fakultet yaratilishi va o'chib ketishiga yo'l qo'yilmaydi.
+             </p>
+             <div className="flex items-center gap-4 pt-2">
+               <div className={`w-14 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors ${lockStructure ? 'bg-orange-500' : 'bg-slate-200'}`} onClick={handleLockToggle}>
+                 <div className={`bg-white w-6 h-6 rounded-full shadow-sm transform transition-transform ${lockStructure ? 'translate-x-6' : 'translate-x-0'}`}></div>
+               </div>
+               <span className={`font-bold text-sm ${lockStructure ? 'text-orange-500' : 'text-slate-400'}`}>
+                 {lockStructure ? "QULFLANGAN (Fakultet va Kafedra maxfiy saqlanmoqda)" : "Ochiq arxitektura (O'zgartirishlar faol)"}
+               </span>
+             </div>
+           </div>
+        </div>
+
         {/* Database Backup */}
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
            <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
              <Database className="w-5 h-5 text-blue-500" />
-             <h3 className="font-bold text-slate-900">Ma'lumotlar arxivini yuklash (Backup/JSON)</h3>
+             <h3 className="font-bold text-slate-900">Ma'lumotlar arxivini yuklash (Backup)</h3>
            </div>
            <div className="p-6 space-y-4">
              <p className="text-sm text-slate-600">
-               Joriy o'quv yili yakunlanganda yoki xavfsizlik maqsadida butun tizimdagi (Foydalanuvchilar, Rejalar, Tasdiqlar) o'chib ketish ehtimoliga qarshi barcha kodlar jamlanmasini saqlab qo'yish.
+               Joriy o'quv yili yakunlanganda yoki xavfsizlik maqsadida butun tizimdagi ma'lumotlar jamlanmasini saqlab qo'yish (JSON Local File).
              </p>
              <button 
                onClick={handleDownloadBackup}
@@ -186,7 +254,7 @@ export default function SettingsPage() {
                className="mt-4 px-6 py-3 w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-50"
              >
                {loading ? <RefreshCcw className="w-5 h-5 animate-spin" /> : <HardDrive className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />}
-               Tizim nusxasini yaratish (Download)
+               Tizim nusxasini yaratish
              </button>
            </div>
         </div>

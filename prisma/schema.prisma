@@ -205,5 +205,7 @@ model SystemSetting {
   maintenanceMode  Boolean  @default(false)
   broadcastMessage String?
   broadcastActive  Boolean  @default(false)
+  academicYear     String   @default("2026-2027")
+  lockStructure    Boolean  @default(false)
   updatedAt        DateTime @updatedAt
 }
