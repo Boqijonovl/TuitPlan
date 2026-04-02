@@ -102,7 +102,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="py-2 px-3 border-b border-blue-800/50 flex items-center shrink-0 min-h-[6rem] h-24 transition-all cursor-pointer hover:bg-white/5 group gap-3">
           <img src="/logo.png" alt="TUIT" className={`object-contain transition-all duration-300 shrink-0 ${!isSidebarOpen && !isMobile ? 'w-10 mx-auto' : 'w-10 group-hover:scale-110'}`} />
           <div className={`flex flex-col justify-center transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'opacity-0 hidden' : 'opacity-100'}`}>
-            <span className="text-[11px] font-extrabold text-white tracking-widest uppercase leading-snug line-clamp-3" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}>
+            <span className="text-[8px] font-bold text-white/90 tracking-wider uppercase leading-tight line-clamp-3" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.3)" }}>
               Muhammad al-Xorazmiy nomidagi Toshkent Axborot Texnologiyalari Universiteti
             </span>
           </div>

@@ -193,9 +193,9 @@ export default function AdminMonitoringPage() {
               </h3>
               <div className="w-full h-[140px]">
                 <ResponsiveContainer width="100%" height="100%">
-                   <BarChart data={roleDistribution} layout="vertical" margin={{top:0, right: 30, left: -20, bottom:0}}>
+                   <BarChart data={roleDistribution} layout="vertical" margin={{top:0, right: 30, left: 40, bottom:0}}>
                      <XAxis type="number" hide />
-                     <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#64748b', fontWeight: 700}} />
+                     <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fontSize: 10, fill: '#64748b', fontWeight: 700}} width={75} />
                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{borderRadius: '10px', fontSize: '12px', fontWeight: 'bold'}}/>
                      <Bar dataKey="res" radius={[0, 8, 8, 0]} barSize={20}>
                         {roleDistribution.map((entry, index) => (
