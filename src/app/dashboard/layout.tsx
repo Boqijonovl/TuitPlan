@@ -99,8 +99,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Sidebar - Blue Theme */}
       <aside className={`fixed lg:static top-0 left-0 bg-blue-900 text-white h-screen transition-all z-40 flex flex-col ${isSidebarOpen ? 'w-64' : 'w-0 lg:w-20'} overflow-hidden shadow-sm lg:shadow-none print:hidden`}>
-        <div className="py-2 px-1 border-b border-blue-800/50 flex items-center justify-center shrink-0 h-24 transition-all cursor-pointer hover:bg-white/5 group">
-          <img src="/logo.png" alt="TUIT" className={`h-full w-auto object-contain transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'scale-75 w-12' : 'scale-[1.15] w-auto group-hover:scale-[1.2]'}`} />
+        <div className="py-2 px-3 border-b border-blue-800/50 flex items-center shrink-0 min-h-[6rem] h-24 transition-all cursor-pointer hover:bg-white/5 group gap-3">
+          <img src="/logo.png" alt="TUIT" className={`object-contain transition-all duration-300 shrink-0 ${!isSidebarOpen && !isMobile ? 'w-10 mx-auto' : 'w-10 group-hover:scale-110'}`} />
+          <div className={`flex flex-col justify-center transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'opacity-0 hidden' : 'opacity-100'}`}>
+            <span className="text-[11px] font-extrabold text-white tracking-widest uppercase leading-snug line-clamp-3" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.2)" }}>
+              Muhammad al-Xorazmiy nomidagi Toshkent Axborot Texnologiyalari Universiteti
+            </span>
+          </div>
         </div>
         
         <div className="flex-1 py-6 px-3 space-y-2 overflow-y-auto">
