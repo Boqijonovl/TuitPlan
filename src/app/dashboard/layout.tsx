@@ -135,9 +135,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {(user.role === "ADMIN" || user.permissions?.includes("VIEW_USERS")) && (
              <NavItem href="/dashboard/users" icon={<Users />} label="Foydalanuvchilar" isOpen={isSidebarOpen} active={pathname.includes("/users")} isMobile={isMobile} />
           )}
-          {(user.role === "ADMIN" || user.permissions?.includes("VIEW_HISTORY")) && (
-             <NavItem href="/dashboard/history" icon={<ShieldAlert />} label="Xavfsizlik Jurnali" isOpen={isSidebarOpen} active={pathname.includes("/history")} isMobile={isMobile} />
-          )}
           {(user.role === "ADMIN" || user.permissions?.includes("VIEW_SETTINGS")) && (
              <NavItem href="/dashboard/settings" icon={<Settings />} label="Sozlamalar" isOpen={isSidebarOpen} active={pathname.includes("/settings")} isMobile={isMobile} />
           )}
