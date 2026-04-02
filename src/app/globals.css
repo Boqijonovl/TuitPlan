@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-blue-50: #f5f3fa;
-  --color-blue-100: #ebe6f5;
-  --color-blue-200: #d6ccf0;
-  --color-blue-300: #ab94e6;
-  --color-blue-400: #886adc;
-  --color-blue-500: #6a44cf;
-  --color-blue-600: #552cb8;
-  --color-blue-700: #46229c;
-  --color-blue-800: #1a0d36; /* Menyular hovered */
-  --color-blue-900: #2e1760; /* Saydbar Bg, Asosiy korporativ rang */
-  --color-blue-950: #100822; /* Eng qorong'u stroke */
+  --color-blue-50: #f0f3fa;
+  --color-blue-100: #e3e8f6;
+  --color-blue-200: #cbd5ee;
+  --color-blue-300: #aabce2;
+  --color-blue-400: #829cd3;
+  --color-blue-500: #647ec4;
+  --color-blue-600: #4c5caf;
+  --color-blue-700: #3f4a94;
+  --color-blue-800: #2a326a; /* Menyular hovered */
+  --color-blue-900: #1d2d5b; /* Saydbar Bg, Asosiy korporativ rang */
+  --color-blue-950: #0e1633; /* Eng qorong'u stroke */
 }
 :root {
   color-scheme: light only;
