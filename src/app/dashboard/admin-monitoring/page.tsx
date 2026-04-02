@@ -120,29 +120,31 @@ export default function AdminMonitoringPage() {
            </div>
         </div>
 
-        <div className="bg-gradient-to-br from-[#309F4C] to-[#25823c] p-6 rounded-[2rem] shadow-lg shadow-[#309F4C]/30 relative overflow-hidden group text-white">
-           <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-white/10 rounded-full blur-2xl transition-transform group-hover:scale-150"></div>
+        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden group">
+           <div className="absolute top-0 right-0 w-24 h-24 bg-[#309F4C]/5 rounded-full blur-2xl -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
            <div className="flex justify-between items-start relative z-10">
-             <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm text-white flex items-center justify-center shadow-inner">
+             <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-600 flex items-center justify-center shadow-inner group-hover:bg-[#309F4C] group-hover:text-white transition-colors duration-300">
                <CheckCircle className="w-6 h-6" />
              </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-full">Yakunlangan</span>
            </div>
            <div className="mt-4 relative z-10">
-             <p className="text-4xl font-black text-white tracking-tighter">{stats?.completedTasks || 0}</p>
-             <p className="text-xs font-bold text-emerald-100 mt-1 uppercase tracking-widest">Bajarilgan Vazifalar</p>
+             <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.completedTasks || 0}</p>
+             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Bajarilgan Vazifalar</p>
            </div>
         </div>
 
-        <div className="bg-gradient-to-br from-[#1d2d5b] to-[#142044] p-6 rounded-[2rem] shadow-lg shadow-[#1d2d5b]/30 relative overflow-hidden group text-white">
-           <div className="absolute top-0 right-0 w-32 h-32 bg-[#309F4C]/20 rounded-full blur-3xl transition-transform group-hover:scale-150"></div>
+        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden group">
+           <div className="absolute top-0 right-0 w-24 h-24 bg-[#1d2d5b]/5 rounded-full blur-2xl -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
            <div className="flex justify-between items-start relative z-10">
-             <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-sm text-white flex items-center justify-center shadow-inner">
+             <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-600 flex items-center justify-center shadow-inner group-hover:bg-[#1d2d5b] group-hover:text-white transition-colors duration-300">
                <Clock className="w-6 h-6" />
              </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-amber-500 bg-amber-50 px-2 py-1 rounded-full">Jarayonda</span>
            </div>
            <div className="mt-4 relative z-10">
-             <p className="text-4xl font-black text-white tracking-tighter">{stats?.inProgressTasks || 0}</p>
-             <p className="text-xs font-bold text-indigo-200 mt-1 uppercase tracking-widest">Kutmoqda / Bajarilmoqda</p>
+             <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.inProgressTasks || 0}</p>
+             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Kutmoqda / Bajarilmoqda</p>
            </div>
         </div>
       </div>
