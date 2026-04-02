@@ -5,14 +5,32 @@ import { Shield, Plus, Edit2, Trash2, X, Check, Save } from "lucide-react";
 import toast from "react-hot-toast";
 
 const AVAILABLE_PERMISSIONS = [
-  { id: "VIEW_MONITORING", name: "Monitoring G/K", desc: "Statistik grafikalar va ko'rsatkichlarni ko'rish" },
-  { id: "VIEW_FACULTIES", name: "Fakultetlarni ko'rish", desc: "Tuzilma sahifasiga kirish" },
-  { id: "VIEW_USERS", name: "Xodimlarni ko'rish", desc: "Foydalanuvchilar ro'yxatini va sahifasini ko'rish" },
-  { id: "EDIT_USERS", name: "Xodimlarni tahrirlash", desc: "Yangi xodim qo'shish yoki o'chirish" },
-  { id: "VIEW_ARCHIVE", name: "Fayllar arxivi", desc: "Arxivdagi hujjatlarni o'qish" },
-  { id: "VIEW_CHAT", name: "Xabarlashish", desc: "Ichki Chat tizimiga kirish" },
-  { id: "VIEW_HISTORY", name: "Tarix va Jurnallar", desc: "Super Admin xavfsizlik audit jurnallariga kirish" },
-  { id: "VIEW_SETTINGS", name: "Tizim sozlamalari", desc: "Global sozlamalarga kirish (Faqat uqish)" },
+  // 1. Asosiy bo'limlar (Modullar)
+  { id: "VIEW_DASHBOARD", name: "Dashboard (Kuzatuv paneli)", desc: "Umumiy shaxsiy monitoring panelini ko'rish" },
+  { id: "VIEW_MONITORING", name: "Monitoring (KPI va Statistika)", desc: "Tizimning umumiy va batafsil statistikalarini ko'rish" },
+  { id: "VIEW_CALENDAR", name: "Kalendar", desc: "Tadbirlar va rejalarni kalendarda ko'rish" },
+  { id: "VIEW_ARCHIVE", name: "Fayllar arxivini ko'rish", desc: "Arxivdagi barcha o'tgan hujjatlar va jildlarni o'qish" },
+  { id: "VIEW_CHAT", name: "Xabarlashish (Chat)", desc: "Ichki tizim orqali boshqalar bilan yozishish" },
+  
+  // 2. Foydalanuvchi va Struktura
+  { id: "VIEW_USERS", name: "Xodimlarni ko'rish", desc: "Tizimdagi barcha xodimlar va profillarni ko'rish" },
+  { id: "EDIT_USERS", name: "Xodimlarni boshqarish", desc: "Yangi xodim qo'shish, parolini o'zgartirish yoki tizimdan o'chirish" },
+  { id: "VIEW_FACULTIES", name: "Tuzilmani ko'rish", desc: "Fakultet va Departamentlar ro'yxati interfeysiga kirish" },
+  { id: "EDIT_FACULTIES", name: "Tuzilmani tahrirlash", desc: "Fakultet yoki Departament yaratish, tahrirlash va o'chirish" },
+  
+  // 3. Reja va Vazifalar
+  { id: "VIEW_PLANS", name: "Rejalarni ko'rish", desc: "Tizimdagi kafedra yoki fakultet rejalarini kuzatish" },
+  { id: "EDIT_PLANS", name: "Rejalarni tahrirlash", desc: "Yangi reja yaratish, rejalarni arxivlash va o'zgartirish" },
+  { id: "APPROVE_PLANS", name: "Rejalarni tasdiqlash", desc: "Rejalar statusini (Tasdiqlandi/Rad etildi) boshqarish" },
+  { id: "VIEW_TASKS", name: "Vazifalarni ko'rish", desc: "Topshiriqlar paneliga kirish hamda ijrolarni tekshirish" },
+  { id: "EDIT_TASKS", name: "Vazifalarni baholash", desc: "Vazifa statuslarini bajarilgan qilish va KPI ball berish" },
+  
+  // 4. Admin va Integratsiya
+  { id: "VIEW_HISTORY", name: "Tarix (Xavfsizlik Jurnali)", desc: "Super Admin audit va kuzatuv jurnallariga kirish" },
+  { id: "VIEW_SETTINGS", name: "Sozlamalarni ko'rish", desc: "Global tizim sozlamalari panelini faqat o'qish" },
+  { id: "EDIT_SETTINGS", name: "Sozlamalarni o'zgartirish", desc: "Tizimni qulflash, e'lon yuborish va o'quv yilini o'zgartirish" },
+  { id: "DOWNLOAD_BACKUP", name: "Tizim arxivini yuklash", desc: "Barcha Database ma'lumotlarini JSON arxiv qilib yuklab olish" },
+  { id: "SYNC_HEMIS", name: "HEMIS Bilan Sinxronlash", desc: "Tashqi tizim (HEMIS) dan o'qituvchilarni import qilish" },
 ];
 
 export default function RolesPage() {
