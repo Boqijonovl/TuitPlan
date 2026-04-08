@@ -369,12 +369,12 @@ export default function FacultiesPage() {
                    <label className="block text-sm font-bold text-slate-700 mb-1.5">Mavqei (Role)</label>
                    <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-semibold">
                      {userForm.departmentId === "" && <option value="DEKAN">Dekan</option>}
-                     {userForm.departmentId !== "" && <option value="MUDIR">Kafedra Mudiri</option>}
+                     {userForm.departmentId !== "" && <option value="MUDIR">Kafedra mudiri</option>}
                      {userForm.departmentId !== "" && <option value="OQITUVCHI">O'qituvchi</option>}
                    </select>
                  </div>
                  <div>
-                   <label className="block text-sm font-bold text-slate-700 mb-1.5">Tizimga Kirish (Login)</label>
+                   <label className="block text-sm font-bold text-slate-700 mb-1.5">Tizimga kirish (Login)</label>
                    <input type="text" required value={userForm.email} onChange={e => setUserForm({...userForm, email: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm" placeholder="johndoe12" />
                  </div>
                </div>

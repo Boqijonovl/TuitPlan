@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TUIT - Yillik Rejalar Monitoring Tizimi",
+  title: "TUIT - Yillik rejalar Monitoring Tizimi",
   description: "Fakultet va kafedralar yillik rejalari & monitoringi axborot tizimi",
   manifest: "/manifest.json",
   icons: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "TUIT - Yillik Rejalar Monitoring Tizimi",
+    title: "TUIT - Yillik rejalar Monitoring Tizimi",
   },
 };
 

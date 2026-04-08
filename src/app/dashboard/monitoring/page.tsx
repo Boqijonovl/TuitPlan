@@ -111,7 +111,7 @@ export default function MonitoringPage() {
         "Reja Nomi": plan.title,
         "Kafedrasi": plan.department?.name || "Umumiy",
         "Jami Vazifalar": total,
-        "Bajarilgan Vazifalar": done,
+        "Bajarilgan vazifalar": done,
         "Yuklangan Hisobotlar": planSubmissions,
         "Bajarilish Ko'rsatkichi (%)": progress
       };
@@ -164,7 +164,7 @@ export default function MonitoringPage() {
   const totalCompletedGlobal = plans.reduce((acc, p) => acc + (p.tasks?.filter((t: any) => t.submissions?.length > 0).length || 0), 0);
   
   const pieData = [
-    { name: "Bajarilgan Vazifalar", value: totalCompletedGlobal },
+    { name: "Bajarilgan vazifalar", value: totalCompletedGlobal },
     { name: "Qolib ketgan Vazifalar", value: totalTasksGlobal - totalCompletedGlobal }
   ];
   const COLORS = ['#2563eb', '#cbd5e1'];
@@ -174,7 +174,7 @@ export default function MonitoringPage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
            <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-              Monitoring <span className="bg-blue-100 text-blue-600 text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:block">Widget Mode</span>
+              Monitoring <span className="bg-blue-100 text-blue-600 text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider hidden sm:block">Widget mode</span>
            </h1>
            <div className="flex bg-slate-100 rounded-lg p-1 border border-slate-200">
              <button onClick={() => setIsLocked(!isLocked)} className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${isLocked ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-900'}`} title="Panel bloklarini qulflash">

@@ -71,10 +71,10 @@ export default function AdminMonitoringPage() {
         <div>
            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1d2d5b]/10 text-[#1d2d5b] text-xs font-black tracking-widest uppercase mb-3">
              <Activity className="w-3.5 h-3.5 animate-pulse" />
-             Live Tizim Holati
+             Live Tizim holati
            </div>
            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
-             Admin <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1d2d5b] to-[#309F4C]">Monitoring Paneli</span>
+             Admin <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1d2d5b] to-[#309F4C]">Monitoring paneli</span>
            </h1>
            <p className="text-sm font-medium text-slate-500 mt-2 max-w-xl">
              Tizim serverlarining 100% korporativ faolligi, foydalanuvchilar qatlami va xavfsizlik auditining bevosita real vaqtdagi manzarasi.
@@ -102,7 +102,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.totalUsers || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Umumiy Tizim A'zolari</p>
+             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Umumiy tizim a'zolari</p>
            </div>
         </div>
 
@@ -116,7 +116,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.activePlans || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Tasdiqlangan Rejalar</p>
+             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Tasdiqlangan rejalar</p>
            </div>
         </div>
 
@@ -130,7 +130,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.completedTasks || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Bajarilgan Vazifalar</p>
+             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Bajarilgan vazifalar</p>
            </div>
         </div>
 
@@ -156,13 +156,13 @@ export default function AdminMonitoringPage() {
               <div>
                 <h3 className="font-extrabold text-slate-900 text-lg flex items-center gap-2">
                    <BarChart3 className="w-5 h-5 text-[#1d2d5b]" />
-                   Serverdagi Aktiv Faollik
+                   Serverdagi aktiv faollik
                 </h3>
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-1">So'nggi 7 kundagi avtorizatsiyalar</p>
               </div>
               <div className="flex px-3 py-1.5 rounded-full bg-slate-100 items-center justify-center gap-2 shadow-inner border border-slate-200/50">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#309F4C] animate-pulse"></span>
-                <span className="text-[10px] uppercase font-black text-slate-600 tracking-wider">Jonli Efir</span>
+                <span className="text-[10px] uppercase font-black text-slate-600 tracking-wider">Jonli efir</span>
               </div>
             </div>
             
@@ -189,7 +189,7 @@ export default function AdminMonitoringPage() {
          <div className="flex flex-col gap-6">
            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col justify-center items-center">
               <h3 className="w-full font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-6">
-                 Demografik Tarqalish
+                 Demografik tarqalish
               </h3>
               <div className="w-full h-[140px]">
                 <ResponsiveContainer width="100%" height="100%">
@@ -210,7 +210,7 @@ export default function AdminMonitoringPage() {
            <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm flex flex-col flex-1 overflow-hidden min-h-[190px]">
               <div className="p-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
                 <h3 className="font-extrabold text-slate-900 uppercase tracking-widest text-[11px] flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-[#1d2d5b]" /> Terminal Jurnali (So'nggi harakat)
+                  <Terminal className="w-4 h-4 text-[#1d2d5b]" /> Terminal jurnali (So'nggi harakat)
                 </h3>
               </div>
               <div className="p-5 flex-1 flex flex-col gap-3 overflow-y-auto">
@@ -228,7 +228,7 @@ export default function AdminMonitoringPage() {
                 ))}
               </div>
               <Link href="/dashboard/history" className="p-3 text-center border-t border-slate-100 text-xs font-black text-[#1d2d5b] hover:bg-[#1d2d5b] hover:text-white transition-colors uppercase tracking-widest flex items-center justify-center gap-2 group">
-                 Tizim Tarixiga O'tish <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                 Tizim tarixiga O'tish <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
            </div>
          </div>

@@ -354,7 +354,7 @@ export default function UsersPage() {
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-medium shadow-sm shadow-blue-500/30 flex items-center gap-2 transition-colors shrink-0 text-sm"
             >
               <Plus className="w-5 h-5" /> 
-              {activeFacultyId === "ADMIN" ? "Admin Qo'shish" : activeFacultyId === "ALL_DEANS" ? "Dekan Qo'shish" : "Xodim Qo'shish"}
+              {activeFacultyId === "ADMIN" ? "Admin Qo'shish" : activeFacultyId === "ALL_DEANS" ? "Dekan Qo'shish" : "Xodim qo'shish"}
             </button>
           </div>
         )}
@@ -556,7 +556,7 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/* MODAL - Yangi Xodim Qo'shish & Tahrirlash */}
+      {/* MODAL - Yangi xodim qo'shish & Tahrirlash */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-sm w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
@@ -565,7 +565,7 @@ export default function UsersPage() {
                 <UserCheck className="w-5 h-5 text-blue-500"/> 
                 {editingUserId 
                   ? "Xodimni Tahrirlash" 
-                  : (activeFacultyId === "ADMIN" ? "Yangi Admin Yaratish" : activeFacultyId === "ALL_DEANS" ? "Yangi Dekan Yaratish" : `Yangi Xodim Qo'shish`)}
+                  : (activeFacultyId === "ADMIN" ? "Yangi Admin Yaratish" : activeFacultyId === "ALL_DEANS" ? "Yangi Dekan Yaratish" : `Yangi xodim qo'shish`)}
               </h2>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-200 rounded-md">
                 <X className="w-5 h-5" />
@@ -575,7 +575,7 @@ export default function UsersPage() {
             <form onSubmit={handleSubmitUser} className="p-6 space-y-5 overflow-y-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Ism Familiya</label>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Ism familiya</label>
                   <input 
                     type="text" required value={newUser.name} onChange={e => setNewUser({...newUser, name: e.target.value})}
                     placeholder="Masalan: Boqijonov Boburjon"

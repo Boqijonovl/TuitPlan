@@ -70,7 +70,7 @@ export async function GET(request: Request) {
                 <thead>
                     <tr>
                         <th width="5%">T/R</th>
-                        <th width="30%">Ism Familiyasi</th>
+                        <th width="30%">Ism familiyasi</th>
                         <th width="15%">Lavozimi (Roli)</th>
                         <th width="25%">Logini (Pochta)</th>
                         <th width="25%">Paroli</th>

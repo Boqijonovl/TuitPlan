@@ -131,7 +131,7 @@ export default function SettingsPage() {
              <div className="p-2 bg-slate-100 rounded-xl text-slate-600 shadow-inner">
                <Settings className="w-6 h-6" />
              </div>
-             Global Sozlamalar
+             Global sozlamalar
            </h1>
            <p className="text-sm font-medium text-slate-500 mt-2">Dastur versiyasi, arxivlar va ruxsatlar boshqaruvi</p>
         </div>

@@ -53,7 +53,7 @@ export default function LoginPage() {
         <div className="mb-8 text-center flex flex-col items-center">
           <div className="text-center mb-8 shrink-0">
             <img src="/logo1.png" alt="TUIT" className="h-40 md:h-48 w-auto mx-auto object-contain transition-transform duration-500" />
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight mt-6">Tizimga Kirish</h1>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight mt-6">Tizimga kirish</h1>
           </div>
         </div>
 
