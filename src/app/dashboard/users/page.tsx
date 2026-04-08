@@ -519,7 +519,7 @@ export default function UsersPage() {
                       {currentUser?.role === "ADMIN" && (
                         <button 
                           onClick={() => setKpiUserId({id: u.id, name: u.name})}
-                          className="text-amber-500 hover:text-amber-600 p-1.5 hover:bg-amber-50 rounded-lg transition-colors title='KPI qoshish'"
+                          className="text-amber-500 hover:text-amber-600 p-1.5 hover:bg-amber-50 rounded-lg transition-colors title='KPI qo'shish'"
                         >
                           <Award className="w-4 h-4" />
                         </button>
@@ -540,7 +540,7 @@ export default function UsersPage() {
                       </button>
                       <button 
                         onClick={() => handleDeleteUser(u.id, u.name)}
-                        className="text-slate-400 hover:text-slate-600 p-1.5 hover:bg-slate-50 rounded-lg transition-colors title='Ochirish'"
+                        className="text-slate-400 hover:text-slate-600 p-1.5 hover:bg-slate-50 rounded-lg transition-colors title='O'chirish'"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

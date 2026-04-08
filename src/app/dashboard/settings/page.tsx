@@ -225,7 +225,7 @@ export default function SettingsPage() {
            </div>
            <div className="p-6 space-y-4">
              <p className="text-sm text-slate-600">
-               G'arazli hujumlar yeki bilmasdan nimanidir o'chirib yuborishdan mudofaa qiling. "Qulflash" yoqilganda hech bir kafedra yeki fakultet yaratilishi va o'chib ketishiga yo'l qo'yilmaydi.
+               G'arazli hujumlar yoki bilmasdan nimanidir o'chirib yuborishdan mudofaa qiling. "Qulflash" yoqilganda hech bir kafedra yoki fakultet yaratilishi va o'chib ketishiga yo'l qo'yilmaydi.
              </p>
              <div className="flex items-center gap-4 pt-2">
                <div className={`w-14 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors ${lockStructure ? 'bg-orange-500' : 'bg-slate-200'}`} onClick={handleLockToggle}>
