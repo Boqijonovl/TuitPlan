@@ -294,7 +294,7 @@ export default function TasksPage() {
                               onClick={() => handleStartTask(task.id)}
                               className={`w-full bg-blue-50 hover:bg-blue-600 hover:text-white text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${!isBoard ? 'md:w-auto' : ''}`}
                             >
-                              <PlayCircle className="w-4 h-4" /> Ishni Boshlash
+                              <PlayCircle className="w-4 h-4" /> Ishni boshlash
                             </button>
                           )}
                           
@@ -347,7 +347,7 @@ export default function TasksPage() {
                               {sub.fileUrl && (
                                 <div>
                                   <a href={sub.fileUrl} download target="_blank" className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-md hover:bg-blue-100 transition-colors font-medium text-[11px]">
-                                    <FileText className="w-3.5 h-3.5" /> Yuklangan Hujjat
+                                    <FileText className="w-3.5 h-3.5" /> Yuklangan hujjat
                                   </a>
                                 </div>
                               )}

@@ -429,7 +429,7 @@ export default function UsersPage() {
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors relative z-10">{faculty.name}</h3>
                   <div className="flex items-center gap-1 text-slate-500 text-xs mb-4 font-medium px-3 py-1 bg-slate-50 rounded-lg relative z-10">
-                    <GraduationCap className="w-4 h-4" /> {faculty.departments?.length || 0} Ta Kiruvchi Kafedra
+                    <GraduationCap className="w-4 h-4" /> {faculty.departments?.length || 0} ta kiruvchi kafedra
                   </div>
                   <div className="mt-auto inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-700 rounded-full font-bold text-sm group-hover:bg-blue-100 transition-colors relative z-10">
                     <UserCheck className="w-4 h-4 text-blue-500" /> Jami: {facUsersCount} kadr
@@ -485,7 +485,7 @@ export default function UsersPage() {
                   <th className="px-6 py-4">Foydalanuvchi</th>
                   <th className="px-6 py-4">Email</th>
                   <th className="px-6 py-4">Rol (Vazifa)</th>
-                  <th className="px-6 py-4">KPI Reyting</th>
+                  <th className="px-6 py-4">KPI reyting</th>
                   <th className="px-6 py-4 text-right">Amallar</th>
                 </tr>
               </thead>

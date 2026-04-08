@@ -123,7 +123,7 @@ export default function RolesPage() {
           onClick={() => { setEditingRole(null); setRoleForm({ name: "", permissions: [] }); setIsModalOpen(true); }}
           className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-bold shadow-sm flex items-center gap-2 transition-all transform hover:-translate-y-0.5"
         >
-          <Plus className="w-5 h-5" /> Yangi Korporativ Rol
+          <Plus className="w-5 h-5" /> Yangi korporativ rol
         </button>
       </div>
 
@@ -139,7 +139,7 @@ export default function RolesPage() {
                    <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold shadow-inner">
                      <Shield className="w-5 h-5" />
                    </div>
-                   <span className="text-xs font-bold tracking-widest text-slate-400">{r.permissions.length} TA HUQUQ</span>
+                   <span className="text-xs font-bold tracking-widest text-slate-400">{r.permissions.length} ta huquq</span>
                  </div>
                  <h3 className="text-xl font-extrabold text-slate-900 tracking-tight relative z-10">{r.name}</h3>
                  <div className="mt-4 flex flex-wrap gap-1 relative z-10">
@@ -169,7 +169,7 @@ export default function RolesPage() {
               <div className="bg-blue-600 p-6 flex justify-between items-center shrink-0">
                  <div className="text-white flex items-center gap-3">
                    <div className="p-2 bg-white/20 rounded-xl"><Shield className="w-5 h-5"/></div>
-                   <h2 className="font-bold text-lg">{editingRole ? "Rolni Tahrirlash" : "Yangi Rol Qo'shish"}</h2>
+                   <h2 className="font-bold text-lg">{editingRole ? "Rolni tahrirlash" : "Yangi rol qo'shish"}</h2>
                  </div>
                  <button onClick={() => setIsModalOpen(false)} className="text-white/60 hover:text-white"><X className="w-6 h-6"/></button>
               </div>

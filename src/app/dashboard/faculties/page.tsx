@@ -264,7 +264,7 @@ export default function FacultiesPage() {
                                setUserForm({ name: "", email: "", password: "", role: "MUDIR", facultyId: faculty.id, departmentId: dep.id });
                                setIsUserModalOpen(true);
                             }}
-                            className="p-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors title='Kafedra Mudiri yoki O`qituvchi qo`shish'"
+                            className="p-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors title='Kafedra mudiri yoki O`qituvchi qo`shish'"
                           >
                             <UserPlus className="w-4 h-4" />
                           </button>

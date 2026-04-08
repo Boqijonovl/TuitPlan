@@ -82,10 +82,10 @@ export default function AdminMonitoringPage() {
         </div>
         <div className="flex gap-3">
           <Link href="/dashboard/history" className="bg-white border border-slate-200 hover:border-[#1d2d5b]/30 text-slate-700 hover:text-[#1d2d5b] px-5 py-3 rounded-2xl font-bold transition-all flex items-center gap-2 shadow-sm drop-shadow-sm hover:shadow-md">
-             <ShieldAlert className="w-4 h-4" /> To'liq Tarix
+             <ShieldAlert className="w-4 h-4" /> To'liq tarix
           </Link>
           <Link href="/dashboard/settings" className="bg-[#1d2d5b] hover:bg-[#0e1633] text-white px-5 py-3 rounded-2xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-[#1d2d5b]/20 hover:-translate-y-0.5">
-             <Database className="w-4 h-4" /> Maxsus Boshqaruv
+             <Database className="w-4 h-4" /> Maxsus boshqaruv
           </Link>
         </div>
       </div>

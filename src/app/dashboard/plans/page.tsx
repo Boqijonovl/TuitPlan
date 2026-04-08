@@ -198,7 +198,7 @@ export default function PlansPage() {
 
     if (plan.tasks && plan.tasks.length > 0) {
       plan.tasks.forEach((t: any, idx: number) => {
-        const roleNames: Record<string, string> = { "OQITUVCHI": "O'qituvchi", "MUDIR": "Kafedra Mudiri", "DEKAN": "Fakultet Dekani" };
+        const roleNames: Record<string, string> = { "OQITUVCHI": "O'qituvchi", "MUDIR": "Kafedra mudiri", "DEKAN": "Fakultet dekani" };
         const rName = t.assignedRole ? (roleNames[t.assignedRole] || t.assignedRole) : "Hamma uchun";
         tasksHtml += `
           <tr>
@@ -306,7 +306,7 @@ export default function PlansPage() {
                 <Clock className="w-4 h-4 text-blue-400" />
                 {plan.year}-yil
                 <span className="text-slate-300">|</span>
-                <span className="truncate">{plan.department?.name || "Umumiy Reja"}</span>
+                <span className="truncate">{plan.department?.name || "Umumiy reja"}</span>
               </div>
             </div>
             

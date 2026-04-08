@@ -164,7 +164,7 @@ export default function SettingsPage() {
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
            <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
              <MessageSquare className="w-5 h-5 text-red-500" />
-             <h3 className="font-bold text-slate-900">Ommaviy Qizil E'lon (Broadcast)</h3>
+             <h3 className="font-bold text-slate-900">Ommaviy qizil e'lon (Broadcast)</h3>
            </div>
            <div className="p-6 space-y-4">
              <p className="text-sm text-slate-600">
@@ -179,7 +179,7 @@ export default function SettingsPage() {
                  className="w-full text-sm bg-white border border-slate-200 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#309F4C] transition-all resize-none"
                />
                <button onClick={handleSaveMessage} disabled={saving} className="bg-[#309F4C] hover:bg-[#25823c] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm shadow-emerald-600/20 text-sm transition-colors self-end flex items-center gap-2">
-                  <Send className="w-4 h-4"/> Matnni Saqlash
+                  <Send className="w-4 h-4"/> Matnni saqlash
                </button>
              </div>
              <div className="flex items-center gap-4 pt-3 border-t border-slate-100">
@@ -197,7 +197,7 @@ export default function SettingsPage() {
         <div className="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
            <div className="p-6 border-b border-slate-100 bg-slate-50 flex items-center gap-3">
              <Calendar className="w-5 h-5 text-indigo-500" />
-             <h3 className="font-bold text-slate-900">Standart O'quv Yili Boshqaruvi</h3>
+             <h3 className="font-bold text-slate-900">Standart o'quv yili boshqaruvi</h3>
            </div>
            <div className="p-6 space-y-4">
              <p className="text-sm text-slate-600">
@@ -211,7 +211,7 @@ export default function SettingsPage() {
                  className="w-full text-base font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-center"
                />
                <button onClick={handleSaveAcademicYear} disabled={saving} className="bg-[#309F4C] hover:bg-[#25823c] text-white font-bold px-5 py-2.5 rounded-xl shadow-sm shadow-emerald-600/20 text-sm transition-colors w-full flex items-center justify-center gap-2">
-                  <CheckSquare className="w-4 h-4"/> Yilni Tasdiqlash
+                  <CheckSquare className="w-4 h-4"/> Yilni tasdiqlash
                </button>
              </div>
            </div>

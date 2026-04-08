@@ -57,7 +57,7 @@ export default function SecurityLogsPage() {
              </div>
              Xavfsizlik Jurnali
            </h1>
-           <p className="text-sm font-medium text-slate-500 mt-2">Tizimdagi huquqiy va ma'muriy aralashuvlar tarixi (Super Admin paneli)</p>
+           <p className="text-sm font-medium text-slate-500 mt-2">Tizimdagi huquqiy va ma'muriy aralashuvlar tarixi (Super admin paneli)</p>
         </div>
         <button onClick={fetchLogs} className="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shadow-sm">
            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Yangilash

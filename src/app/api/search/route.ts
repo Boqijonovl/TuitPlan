@@ -24,7 +24,7 @@ export async function GET(req: Request) {
     });
 
     users.forEach(u => {
-      let roleName = u.role === "ADMIN" ? "Administrator" : u.role === "DEKAN" ? "Fakultet Dekani" : u.role === "MUDIR" ? "Kafedra Mudiri" : "O'qituvchi";
+      let roleName = u.role === "ADMIN" ? "Administrator" : u.role === "DEKAN" ? "Fakultet dekani" : u.role === "MUDIR" ? "Kafedra mudiri" : "O'qituvchi";
       results.push({ type: "USER", id: u.id, title: u.name, subtitle: `${roleName} / ${u.email}`, link: "/dashboard/users" });
     });
 
