@@ -55,7 +55,7 @@ export default function SecurityLogsPage() {
              <div className="p-2 bg-red-100 rounded-xl text-red-600 shadow-inner">
                <ShieldAlert className="w-6 h-6" />
              </div>
-             Xavfsizlik Jurnali
+             Xavfsizlik jurnali
            </h1>
            <p className="text-sm font-medium text-slate-500 mt-2">Tizimdagi huquqiy va ma'muriy aralashuvlar tarixi (Super admin paneli)</p>
         </div>

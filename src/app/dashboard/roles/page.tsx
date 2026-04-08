@@ -26,7 +26,7 @@ const AVAILABLE_PERMISSIONS = [
   { id: "EDIT_TASKS", name: "Vazifalarni baholash", desc: "Vazifa statuslarini bajarilgan qilish va KPI ball berish" },
   
   // 4. Admin va Integratsiya
-  { id: "VIEW_HISTORY", name: "Tarix (Xavfsizlik Jurnali)", desc: "Super Admin audit va kuzatuv jurnallariga kirish" },
+  { id: "VIEW_HISTORY", name: "Tarix (Xavfsizlik jurnali)", desc: "Super Admin audit va kuzatuv jurnallariga kirish" },
   { id: "VIEW_SETTINGS", name: "Sozlamalarni ko'rish", desc: "Global tizim sozlamalari panelini faqat o'qish" },
   { id: "EDIT_SETTINGS", name: "Sozlamalarni o'zgartirish", desc: "Tizimni qulflash, e'lon yuborish va o'quv yilini o'zgartirish" },
   { id: "DOWNLOAD_BACKUP", name: "Tizim arxivini yuklash", desc: "Barcha Database ma'lumotlarini JSON arxiv qilib yuklab olish" },
@@ -115,7 +115,7 @@ export default function RolesPage() {
              <div className="p-2 bg-blue-100 rounded-xl text-blue-600 shadow-inner">
                <Shield className="w-6 h-6" />
              </div>
-             Rollar va Huquqlar (RBAC)
+             Rollar va huquqlar (RBAC)
            </h1>
            <p className="text-sm font-medium text-slate-500 mt-2">Maxsus rollar yaratish va tizim vidjetlariga cheklovlar qo'yish paneli</p>
         </div>
