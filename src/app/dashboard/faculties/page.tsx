@@ -250,15 +250,17 @@ export default function FacultiesPage() {
                     {faculty.departments.map((dep: any) => (
                       <li key={dep.id} className="group/item flex items-center justify-between gap-3 text-sm bg-white px-4 py-3.5 rounded-xl border border-slate-100 shadow-sm hover:border-blue-200 hover:shadow-sm transition-all cursor-default relative overflow-hidden">
                         <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 opacity-0 group-hover/item:opacity-100 transition-opacity"></div>
-                        <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors duration-300">
+                        <div className="flex flex-1 items-center gap-3 min-w-0 pr-4">
+                          <div className="shrink-0 w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors duration-300">
                             <GraduationCap className="w-4 h-4" />
                           </div>
-                          <span className="font-semibold text-slate-900 tracking-tight line-clamp-1 group-hover/item:text-blue-900 transition-colors" title={dep.name}>{dep.name}</span>
-                          <span className="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full whitespace-nowrap border border-slate-200">{dep._count?.users || 0} xodim</span>
+                          <span className="font-semibold text-slate-900 tracking-tight truncate group-hover/item:text-blue-900 transition-colors" title={dep.name}>{dep.name}</span>
                         </div>
-                        <div className="flex items-center gap-1 relative z-10 opacity-60 group-hover/item:opacity-100 transition-opacity">
-                          <button 
+                        <div className="flex items-center gap-3 shrink-0 relative z-10 transition-opacity">
+                          <span className="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-1 rounded-lg whitespace-nowrap border border-slate-200 shadow-sm">{dep._count?.users || 0} xodim</span>
+                          <div className="w-px h-5 bg-slate-200"></div>
+                          <div className="flex items-center gap-1 opacity-70 group-hover/item:opacity-100 transition-opacity">
+                            <button 
                             onClick={(e) => { 
                                e.stopPropagation(); 
                                setUserForm({ name: "", email: "", password: "", role: "MUDIR", facultyId: faculty.id, departmentId: dep.id });
