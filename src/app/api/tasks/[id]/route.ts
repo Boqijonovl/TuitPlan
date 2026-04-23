@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { createBlockchainLedger } from "@/lib/blockchain";
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -21,6 +22,14 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       // Award points if freshly completed
       if (oldTask?.status !== "BAJARILGAN" && status === "BAJARILGAN") {
         await prisma.user.update({ where: { id: userId }, data: { points: { increment: reward } } });
+        
+        // 🔒 BLOCKCHAIN SECURE LEDGER
+        await createBlockchainLedger("KPI", userId, "POINTS_AWARDED", {
+          taskId: task.id,
+          taskTitle: task.title,
+          rewardPoints: reward,
+          actionBy: userId
+        });
       }
       // Deduct points if reverted from completion
       else if (oldTask?.status === "BAJARILGAN" && status !== "BAJARILGAN") {

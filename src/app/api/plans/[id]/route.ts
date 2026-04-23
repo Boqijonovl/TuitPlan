@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { createBlockchainLedger } from "@/lib/blockchain";
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -71,6 +72,15 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
           details: `Reja: ${title}`
         }
       });
+
+      // 🔒 BLOCKCHAIN SECURE LEDGER (If Approved)
+      if (status === "TASDIQLANGAN") {
+        await createBlockchainLedger("PLAN", planId, "APPROVED", {
+          planTitle: title,
+          departmentId: departmentId,
+          approvedBy: userId
+        });
+      }
     }
 
     return NextResponse.json(updatedPlan, { status: 200 });

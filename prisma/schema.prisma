@@ -120,6 +120,9 @@ model TaskSubmission {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   note       String?  
   fileUrl    String?  
+  fileHash   String?  // Anti-Cheat: Plagiat fayllar shifri
+  fileSize   Int?     // Fayl hajmi
+  originalName String? // Faylning asl nomi
   createdAt  DateTime @default(now())
 
   @@index([taskId])
@@ -208,4 +211,19 @@ model SystemSetting {
   academicYear     String   @default("2026-2027")
   lockStructure    Boolean  @default(false)
   updatedAt        DateTime @updatedAt
+}
+
+model BlockchainLedger {
+  id           String   @id @default(cuid())
+  entityType   String   // "PLAN", "TASK", "KPI"
+  entityId     String
+  action       String   // "APPROVED", "SUBMITTED", "POINTS_AWARDED"
+  dataPayload  String   // JSON shifrlangan holat (Snapshot)
+  previousHash String   // Zanjirning o'tgan tuguni
+  currentHash  String   @unique // Hozirgi tugun shifri
+  timestamp    DateTime @default(now())
+
+  @@index([entityType])
+  @@index([entityId])
+  @@index([currentHash])
 }

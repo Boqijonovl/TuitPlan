@@ -5,14 +5,32 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   try {
     const resolvedParams = await params;
     const taskId = resolvedParams.id;
-    const { userId, note, fileUrl } = await request.json();
+    const { userId, note, fileUrl, fileHash, fileSize, originalName } = await request.json();
+
+    // ANTI-CHEAT (Plagiat Tizimi) Check
+    if (fileHash) {
+      const existingSubmission = await prisma.taskSubmission.findFirst({
+        where: { fileHash },
+        include: { user: true }
+      });
+
+      if (existingSubmission) {
+        return NextResponse.json(
+          { error: `PLAGIAT ANIQLANDI: Bu hujjat avval ${existingSubmission.user?.name} tomonidan yuklangan!` },
+          { status: 403 }
+        );
+      }
+    }
 
     const submission = await prisma.taskSubmission.create({
       data: {
         taskId,
         userId,
         note,
-        fileUrl
+        fileUrl,
+        fileHash,
+        fileSize,
+        originalName
       }
     });
 

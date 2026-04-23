@@ -10,11 +10,24 @@ export default function AdminMonitoringPage() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState<any[]>([]);
+  const [blockchain, setBlockchain] = useState<any>(null);
 
   useEffect(() => {
     fetchData();
     fetchRecentHistory();
+    fetchBlockchain();
   }, []);
+
+  const fetchBlockchain = async () => {
+    try {
+      const res = await fetch("/api/blockchain");
+      if (res.ok) {
+        setBlockchain(await res.json());
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -231,6 +244,61 @@ export default function AdminMonitoringPage() {
                  Tizim tarixiga O'tish <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
            </div>
+         </div>
+
+         {/* BASHORATLI ANALITIKA VA BLOCKCHAIN QATORI */}
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
+               <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-4">
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
+                  AI Bashoratli Analitika (Predictive Risk)
+               </h3>
+               <p className="text-xs text-slate-500 mb-4 font-medium">Tizim joriy ish tezligini hisoblab, qaysi kafedralar yil oxirigacha rejani bajara olmasligini bashorat qilmoqda.</p>
+               
+               <div className="space-y-3">
+                 {stats?.predictions?.length > 0 ? (
+                   stats.predictions.slice(0,4).map((p: any, i: number) => (
+                     <div key={i} className={`p-4 rounded-2xl border ${p.risk === "HIGH" ? "border-red-200 bg-red-50/50" : p.risk === "MEDIUM" ? "border-orange-200 bg-orange-50/50" : "border-green-200 bg-green-50/50"}`}>
+                       <div className="flex justify-between items-start mb-2">
+                         <span className="font-bold text-slate-800 text-sm">{p.department}</span>
+                         <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-full ${p.risk === "HIGH" ? "bg-red-100 text-red-600" : p.risk === "MEDIUM" ? "bg-orange-100 text-orange-600" : "bg-green-100 text-green-600"}`}>
+                           {p.risk} RISK
+                         </span>
+                       </div>
+                       <div className="flex items-center gap-4 text-xs font-medium text-slate-600">
+                         <span>{p.completionPercent}% bajarilgan</span>
+                         <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
+                         <span className="flex-1 truncate">{p.status}</span>
+                       </div>
+                     </div>
+                   ))
+                 ) : (
+                   <div className="text-center p-6 text-slate-400 text-sm font-semibold">Tahlil uchun ma'lumot yetarli emas</div>
+                 )}
+               </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center">
+               <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-lg ${blockchain?.status === "SECURE" || blockchain?.status === "OK" ? "bg-green-500 shadow-green-500/30" : "bg-red-500 shadow-red-500/30"}`}>
+                 <Database className="w-10 h-10 text-white" />
+               </div>
+               <h3 className="font-black text-slate-900 text-xl mb-2 flex items-center gap-2 justify-center">
+                 Blockchain Zanjiri 
+                 {blockchain?.status === "SECURE" || blockchain?.status === "OK" ? (
+                   <CheckCircle className="w-6 h-6 text-green-500" />
+                 ) : (
+                   <ShieldAlert className="w-6 h-6 text-red-500" />
+                 )}
+               </h3>
+               <p className={`text-sm font-semibold max-w-xs ${blockchain?.status === "SECURE" || blockchain?.status === "OK" ? "text-green-600" : "text-red-600"}`}>
+                 {blockchain?.message || "Tekshirilmoqda..."}
+               </p>
+               <div className="mt-8 bg-slate-50 p-4 rounded-xl border border-slate-100 w-full text-left">
+                 <p className="text-xs text-slate-500 font-mono leading-relaxed">
+                   <strong>O'ZGARMAS XAVFSIZLIK:</strong> Barcha tasdiqlangan hujjatlar va reyting (KPI) ballari SHA-256 kriptografik xeshlash algoritmi orqali zanjirlangan. Baza tashqaridan buzilgan taqdirda ham, tizim korrupsiyani (o'zgartirishni) darhol sezadi.
+                 </p>
+               </div>
+            </div>
          </div>
       </div>
     </div>

@@ -44,6 +44,63 @@ export async function GET(req: Request) {
       prisma.user.count({ where: { ...whereUser, role: "OQITUVCHI" } })
     ]);
 
+    // 🤖 BASHORATLI ANALITIKA (Predictive Analytics Engine)
+    let predictions: any = [];
+    if (role === "ADMIN" || role === "DEKAN") {
+      const departments = await prisma.department.findMany({
+        where: facultyId ? { facultyId } : {},
+        include: {
+          plans: {
+            include: { tasks: true }
+          }
+        }
+      });
+
+      const currentMonth = new Date().getMonth() + 1; // 1 dan 12 gacha
+      const expectedCompletionRatio = currentMonth / 12; // Yilning qancha qismi o'tdi
+
+      predictions = departments.map(dep => {
+        let totalTasks = 0;
+        let completedTasksCount = 0;
+
+        dep.plans.forEach(plan => {
+          totalTasks += plan.tasks.length;
+          completedTasksCount += plan.tasks.filter(t => t.status === "BAJARILGAN").length;
+        });
+
+        if (totalTasks === 0) return { department: dep.name, status: "NO_DATA", risk: "LOW", completion: 0 };
+
+        const actualCompletionRatio = completedTasksCount / totalTasks;
+        let risk = "LOW";
+        let status = "Jadval bo'yicha ketmoqda";
+
+        // Agar kutilgan natijadan 20% orqada qolayotgan bo'lsa
+        if (expectedCompletionRatio - actualCompletionRatio > 0.2) {
+          risk = "HIGH";
+          status = "Yil oxirigacha reja to'liq bajarilmasligi yuqori ehtimol";
+        } else if (expectedCompletionRatio - actualCompletionRatio > 0.1) {
+          risk = "MEDIUM";
+          status = "Biroz kechikish kuzatilmoqda";
+        }
+
+        return {
+          department: dep.name,
+          totalTasks,
+          completedTasks: completedTasksCount,
+          completionPercent: Math.round(actualCompletionRatio * 100),
+          risk,
+          status
+        };
+      });
+
+      // Eng xavfli kafedralarni yuqoriga chiqarish
+      predictions.sort((a: any, b: any) => {
+        if (a.risk === "HIGH" && b.risk !== "HIGH") return -1;
+        if (a.risk !== "HIGH" && b.risk === "HIGH") return 1;
+        return a.completionPercent - b.completionPercent;
+      });
+    }
+
     return NextResponse.json({
       totalUsers,
       totalDeans,
@@ -52,7 +109,8 @@ export async function GET(req: Request) {
       activePlans,
       completedTasks,
       inProgressTasks,
-      recentPlans
+      recentPlans,
+      predictions
     }, { status: 200 });
     
   } catch (error) {

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import crypto from "crypto";
 
 export async function POST(request: Request) {
   try {
@@ -17,6 +18,10 @@ export async function POST(request: Request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+
+    // Calculate Anti-Cheat File Hash
+    const fileHash = crypto.createHash("sha256").update(buffer).digest("hex");
+    const fileSize = file.size;
 
     // Create unique filename (safe characters only)
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -41,9 +46,14 @@ export async function POST(request: Request) {
       .from('uploads')
       .getPublicUrl(filename);
     
-    return NextResponse.json({ fileUrl: publicUrl });
-  } catch (error: any) {
-    console.error("Upload handler error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ 
+      url: publicUrl,
+      fileHash: fileHash,
+      fileSize: fileSize,
+      originalName: file.name
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    return NextResponse.json({ error: "Faylni yuklashda xatolik yuz berdi" }, { status: 500 });
   }
 }

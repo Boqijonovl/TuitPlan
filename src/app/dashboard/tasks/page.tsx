@@ -6,6 +6,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import DocumentGenerator from "../components/DocumentGenerator";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -28,6 +29,7 @@ export default function TasksPage() {
   const [note, setNote] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [isDocGenOpen, setIsDocGenOpen] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -94,6 +96,9 @@ export default function TasksPage() {
 
     try {
       let fileUrl = null;
+      let fileHash = null;
+      let fileSize = null;
+      let originalName = null;
       
       // Upload file if selected
       if (file) {
@@ -107,7 +112,13 @@ export default function TasksPage() {
         
         if (!uploadRes.ok) throw new Error("Fayl yuklashda xatolik");
         const uploadData = await uploadRes.json();
-        fileUrl = uploadData.fileUrl;
+        
+        if(uploadData.error) throw new Error(uploadData.error);
+
+        fileUrl = uploadData.url || uploadData.fileUrl; // Fallback in case old property used
+        fileHash = uploadData.fileHash;
+        fileSize = uploadData.fileSize;
+        originalName = uploadData.originalName;
       }
 
       // Create TaskSubmission
@@ -117,7 +128,10 @@ export default function TasksPage() {
         body: JSON.stringify({ 
           userId: user.id,
           note: note,
-          fileUrl: fileUrl 
+          fileUrl: fileUrl,
+          fileHash: fileHash,
+          fileSize: fileSize,
+          originalName: originalName
         })
       });
 
@@ -477,6 +491,13 @@ export default function TasksPage() {
               className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
+          
+          <button 
+            onClick={() => setIsDocGenOpen(true)}
+            className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-xs font-black tracking-widest uppercase shadow-md shadow-indigo-200 transition-all shrink-0"
+          >
+            <FileText className="w-4 h-4" /> AI Hujjat Yasash
+          </button>
         </div>
         
         <div className="flex-1 overflow-x-auto">
@@ -616,6 +637,13 @@ export default function TasksPage() {
           </div>
         </div>
       )}
+
+      {/* Smart Document Generator Modal */}
+      <DocumentGenerator 
+        user={user} 
+        isOpen={isDocGenOpen} 
+        onClose={() => setIsDocGenOpen(false)} 
+      />
     </div>
   );
 }
