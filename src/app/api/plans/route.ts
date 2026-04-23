@@ -20,7 +20,7 @@ export async function GET(request: Request) {
       // @ts-ignore
       const userDepartmentId = dbUser?.departmentId || null;
       
-      if (role === "MUDIR" || ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"].includes(role)) {
+      if (role === "MUDIR" || ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"].includes(role as string)) {
          conditions.push({
             OR: [
               userDepartmentId ? { departmentId: userDepartmentId } : {},
