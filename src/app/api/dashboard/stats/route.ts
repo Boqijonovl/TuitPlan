@@ -41,7 +41,7 @@ export async function GET(req: Request) {
       }),
       prisma.user.count({ where: { ...whereUser, role: "DEKAN" } }),
       prisma.user.count({ where: { ...whereUser, role: "MUDIR" } }),
-      prisma.user.count({ where: { ...whereUser, role: "OQITUVCHI" } })
+      prisma.user.count({ where: { ...whereUser, role: { in: ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"] } } })
     ]);
 
     // 🤖 BASHORATLI ANALITIKA (Predictive Analytics Engine)

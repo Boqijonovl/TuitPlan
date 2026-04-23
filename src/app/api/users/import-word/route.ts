@@ -54,7 +54,7 @@ export async function POST(request: Request) {
        const firstName = words[1];
        const roleDescription = words.slice(2).join(" ").toLowerCase();
 
-       let role = "OQITUVCHI"; // Default
+       let role = "ASSISTENT"; // Default
        if (roleDescription.includes("mudir")) role = "MUDIR";
        else if (roleDescription.includes("dekan")) role = "DEKAN";
        

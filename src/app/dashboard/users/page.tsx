@@ -28,7 +28,7 @@ export default function UsersPage() {
     name: "",
     email: "",
     password: "",
-    role: "OQITUVCHI",
+    role: "ASSISTENT",
     facultyId: "",
     departmentId: ""
   });
@@ -113,7 +113,7 @@ export default function UsersPage() {
   const openModalForCurrentView = () => {
     setEditingUserId(null);
     // Determine target role and faculty mapping intelligently based on virtual active states
-    const targetRole = activeFacultyId === "ADMIN" ? "ADMIN" : activeFacultyId === "ALL_DEANS" ? "DEKAN" : "OQITUVCHI";
+    const targetRole = activeFacultyId === "ADMIN" ? "ADMIN" : activeFacultyId === "ALL_DEANS" ? "DEKAN" : "ASSISTENT";
     const targetFaculty = ["ADMIN", "ALL_DEANS", "UNASSIGNED"].includes(activeFacultyId as string) ? "" : (activeFacultyId || "");
 
     setNewUser({
@@ -508,7 +508,10 @@ export default function UsersPage() {
                       {u.role === "ADMIN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 tracking-wider">ADMIN</span>}
                       {u.role === "DEKAN" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-50 text-slate-700 border border-slate-100/50 tracking-wider">DEKAN</span>}
                       {u.role === "MUDIR" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">MUDIR</span>}
-                      {u.role === "OQITUVCHI" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">O'QITUVCHI</span>}
+                      {u.role === "PROFESSOR" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100/50 tracking-wider">PROFESSOR</span>}
+                      {u.role === "DOTSENT" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-100/50 tracking-wider">DOTSENT</span>}
+                      {u.role === "KATTA_OQITUVCHI" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">KATTA O'QITUVCHI</span>}
+                      {u.role === "ASSISTENT" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-100/50 tracking-wider">ASSISTENT</span>}
                     </td>
                     <td className="px-6 py-4">
                        <div className="flex items-center gap-1.5 bg-amber-50 text-amber-600 px-2.5 py-1 rounded-full text-xs font-bold border border-amber-100 w-fit">
@@ -608,12 +611,12 @@ export default function UsersPage() {
                 <div className="pt-2 border-t border-slate-50">
                   <label className="block text-sm font-semibold text-slate-700 mb-2">Vazifasi (Roli)</label>
                   <div className="flex flex-wrap gap-2">
-                    {["OQITUVCHI", "MUDIR", "DEKAN"].map(r => (
+                    {["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT", "MUDIR", "DEKAN"].map(r => (
                        <button
                          key={r} type="button" onClick={() => handleRoleChange(r)}
                          className={`px-3 py-1.5 border rounded-lg text-[11px] font-bold tracking-wide transition-colors ${newUser.role === r ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
                        >
-                         {r === "OQITUVCHI" ? "O'qituvchi" : r === "MUDIR" ? "Mudiri" : "Dekan"}
+                         {r === "PROFESSOR" ? "Professor" : r === "DOTSENT" ? "Dotsent" : r === "KATTA_OQITUVCHI" ? "Katta o'qituvchi" : r === "ASSISTENT" ? "Assistent" : r === "MUDIR" ? "Mudiri" : "Dekan"}
                        </button>
                     ))}
                     {customRoles.map((cr: any) => (
@@ -629,7 +632,7 @@ export default function UsersPage() {
               )}
 
               {/* Tahrirlanayotganda yoki Majburiy rejimda Kafedrani o'zgartirish imkoniyati (O'qituvchi va Mudirlar uchun) */}
-              {editingUserId && (newUser.role === "MUDIR" || newUser.role === "OQITUVCHI") && activeFacultyId !== "ADMIN" && (
+              {editingUserId && (newUser.role === "MUDIR" || ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"].includes(newUser.role)) && activeFacultyId !== "ADMIN" && (
                 <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
                   <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex items-center gap-2">
                     <GraduationCap className="w-4 h-4 text-blue-500" />

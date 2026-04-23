@@ -18,8 +18,8 @@ export async function POST(request: Request) {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     const mockHemisEmployees = [
-      { name: "Aliev Vali", email: "vali.aliev@hemis.uz", role: "OQITUVCHI" },
-      { name: "Qodirova Nargiza", email: "n.qodirova@hemis.uz", role: "OQITUVCHI" },
+      { name: "Aliev Vali", email: "vali.aliev@hemis.uz", role: "DOTSENT" },
+      { name: "Qodirova Nargiza", email: "n.qodirova@hemis.uz", role: "ASSISTENT" },
       { name: "Rustamov Jasur", email: "j.rustamov@hemis.uz", role: "MUDIR" }
     ];
 

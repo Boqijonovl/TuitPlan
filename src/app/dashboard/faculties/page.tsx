@@ -19,7 +19,7 @@ export default function FacultiesPage() {
   const [selectedFacultyId, setSelectedFacultyId] = useState("");
   const [editTarget, setEditTarget] = useState({ id: "", name: "", type: "FACULTY" });
   
-  const [userForm, setUserForm] = useState({ name: "", email: "", password: "", role: "OQITUVCHI", facultyId: "", departmentId: "" });
+  const [userForm, setUserForm] = useState({ name: "", email: "", password: "", role: "ASSISTENT", facultyId: "", departmentId: "" });
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -93,7 +93,7 @@ export default function FacultiesPage() {
         body: JSON.stringify(userForm)
       });
       if (res.ok) {
-        setUserForm({ name: "", email: "", password: "", role: "OQITUVCHI", facultyId: "", departmentId: "" });
+        setUserForm({ name: "", email: "", password: "", role: "ASSISTENT", facultyId: "", departmentId: "" });
         setIsUserModalOpen(false);
         toast.success("Xodim muvaffaqiyatli ro'yxatga olindi!");
       } else {
@@ -373,7 +373,10 @@ export default function FacultiesPage() {
                    <select value={userForm.role} onChange={e => setUserForm({...userForm, role: e.target.value})} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 text-sm font-semibold">
                      {userForm.departmentId === "" && <option value="DEKAN">Dekan</option>}
                      {userForm.departmentId !== "" && <option value="MUDIR">Kafedra mudiri</option>}
-                     {userForm.departmentId !== "" && <option value="OQITUVCHI">O'qituvchi</option>}
+                     {userForm.departmentId !== "" && <option value="PROFESSOR">Professor</option>}
+                     {userForm.departmentId !== "" && <option value="DOTSENT">Dotsent</option>}
+                     {userForm.departmentId !== "" && <option value="KATTA_OQITUVCHI">Katta o'qituvchi</option>}
+                     {userForm.departmentId !== "" && <option value="ASSISTENT">Assistent</option>}
                    </select>
                  </div>
                  <div>

@@ -13,7 +13,7 @@ model User {
   name           String       
   email          String       @unique
   password       String
-  role           String       @default("OQITUVCHI") // ADMIN, DEKAN, MUDIR, OQITUVCHI
+  role           String       @default("ASSISTENT") // ADMIN, DEKAN, MUDIR, PROFESSOR, DOTSENT, KATTA_OQITUVCHI, ASSISTENT
   departmentId   String?
   department     Department?  @relation(fields: [departmentId], references: [id])
   facultyId      String?

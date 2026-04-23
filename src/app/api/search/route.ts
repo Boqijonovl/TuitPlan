@@ -5,7 +5,7 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const q = searchParams.get("q");
-    const role = searchParams.get("role") || "OQITUVCHI"; // Kim qidirayapti
+    const role = searchParams.get("role") || "ASSISTENT"; // Kim qidirayapti
 
     if (!q || q.length < 2) return NextResponse.json({ results: [] }, { status: 200 });
 

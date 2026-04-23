@@ -121,11 +121,11 @@ export default function PlansPage() {
 
   const loadTemplateTasks = () => {
     const templateTasks = [
-      { title: "Ochiq dars o'tish (Ma'ruza yoki Amaliyot)", timeframe: "Sentyabr-Dekabr", assignedRole: "OQITUVCHI" },
-      { title: "Xalqaro Scopus/Web of Science jurnalida maqola", timeframe: "Oktabr-May", assignedRole: "OQITUVCHI" },
-      { title: "Kafedra ilmiy-uslubiy yig'ilishlarida qatnashish", timeframe: "Har oy", assignedRole: "OQITUVCHI" },
-      { title: "Iqtidorli talabalar bilan ishlash va to'garak mashg'ulotlari", timeframe: "Muntazam", assignedRole: "OQITUVCHI" },
-      { title: "Yangi avlod o'quv adabiyotlarini (Darslik/Qo'llanma) yaratish", timeframe: "Aprel-May", assignedRole: "OQITUVCHI" }
+      { title: "Ochiq dars o'tish (Ma'ruza yoki Amaliyot)", timeframe: "Sentyabr-Dekabr", assignedRole: "PROFESSOR" },
+      { title: "Xalqaro Scopus/Web of Science jurnalida maqola", timeframe: "Oktabr-May", assignedRole: "DOTSENT" },
+      { title: "Kafedra ilmiy-uslubiy yig'ilishlarida qatnashish", timeframe: "Har oy", assignedRole: "KATTA_OQITUVCHI" },
+      { title: "Iqtidorli talabalar bilan ishlash va to'garak mashg'ulotlari", timeframe: "Muntazam", assignedRole: "ASSISTENT" },
+      { title: "Yangi avlod o'quv adabiyotlarini (Darslik/Qo'llanma) yaratish", timeframe: "Aprel-May", assignedRole: "PROFESSOR" }
     ];
     setCurrentPlan({
       ...currentPlan,
@@ -198,7 +198,7 @@ export default function PlansPage() {
 
     if (plan.tasks && plan.tasks.length > 0) {
       plan.tasks.forEach((t: any, idx: number) => {
-        const roleNames: Record<string, string> = { "OQITUVCHI": "O'qituvchi", "MUDIR": "Kafedra mudiri", "DEKAN": "Fakultet dekani" };
+        const roleNames: Record<string, string> = { "PROFESSOR": "Professor", "DOTSENT": "Dotsent", "KATTA_OQITUVCHI": "Katta o'qituvchi", "ASSISTENT": "Assistent", "MUDIR": "Kafedra mudiri", "DEKAN": "Fakultet dekani" };
         const rName = t.assignedRole ? (roleNames[t.assignedRole] || t.assignedRole) : "Hamma uchun";
         tasksHtml += `
           <tr>
@@ -240,7 +240,7 @@ export default function PlansPage() {
     // Generate word file logic ...
   }
 
-  if (user?.role === "OQITUVCHI" || user?.role === "ADMIN") {
+  if (["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"].includes(user?.role || "") || user?.role === "ADMIN") {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-8">
         <div className="w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4"><AlertCircle className="w-8 h-8" /></div>
@@ -467,7 +467,10 @@ export default function PlansPage() {
                                className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-slate-700 font-medium"
                              >
                                 <option value="">Hamma uchun</option>
-                                <option value="OQITUVCHI">O'qituvchilar</option>
+                                <option value="PROFESSOR">Professorlar</option>
+                                <option value="DOTSENT">Dotsentlar</option>
+                                <option value="KATTA_OQITUVCHI">Katta o'qituvchilar</option>
+                                <option value="ASSISTENT">Assistentlar</option>
                                 {user?.role !== "MUDIR" && <option value="MUDIR">Kafedra mudirlari</option>}
                                 {(user?.role === "ADMIN" || !user?.role) && <option value="DEKAN">Dekanlar</option>}
                              </select>

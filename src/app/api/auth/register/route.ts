@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         name,
         email,
         password: hashedPassword,
-        role: role || "OQITUVCHI",
+        role: role || "ASSISTENT",
         departmentId: departmentId || null,
       },
     });
