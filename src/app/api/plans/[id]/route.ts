@@ -41,6 +41,8 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
               title: t.title, 
               timeframe: t.timeframe, 
               assignedRole: t.assignedRole === "" ? null : t.assignedRole,
+              category: t.category || "OQUV",
+              hours: t.hours || 0,
               status: t.status 
             }
           });
@@ -50,6 +52,8 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
               title: t.title, 
               timeframe: t.timeframe, 
               assignedRole: t.assignedRole === "" ? null : t.assignedRole, 
+              category: t.category || "OQUV",
+              hours: t.hours || 0,
               status: t.status || "BAJARILMAGAN", 
               planId 
             }

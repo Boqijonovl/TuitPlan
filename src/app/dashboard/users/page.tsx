@@ -29,6 +29,7 @@ export default function UsersPage() {
     email: "",
     password: "",
     role: "ASSISTENT",
+    degree: "NONE",
     facultyId: "",
     departmentId: ""
   });
@@ -119,6 +120,7 @@ export default function UsersPage() {
     setNewUser({
       name: "", email: "", password: "",
       role: targetRole,
+      degree: "NONE",
       facultyId: targetFaculty,
       departmentId: activeDepartmentId || "" // Avtomatik Kafedrani tanlab ketish
     });
@@ -132,6 +134,7 @@ export default function UsersPage() {
       email: u.email, 
       password: "", // Optional during edit
       role: u.role,
+      degree: u.degree || "NONE",
       facultyId: u.facultyId || "",
       departmentId: u.departmentId || ""
     });
@@ -512,6 +515,9 @@ export default function UsersPage() {
                       {u.role === "DOTSENT" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-purple-50 text-purple-700 border border-purple-100/50 tracking-wider">DOTSENT</span>}
                       {u.role === "KATTA_OQITUVCHI" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/50 tracking-wider">KATTA O'QITUVCHI</span>}
                       {u.role === "ASSISTENT" && <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-100/50 tracking-wider">ASSISTENT</span>}
+                      
+                      {u.degree === "PHD" && <span className="inline-flex items-center ml-2 gap-1 px-2 py-1 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">PhD</span>}
+                      {u.degree === "DSC" && <span className="inline-flex items-center ml-2 gap-1 px-2 py-1 rounded text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">DSc</span>}
                     </td>
                     <td className="px-6 py-4">
                        <div className="flex items-center gap-1.5 bg-amber-50 text-amber-600 px-2.5 py-1 rounded-full text-xs font-bold border border-amber-100 w-fit">
@@ -646,6 +652,21 @@ export default function UsersPage() {
                     {departmentsForFaculty.map((d: any) => (
                       <option key={d.id} value={d.id}>{d.name}</option>
                     ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Ilmiy daraja tanlash */}
+              {activeFacultyId !== "ADMIN" && (
+                <div className="pt-2">
+                  <label className="block text-sm font-semibold text-slate-700 mb-1.5">Ilmiy Darajasi</label>
+                  <select 
+                    value={newUser.degree} onChange={e => setNewUser({...newUser, degree: e.target.value})}
+                    className="w-full px-4 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none bg-white transition-all text-sm font-medium text-slate-700"
+                  >
+                    <option value="NONE">Yo'q</option>
+                    <option value="PHD">PhD (Falsafa doktori)</option>
+                    <option value="DSC">DSc (Fan doktori)</option>
                   </select>
                 </div>
               )}

@@ -19,7 +19,7 @@ export default function PlansPage() {
     departmentId: "",
     status: "DRAFT",
     bulkDistribute: false,
-    tasks: [] as { id?: string, title: string, timeframe: string, assignedRole: string, status?: string }[]
+    tasks: [] as { id?: string, title: string, timeframe: string, assignedRole: string, category?: string, hours?: number, status?: string }[]
   };
 
   const [user, setUser] = useState<any>(null);
@@ -94,13 +94,13 @@ export default function PlansPage() {
       status: plan.status || "DRAFT",
       bulkDistribute: false,
       tasks: plan.tasks ? plan.tasks.map((t: any) => ({
-        id: t.id, title: t.title, timeframe: t.timeframe || "", assignedRole: t.assignedRole || "", status: t.status
+        id: t.id, title: t.title, timeframe: t.timeframe || "", assignedRole: t.assignedRole || "", category: t.category || "OQUV", hours: t.hours || 0, status: t.status
       })) : []
     });
     setIsModalOpen(true);
   };
 
-  const handleTaskChange = (index: number, field: string, value: string) => {
+  const handleTaskChange = (index: number, field: string, value: string | number) => {
     const updatedTasks = [...currentPlan.tasks];
     updatedTasks[index] = { ...updatedTasks[index], [field]: value };
     setCurrentPlan({ ...currentPlan, tasks: updatedTasks });
@@ -109,7 +109,7 @@ export default function PlansPage() {
   const addTaskRow = () => {
     setCurrentPlan({
       ...currentPlan,
-      tasks: [...currentPlan.tasks, { title: "", timeframe: "", assignedRole: "" }]
+      tasks: [...currentPlan.tasks, { title: "", timeframe: "", assignedRole: "", category: "OQUV", hours: 0 }]
     });
   };
 
@@ -121,11 +121,11 @@ export default function PlansPage() {
 
   const loadTemplateTasks = () => {
     const templateTasks = [
-      { title: "Ochiq dars o'tish (Ma'ruza yoki Amaliyot)", timeframe: "Sentyabr-Dekabr", assignedRole: "PROFESSOR" },
-      { title: "Xalqaro Scopus/Web of Science jurnalida maqola", timeframe: "Oktabr-May", assignedRole: "DOTSENT" },
-      { title: "Kafedra ilmiy-uslubiy yig'ilishlarida qatnashish", timeframe: "Har oy", assignedRole: "KATTA_OQITUVCHI" },
-      { title: "Iqtidorli talabalar bilan ishlash va to'garak mashg'ulotlari", timeframe: "Muntazam", assignedRole: "ASSISTENT" },
-      { title: "Yangi avlod o'quv adabiyotlarini (Darslik/Qo'llanma) yaratish", timeframe: "Aprel-May", assignedRole: "PROFESSOR" }
+      { title: "Ochiq dars o'tish (Ma'ruza yoki Amaliyot)", timeframe: "Sentyabr-Dekabr", assignedRole: "PROFESSOR", category: "OQUV", hours: 100 },
+      { title: "Xalqaro Scopus/Web of Science jurnalida maqola", timeframe: "Oktabr-May", assignedRole: "DOTSENT", category: "ILMIY", hours: 50 },
+      { title: "Kafedra ilmiy-uslubiy yig'ilishlarida qatnashish", timeframe: "Har oy", assignedRole: "KATTA_OQITUVCHI", category: "TASHKILIY", hours: 20 },
+      { title: "Iqtidorli talabalar bilan ishlash va to'garak mashg'ulotlari", timeframe: "Muntazam", assignedRole: "ASSISTENT", category: "MANAVIY", hours: 40 },
+      { title: "Yangi avlod o'quv adabiyotlarini (Darslik/Qo'llanma) yaratish", timeframe: "Aprel-May", assignedRole: "PROFESSOR", category: "METODIK", hours: 150 }
     ];
     setCurrentPlan({
       ...currentPlan,
@@ -476,7 +476,27 @@ export default function PlansPage() {
                              </select>
                           </div>
                           
-                          <button type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg shrink-0 transition-colors self-start mt-1">
+                                                     <div className="w-full sm:w-32 shrink-0">
+                             <select
+                               value={task.category || "OQUV"} onChange={e => handleTaskChange(index, "category", e.target.value)}
+                               className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-slate-700 font-medium"
+                             >
+                                <option value="OQUV">O'quv ishi</option>
+                                <option value="ILMIY">Ilmiy ish</option>
+                                <option value="METODIK">Metodik ish</option>
+                                <option value="MANAVIY">Ma'naviy ish</option>
+                             </select>
+                           </div>
+                           <div className="w-full sm:w-20 shrink-0">
+                             <input 
+                               type="number" placeholder="Soat" min="0"
+                               value={task.hours || 0} onChange={e => handleTaskChange(index, "hours", parseInt(e.target.value) || 0)}
+                               className="w-full text-xs px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-center"
+                               title="Yuklama soati"
+                             />
+                           </div>
+
+                           <button type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg shrink-0 transition-colors self-start mt-1">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>

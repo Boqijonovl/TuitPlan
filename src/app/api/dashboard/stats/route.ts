@@ -28,7 +28,7 @@ export async function GET(req: Request) {
       }
     }
 
-    const [totalUsers, activePlans, completedTasks, inProgressTasks, recentPlans, totalDeans, totalHODs, totalTeachers] = await Promise.all([
+    const [totalUsers, activePlans, completedTasks, inProgressTasks, recentPlans, totalDeans, totalHODs, totalTeachers, totalDegreeHolders] = await Promise.all([
       prisma.user.count({ where: whereUser }),
       prisma.plan.count({ where: wherePlan }),
       prisma.task.count({ where: whereTask }),
@@ -41,7 +41,8 @@ export async function GET(req: Request) {
       }),
       prisma.user.count({ where: { ...whereUser, role: "DEKAN" } }),
       prisma.user.count({ where: { ...whereUser, role: "MUDIR" } }),
-      prisma.user.count({ where: { ...whereUser, role: { in: ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"] } } })
+      prisma.user.count({ where: { ...whereUser, role: { in: ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"] } } }),
+      prisma.user.count({ where: { ...whereUser, role: { in: ["PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"] }, degree: { in: ["PHD", "DSC"] } } })
     ]);
 
     // 🤖 BASHORATLI ANALITIKA (Predictive Analytics Engine)
@@ -116,6 +117,8 @@ export async function GET(req: Request) {
       });
     }
 
+    const scientificPotential = totalTeachers > 0 ? Math.round((totalDegreeHolders / totalTeachers) * 100) : 0;
+
     return NextResponse.json({
       totalUsers,
       totalDeans,
@@ -125,6 +128,7 @@ export async function GET(req: Request) {
       completedTasks,
       inProgressTasks,
       recentPlans,
+      scientificPotential,
       predictions
     }, { status: 200 });
     

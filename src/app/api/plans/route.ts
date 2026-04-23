@@ -118,6 +118,8 @@ export async function POST(request: Request) {
             title: t.title,
             timeframe: t.timeframe,
             assignedRole: t.assignedRole || null,
+            category: t.category || "OQUV",
+            hours: t.hours || 0,
             status: "BAJARILMAGAN"
           }))
         };

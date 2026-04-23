@@ -11,6 +11,7 @@ export async function GET() {
          name: true,
          email: true,
          role: true,
+         degree: true,
          departmentId: true,
          facultyId: true,
          points: true,
@@ -30,14 +31,15 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password, role, departmentId, facultyId } = await request.json();
+    const { name, email, password, role, degree, departmentId, facultyId } = await request.json();
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: { 
         name, 
         email, 
         password: hashedPassword, 
-        role, 
+        role,
+        degree: degree || "NONE",
         departmentId: departmentId || null,
         facultyId: facultyId || null 
       }

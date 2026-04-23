@@ -104,7 +104,25 @@ export default function AdminMonitoringPage() {
       </div>
 
       {/* Hero Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+        
+        {/* Ilmiy Salohiyat */}
+        <div className="bg-gradient-to-br from-[#309F4C] to-[#207a37] p-6 rounded-[2rem] border border-[#309F4C]/20 shadow-lg shadow-[#309F4C]/20 relative overflow-hidden group">
+           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-8 -mt-8 transition-transform group-hover:scale-150"></div>
+           <div className="flex justify-between items-start relative z-10">
+             <div className="w-12 h-12 rounded-2xl bg-white/20 text-white flex items-center justify-center shadow-inner group-hover:bg-white group-hover:text-[#309F4C] transition-colors duration-300">
+               <TrendingUp className="w-6 h-6" />
+             </div>
+             <span className="flex items-center gap-1 text-[10px] font-bold text-[#309F4C] bg-white px-2 py-1 rounded-full shadow-sm"><ShieldAlert className="w-3 h-3"/> OTM Indikatori</span>
+           </div>
+           <div className="mt-4 relative z-10">
+             <div className="flex items-baseline gap-1">
+               <p className="text-4xl font-black text-white tracking-tighter">{stats?.scientificPotential || 0}</p>
+               <span className="text-xl font-bold text-white/80">%</span>
+             </div>
+             <p className="text-xs font-bold text-white/80 mt-1 uppercase tracking-widest">Ilmiy Salohiyat (PhD, DSc)</p>
+           </div>
+        </div>
         <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden group">
            <div className="absolute top-0 right-0 w-24 h-24 bg-[#1d2d5b]/5 rounded-full blur-2xl -mr-6 -mt-6 transition-transform group-hover:scale-150"></div>
            <div className="flex justify-between items-start relative z-10">

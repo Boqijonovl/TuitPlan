@@ -26,6 +26,7 @@ export async function POST(request: Request) {
         email,
         password: hashedPassword,
         role: role || "ASSISTENT",
+        degree: "NONE", // Registratsiyada avtomatik NONE bo'ladi, keyin admin tahrirlashi mumkin
         departmentId: departmentId || null,
       },
     });
