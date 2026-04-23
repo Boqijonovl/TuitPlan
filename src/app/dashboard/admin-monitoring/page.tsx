@@ -265,11 +265,14 @@ export default function AdminMonitoringPage() {
                            {p.risk} RISK
                          </span>
                        </div>
-                       <div className="flex items-center gap-4 text-xs font-medium text-slate-600">
-                         <span>{p.completionPercent}% bajarilgan</span>
-                         <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
-                         <span className="flex-1 truncate">{p.status}</span>
-                       </div>
+                        <div className="flex flex-col gap-1 mt-2 text-xs font-medium text-slate-600">
+                          <div className="flex items-center gap-2">
+                            <span>{p.completionPercent}% bajarilgan</span>
+                            <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span>LMS Yuklama: {p.lmsWorkload || 0} soat</span>
+                          </div>
+                          <span className="truncate text-[11px] text-slate-500 italic">" {p.status} "</span>
+                        </div>
                      </div>
                    ))
                  ) : (

@@ -74,6 +74,11 @@ export async function GET(req: Request) {
         let risk = "LOW";
         let status = "Jadval bo'yicha ketmoqda";
 
+        // LMS Yuklamasini simulyatsiya qilish (Har bir kafedra uchun API orqali chaqiriladi deb faraz qilamiz)
+        // Dars soatlari 500 dan oshsa, bu xavfni yanada oshiradi
+        const lmsAverageWorkload = Math.floor(Math.random() * 500 + 300); // 300 - 800 soat o'rtacha
+        const isLmsOverloaded = lmsAverageWorkload > 600;
+
         // Agar kutilgan natijadan 20% orqada qolayotgan bo'lsa
         if (expectedCompletionRatio - actualCompletionRatio > 0.2) {
           risk = "HIGH";
@@ -83,11 +88,21 @@ export async function GET(req: Request) {
           status = "Biroz kechikish kuzatilmoqda";
         }
 
+        // Agar LMS dagi o'quv yuklama (dars soatlari) juda ko'p bo'lsa, xavf darajasini bittaga oshiramiz
+        if (isLmsOverloaded && risk === "MEDIUM") {
+          risk = "HIGH";
+          status += " + LMS dars yuklamasi juda yuqori (" + lmsAverageWorkload + " soat), ishlar ortga surilmoqda!";
+        } else if (isLmsOverloaded && risk === "LOW") {
+          risk = "MEDIUM";
+          status = "LMS dars yuklamasi juda yuqori (" + lmsAverageWorkload + " soat), reja bajarilishida sekinlashuv xavfi bor.";
+        }
+
         return {
           department: dep.name,
           totalTasks,
           completedTasks: completedTasksCount,
           completionPercent: Math.round(actualCompletionRatio * 100),
+          lmsWorkload: lmsAverageWorkload,
           risk,
           status
         };

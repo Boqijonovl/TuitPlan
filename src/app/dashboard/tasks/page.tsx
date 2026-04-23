@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckSquare, Clock, AlertCircle, Search, MessageSquare, Send, X, FileUp, Paperclip, Check, Shield, Calendar, CheckCircle2, PlayCircle, User, FileText, Upload, LayoutList, LayoutGrid } from "lucide-react";
+import { CheckSquare, Clock, AlertCircle, Search, MessageSquare, Send, X, FileUp, Paperclip, Check, Shield, Calendar, CheckCircle2, PlayCircle, User, FileText, Upload, LayoutList, LayoutGrid, RefreshCw } from "lucide-react";
 import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
 import toast from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
@@ -30,6 +30,7 @@ export default function TasksPage() {
   const [file, setFile] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [isDocGenOpen, setIsDocGenOpen] = useState(false);
+  const [syncingLms, setSyncingLms] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -86,6 +87,27 @@ export default function TasksPage() {
       }
     } catch (error: any) {
       toast.error(error.message || "Xatolik yuz berdi");
+    }
+  };
+
+  const handleSyncLms = async () => {
+    if (!user) return;
+    setSyncingLms(true);
+    try {
+      const res = await fetch("/api/tasks/sync-lms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user.id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      
+      toast.success(data.message || "LMS sinxronizatsiyasi tugadi", { duration: 5000 });
+      fetchTasks(1, false); // Reload tasks to see what got completed
+    } catch (err: any) {
+      toast.error(err.message || "Sinxronizatsiyada xatolik");
+    } finally {
+      setSyncingLms(false);
     }
   };
 
@@ -491,13 +513,21 @@ export default function TasksPage() {
               className="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
-          
-          <button 
-            onClick={() => setIsDocGenOpen(true)}
-            className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-xs font-black tracking-widest uppercase shadow-md shadow-indigo-200 transition-all shrink-0"
-          >
-            <FileText className="w-4 h-4" /> AI Hujjat Yasash
-          </button>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={handleSyncLms}
+              disabled={syncingLms}
+              className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-xs font-black tracking-widest uppercase transition-all disabled:opacity-50"
+            >
+              <RefreshCw className={`w-4 h-4 ${syncingLms ? 'animate-spin' : ''}`} /> LMS Sync
+            </button>
+            <button 
+              onClick={() => setIsDocGenOpen(true)}
+              className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-xs font-black tracking-widest uppercase shadow-md shadow-indigo-200 transition-all shrink-0"
+            >
+              <FileText className="w-4 h-4" /> AI Hujjat Yasash
+            </button>
+          </div>
         </div>
         
         <div className="flex-1 overflow-x-auto">

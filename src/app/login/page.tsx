@@ -42,6 +42,37 @@ export default function LoginPage() {
     }
   };
 
+  const handleLmsLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      // HEMIS/LMS simulyatsiyasi: JSHSHIR (email formati orqali kiradi) va parol
+      const res = await fetch("/api/mock-lms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login: email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.userData));
+      
+      toast.success(data.message || "LMS tizimidan muvaffaqiyatli kirdingiz!");
+      
+      if (data.userData.role === "ADMIN") {
+        router.push("/dashboard/admin-monitoring");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4 relative overflow-hidden">
       {/* Modest background decoration */}
@@ -91,20 +122,32 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3.5 px-4 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:hover:bg-blue-600 tracking-wide"
-          >
-            {loading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-            ) : (
-              <>
-                Tizimga kirish
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </>
-            )}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3.5 px-4 rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:hover:bg-blue-600 tracking-wide"
+            >
+              {loading ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              ) : (
+                <>
+                  Tizimga kirish
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={handleLmsLogin}
+              disabled={loading || !email || !password}
+              className="flex-1 bg-gradient-to-r from-indigo-800 to-[#1d2d5b] hover:from-indigo-900 hover:to-indigo-950 text-white font-medium py-3.5 px-4 rounded-lg shadow-md transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:hover:from-indigo-800 tracking-wide"
+            >
+              <ShieldCheck className="w-5 h-5 text-indigo-300" />
+              HEMIS orqali
+            </button>
+          </div>
         </form>
       </div>
     </div>
