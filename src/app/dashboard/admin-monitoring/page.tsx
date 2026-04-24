@@ -264,16 +264,16 @@ export default function AdminMonitoringPage() {
            </div>
          </div>
 
-         {/* BASHORATLI ANALITIKA VA BLOCKCHAIN QATORI */}
+          {/* BASHORATLI ANALITIKA VA BLOCKCHAIN QATORI */}
          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
-               <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-4">
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col min-h-[380px] h-full">
+               <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-4 shrink-0">
                   <TrendingUp className="w-5 h-5 text-blue-600" />
                   AI Bashoratli Analitika (Predictive Risk)
                </h3>
-               <p className="text-xs text-slate-500 mb-4 font-medium">Tizim joriy ish tezligini hisoblab, qaysi kafedralar yil oxirigacha rejani bajara olmasligini bashorat qilmoqda.</p>
+               <p className="text-xs text-slate-500 mb-6 font-medium shrink-0">Tizim joriy ish tezligini hisoblab, qaysi kafedralar yil oxirigacha rejani bajara olmasligini bashorat qilmoqda.</p>
                
-               <div className="space-y-3">
+               <div className="space-y-3 flex-1 flex flex-col">
                  {stats?.predictions?.length > 0 ? (
                    stats.predictions.slice(0,4).map((p: any, i: number) => (
                      <div key={i} className={`p-4 rounded-2xl border ${p.risk === "HIGH" ? "border-red-200 bg-red-50/50" : p.risk === "MEDIUM" ? "border-orange-200 bg-orange-50/50" : "border-green-200 bg-green-50/50"}`}>
@@ -294,13 +294,15 @@ export default function AdminMonitoringPage() {
                      </div>
                    ))
                  ) : (
-                   <div className="text-center p-6 text-slate-400 text-sm font-semibold">Tahlil uchun ma'lumot yetarli emas</div>
+                   <div className="flex-1 flex items-center justify-center border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50">
+                     <span className="text-center p-6 text-slate-400 text-sm font-semibold">Tahlil uchun ma'lumot yetarli emas</span>
+                   </div>
                  )}
                </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center">
-               <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-lg ${blockchain?.status === "SECURE" || blockchain?.status === "OK" ? "bg-green-500 shadow-green-500/30" : "bg-red-500 shadow-red-500/30"}`}>
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center min-h-[380px] h-full">
+               <div className={`w-20 h-20 shrink-0 rounded-full flex items-center justify-center mb-6 shadow-lg ${blockchain?.status === "SECURE" || blockchain?.status === "OK" ? "bg-green-500 shadow-green-500/30" : "bg-red-500 shadow-red-500/30"}`}>
                  <Database className="w-10 h-10 text-white" />
                </div>
                <h3 className="font-black text-slate-900 text-xl mb-2 flex items-center gap-2 justify-center">
@@ -314,7 +316,7 @@ export default function AdminMonitoringPage() {
                <p className={`text-sm font-semibold max-w-xs ${blockchain?.status === "SECURE" || blockchain?.status === "OK" ? "text-green-600" : "text-red-600"}`}>
                  {blockchain?.message || "Tekshirilmoqda..."}
                </p>
-               <div className="mt-8 bg-slate-50 p-4 rounded-xl border border-slate-100 w-full text-left">
+               <div className="mt-auto bg-slate-50 p-4 rounded-xl border border-slate-100 w-full text-left">
                  <p className="text-xs text-slate-500 font-mono leading-relaxed">
                    <strong>O'ZGARMAS XAVFSIZLIK:</strong> Barcha tasdiqlangan hujjatlar va reyting (KPI) ballari SHA-256 kriptografik xeshlash algoritmi orqali zanjirlangan. Baza tashqaridan buzilgan taqdirda ham, tizim korrupsiyani (o'zgartirishni) darhol sezadi.
                  </p>
