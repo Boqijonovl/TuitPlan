@@ -35,10 +35,17 @@ export async function GET(request: Request) {
         const isDefault = await bcrypt.compare("123456", u.password);
         const passText = isDefault ? "123456" : "Shifrlangan (O'zgargan)";
         
-        let roleUz = "O'qituvchi";
+        let roleUz = "Assistent";
         if (u.role === "ADMIN") roleUz = "Tizim Admini";
         if (u.role === "DEKAN") roleUz = "Dekan";
         if (u.role === "MUDIR") roleUz = "Kafedra mudiri";
+        if (u.role === "PROFESSOR") roleUz = "Professor";
+        if (u.role === "DOTSENT") roleUz = "Dotsent";
+        if (u.role === "KATTA_OQITUVCHI") roleUz = "Katta o'qituvchi";
+        
+        if (u.degree && u.degree !== "NONE") {
+            roleUz += ` (${u.degree === 'PHD' ? 'PhD' : 'DSc'})`;
+        }
 
         return `
             <tr>

@@ -116,7 +116,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NavItem href="/dashboard/monitoring" icon={<BarChart2 />} label="Monitoring" isOpen={isSidebarOpen} active={pathname.includes("/monitoring")} isMobile={isMobile} />
           )}
           
-          {user.role !== "OQITUVCHI" && user.role !== "ADMIN" && (
+          {(user.role === "DEKAN" || user.role === "MUDIR") && (
             <NavItem href="/dashboard/plans" icon={<CalendarDays />} label="Rejalar" isOpen={isSidebarOpen} active={pathname.includes("/plans")} isMobile={isMobile} />
           )}
 

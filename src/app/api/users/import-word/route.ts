@@ -57,6 +57,9 @@ export async function POST(request: Request) {
        let role = "ASSISTENT"; // Default
        if (roleDescription.includes("mudir")) role = "MUDIR";
        else if (roleDescription.includes("dekan")) role = "DEKAN";
+       else if (roleDescription.includes("professor")) role = "PROFESSOR";
+       else if (roleDescription.includes("dotsent")) role = "DOTSENT";
+       else if (roleDescription.includes("katta")) role = "KATTA_OQITUVCHI";
        
        const email = generateEmail(lastName, firstName);
        const name = `${lastName} ${firstName}`;
