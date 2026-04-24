@@ -265,15 +265,15 @@ export default function AdminMonitoringPage() {
          </div>
 
           {/* BASHORATLI ANALITIKA VA BLOCKCHAIN QATORI */}
-         <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col min-h-[380px] h-full">
+         <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+            <div className="lg:col-span-2 bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col min-h-[380px] h-full">
                <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-4 shrink-0">
                   <TrendingUp className="w-5 h-5 text-blue-600" />
                   AI Bashoratli Analitika (Predictive Risk)
                </h3>
                <p className="text-xs text-slate-500 mb-6 font-medium shrink-0">Tizim joriy ish tezligini hisoblab, qaysi kafedralar yil oxirigacha rejani bajara olmasligini bashorat qilmoqda.</p>
                
-               <div className="space-y-3 flex-1 flex flex-col">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 content-start">
                  {stats?.predictions?.length > 0 ? (
                    stats.predictions.slice(0,4).map((p: any, i: number) => (
                      <div key={i} className={`p-4 rounded-2xl border ${p.risk === "HIGH" ? "border-red-200 bg-red-50/50" : p.risk === "MEDIUM" ? "border-orange-200 bg-orange-50/50" : "border-green-200 bg-green-50/50"}`}>
@@ -294,7 +294,7 @@ export default function AdminMonitoringPage() {
                      </div>
                    ))
                  ) : (
-                   <div className="flex-1 flex items-center justify-center border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50">
+                   <div className="md:col-span-2 flex-1 flex items-center justify-center border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50 min-h-[200px]">
                      <span className="text-center p-6 text-slate-400 text-sm font-semibold">Tahlil uchun ma'lumot yetarli emas</span>
                    </div>
                  )}
