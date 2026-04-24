@@ -265,7 +265,7 @@ export default function AdminMonitoringPage() {
          </div>
 
           {/* BASHORATLI ANALITIKA VA BLOCKCHAIN QATORI */}
-         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+         <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col min-h-[380px] h-full">
                <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-4 shrink-0">
                   <TrendingUp className="w-5 h-5 text-blue-600" />
