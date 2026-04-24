@@ -114,6 +114,13 @@ export default function TasksPage() {
   const handleCompleteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedTask || !user) return;
+
+    const isFileRequired = ["ILMIY", "METODIK", "MANAVIY"].includes(selectedTask.category);
+    if (isFileRequired && !file) {
+      toast.error("Isbotlovchi hujjat (fayl) yuklash qat'iyan majburiy!");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -637,7 +644,9 @@ export default function TasksPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">Hujjat faylini yuklash (ixtiyoriy)</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                  Hujjat faylini yuklash {["ILMIY", "METODIK", "MANAVIY"].includes(selectedTask?.category || "") ? <span className="text-red-500 uppercase">(MAJBURIY)</span> : <span className="text-slate-400">(ixtiyoriy)</span>}
+                </label>
                 <div className="flex items-center justify-center w-full">
                   <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 hover:border-blue-400 transition-colors">
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">

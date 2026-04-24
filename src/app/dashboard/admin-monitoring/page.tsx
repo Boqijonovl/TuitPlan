@@ -97,7 +97,10 @@ export default function AdminMonitoringPage() {
           <Link href="/dashboard/history" className="bg-white border border-slate-200 hover:border-[#1d2d5b]/30 text-slate-700 hover:text-[#1d2d5b] px-5 py-3 rounded-2xl font-bold transition-all flex items-center gap-2 shadow-sm drop-shadow-sm hover:shadow-md">
              <ShieldAlert className="w-4 h-4" /> To'liq tarix
           </Link>
-          <Link href="/dashboard/settings" className="bg-[#1d2d5b] hover:bg-[#0e1633] text-white px-5 py-3 rounded-2xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-[#1d2d5b]/20 hover:-translate-y-0.5">
+          <a href="/api/reports/super" download target="_blank" className="bg-[#309F4C] hover:bg-[#207a37] text-white px-5 py-3 rounded-2xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-[#309F4C]/20 hover:-translate-y-0.5">
+             <BarChart3 className="w-4 h-4" /> Yillik Super Hisobot
+          </a>
+          <Link href="/dashboard/settings" className="bg-[#1d2d5b] hover:bg-[#0e1633] text-white px-5 py-3 rounded-2xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-[#1d2d5b]/20 hover:-translate-y-0.5 hidden md:flex">
              <Database className="w-4 h-4" /> Maxsus boshqaruv
           </Link>
         </div>
