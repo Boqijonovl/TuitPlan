@@ -476,25 +476,7 @@ export default function PlansPage() {
                              </select>
                           </div>
                           
-                                                     <div className="w-full sm:w-32 shrink-0">
-                             <select
-                               value={task.category || "OQUV"} onChange={e => handleTaskChange(index, "category", e.target.value)}
-                               className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-slate-700 font-medium"
-                             >
-                                <option value="OQUV">O'quv ishi</option>
-                                <option value="ILMIY">Ilmiy ish</option>
-                                <option value="METODIK">Metodik ish</option>
-                                <option value="MANAVIY">Ma'naviy ish</option>
-                             </select>
-                           </div>
-                           <div className="w-full sm:w-20 shrink-0">
-                             <input 
-                               type="number" placeholder="Soat" min="0"
-                               value={task.hours || 0} onChange={e => handleTaskChange(index, "hours", parseInt(e.target.value) || 0)}
-                               className="w-full text-xs px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-center"
-                               title="Yuklama soati"
-                             />
-                           </div>
+
 
                            <button type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg shrink-0 transition-colors self-start mt-1">
                             <Trash2 className="w-4 h-4" />

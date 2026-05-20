@@ -115,7 +115,7 @@ export default function TasksPage() {
     e.preventDefault();
     if (!selectedTask || !user) return;
 
-    const isFileRequired = ["ILMIY", "METODIK", "MANAVIY"].includes(selectedTask.category);
+    const isFileRequired = false; // "ILMIY", "METODIK", "MANAVIY" kabi toifalar olib tashlandi
     if (isFileRequired && !file) {
       toast.error("Isbotlovchi hujjat (fayl) yuklash qat'iyan majburiy!");
       return;
@@ -312,23 +312,9 @@ export default function TasksPage() {
                               <Calendar className="w-3.5 h-3.5" />
                               {task.timeframe || "Muddatsiz"}
                             </div>
-                            {task.category && (
-                              <div className={`flex items-center gap-1.5 px-2 py-1.5 rounded-md ${
-                                task.category === 'OQUV' ? 'bg-sky-50 text-sky-700 border border-sky-100' :
-                                task.category === 'ILMIY' ? 'bg-purple-50 text-purple-700 border border-purple-100' :
-                                task.category === 'METODIK' ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' :
-                                'bg-amber-50 text-amber-700 border border-amber-100'
-                              }`}>
-                                {task.category === 'OQUV' ? 'O\'quv ishi' : task.category === 'ILMIY' ? 'Ilmiy ish' : task.category === 'METODIK' ? 'Metodik ish' : 'Ma\'naviy ish'}
-                              </div>
-                            )}
-                            {task.hours > 0 && (
-                              <div className="flex items-center gap-1.5 bg-orange-50 px-2 py-1.5 rounded-md text-orange-700 font-bold border border-orange-100">
-                                ⏳ {task.hours} soat
-                              </div>
-                            )}
-                            
-                            {hasSubmitted && (
+                             {/* Kategoriya va Soat toifalari olib tashlandi */}
+                             
+                             {hasSubmitted && (
                               <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-blue-100 text-blue-700">
                                 <CheckCircle2 className="w-3.5 h-3.5" />
                                 Siz Bazardiz
@@ -645,7 +631,7 @@ export default function TasksPage() {
 
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-                  Hujjat faylini yuklash {["ILMIY", "METODIK", "MANAVIY"].includes(selectedTask?.category || "") ? <span className="text-red-500 uppercase">(MAJBURIY)</span> : <span className="text-slate-400">(ixtiyoriy)</span>}
+                  Hujjat faylini yuklash <span className="text-slate-400">(ixtiyoriy)</span>
                 </label>
                 <div className="flex items-center justify-center w-full">
                   <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 hover:border-blue-400 transition-colors">

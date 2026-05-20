@@ -126,7 +126,7 @@ export async function GET(request: Request) {
     // Word Doc kabi o'qilishini Header da majburlaymiz
     const headers = new Headers();
     headers.set("Content-Type", "application/vnd.ms-word; charset=utf-8");
-    headers.set("Content-Disposition", \`attachment; filename="Super_Hisobot_Vazirlik_Uchun.doc"\`);
+    headers.set("Content-Disposition", `attachment; filename="Super_Hisobot_Vazirlik_Uchun.doc"`);
 
     return new NextResponse(htmlContent, {
       status: 200,
