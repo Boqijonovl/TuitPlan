@@ -473,7 +473,7 @@ export default function UsersPage() {
               );
            })}
            {departmentsForFaculty.length === 0 && (
-             <div className="col-span-full py-12 text-center text-slate-400 font-medium">Bu fakultetda bironta ham Kafedra ochilmagan! Avval Kafedralar bo'limidan kafedra yarating.</div>
+             <div className="col-span-full py-12 text-center text-slate-500 font-medium">Bu fakultetda bironta ham Kafedra ochilmagan! Avval Kafedralar bo'limidan kafedra yarating.</div>
            )}
         </div>
       )}
@@ -504,7 +504,7 @@ export default function UsersPage() {
                     </td>
                     <td className="px-6 py-4 text-slate-500">
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-slate-400" /> {u.email}
+                        <Mail className="w-4 h-4 text-slate-500" /> {u.email}
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -536,20 +536,20 @@ export default function UsersPage() {
                       {currentUser?.role === "ADMIN" && currentUser?.id !== u.id && (
                         <button 
                           onClick={() => handleImpersonate(u.id, u.name)}
-                          className="text-slate-400 hover:text-emerald-600 p-1.5 hover:bg-emerald-50 rounded-lg transition-colors title='Shu xodim nomidan kirish'"
+                          className="text-slate-500 hover:text-emerald-600 p-1.5 hover:bg-emerald-50 rounded-lg transition-colors title='Shu xodim nomidan kirish'"
                         >
                           <UserCheck className="w-4 h-4" />
                         </button>
                       )}
                       <button 
                         onClick={() => openEditModal(u)}
-                        className="text-slate-400 hover:text-blue-600 p-1.5 hover:bg-blue-50 rounded-lg transition-colors title='Tahrirlash'"
+                        className="text-slate-500 hover:text-blue-600 p-1.5 hover:bg-blue-50 rounded-lg transition-colors title='Tahrirlash'"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button 
                         onClick={() => handleDeleteUser(u.id, u.name)}
-                        className="text-slate-400 hover:text-slate-600 p-1.5 hover:bg-slate-50 rounded-lg transition-colors title='O'chirish'"
+                        className="text-slate-500 hover:text-slate-600 p-1.5 hover:bg-slate-50 rounded-lg transition-colors title='O'chirish'"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -576,7 +576,7 @@ export default function UsersPage() {
                   ? "Xodimni Tahrirlash" 
                   : (activeFacultyId === "ADMIN" ? "Yangi Admin Yaratish" : activeFacultyId === "ALL_DEANS" ? "Yangi Dekan Yaratish" : `Yangi xodim qo'shish`)}
               </h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-200 rounded-md">
+              <button onClick={() => setIsModalOpen(false)} className="text-slate-500 hover:text-slate-600 transition-colors p-1 hover:bg-slate-200 rounded-md">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -604,7 +604,7 @@ export default function UsersPage() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1.5 flex justify-between">
                    Tizimga kirish paroli
-                   {editingUserId && <span className="text-xs font-normal text-slate-400 italic">O'zgartirish ixtiyoriy</span>}
+                   {editingUserId && <span className="text-xs font-normal text-slate-500 italic">O'zgartirish ixtiyoriy</span>}
                 </label>
                 <input 
                   type="text" required={!editingUserId} value={newUser.password} onChange={e => setNewUser({...newUser, password: e.target.value})}
@@ -706,13 +706,13 @@ export default function UsersPage() {
             </div>
             <div className="p-6 flex justify-between gap-4">
                <div className="flex-1">
-                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block text-center">Rag'batlantirish</label>
+                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 block text-center">Rag'batlantirish</label>
                  <button onClick={() => handleKpiUpdate("ADD")} disabled={isUpdatingKpi} className="w-full bg-emerald-50 hover:bg-emerald-500 hover:text-white text-emerald-600 font-bold border border-emerald-100 py-3 rounded-xl transition-colors flex items-center justify-center gap-1.5 text-sm">
                    <ArrowUp className="w-4 h-4"/> Qo'shish
                  </button>
                </div>
                <div className="flex-1">
-                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block text-center">Jazolash</label>
+                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 block text-center">Jazolash</label>
                  <button onClick={() => handleKpiUpdate("SUBTRACT")} disabled={isUpdatingKpi} className="w-full bg-red-50 hover:bg-red-500 hover:text-white text-red-600 font-bold border border-red-100 py-3 rounded-xl transition-colors flex items-center justify-center gap-1.5 text-sm">
                    <ArrowDown className="w-4 h-4"/> Ayirish
                  </button>

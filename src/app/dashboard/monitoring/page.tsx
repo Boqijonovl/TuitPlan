@@ -222,7 +222,7 @@ export default function MonitoringPage() {
           {/* Umumiy Monitoring */}
           <div key="general" className="rounded-xl border border-slate-200 bg-white shadow-sm flex flex-col overflow-hidden bg-white/80 backdrop-blur-sm group hover:ring-2 ring-blue-500/50 transition-shadow">
              <div className="drag-handle w-full h-8 bg-slate-100/50 flex items-center justify-center cursor-move opacity-0 group-hover:opacity-100 transition-opacity border-b border-transparent hover:border-blue-100 z-10 shrink-0">
-               <Grid className="w-4 h-4 text-slate-400" />
+               <Grid className="w-4 h-4 text-slate-500" />
              </div>
              <div className="flex flex-col items-center justify-center p-6 flex-1 text-center -mt-4">
                 <div className="w-32 h-32 rounded-full border-4 border-slate-100 flex items-center justify-center relative mb-4">
@@ -254,7 +254,7 @@ export default function MonitoringPage() {
                     </div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl flex items-center gap-4">
-                    <Users className="w-6 h-6 text-slate-300" />
+                    <Users className="w-6 h-6 text-slate-400" />
                     <div>
                       <p className="text-xs font-medium text-blue-100">Topshirilgan hisobotlar</p>
                       <p className="text-xl font-bold">{totalSubmissions} ta fayl</p>
@@ -268,7 +268,7 @@ export default function MonitoringPage() {
           <div key="bar" className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col group hover:ring-2 ring-blue-500/50 transition-shadow overflow-hidden">
              <div className="drag-handle w-full p-3 bg-slate-50/80 flex items-center justify-between cursor-move opacity-80 group-hover:opacity-100 transition-opacity border-b border-slate-100 z-10 shrink-0">
                <h3 className="font-bold text-slate-900 text-[11px] uppercase tracking-wider">Bo'linmalar faolligi</h3>
-               <Grid className="w-4 h-4 text-slate-400" />
+               <Grid className="w-4 h-4 text-slate-500" />
              </div>
              <div className="flex-1 w-full h-full p-4 relative z-0">
                  {plans.length > 0 ? (
@@ -284,7 +284,7 @@ export default function MonitoringPage() {
                      </BarChart>
                    </ResponsiveContainer>
                  ) : (
-                    <div className="h-full flex items-center justify-center text-slate-400 text-sm">Ma'lumot kam</div>
+                    <div className="h-full flex items-center justify-center text-slate-500 text-sm">Ma'lumot kam</div>
                  )}
              </div>
           </div>
@@ -295,7 +295,7 @@ export default function MonitoringPage() {
                <h3 className="font-bold text-slate-900 text-[11px] uppercase tracking-wider flex items-center gap-1">
                  <PieChartIcon className="w-3.5 h-3.5" /> Umumiy vazifalar holati
                </h3>
-               <Grid className="w-4 h-4 text-slate-400" />
+               <Grid className="w-4 h-4 text-slate-500" />
              </div>
              <div className="flex-1 w-full h-full p-2 relative z-0">
                  <ResponsiveContainer width="100%" height="100%">
@@ -324,7 +324,7 @@ export default function MonitoringPage() {
                    <h2 className="text-sm font-bold text-slate-900">Liderlar doskasi (KPI)</h2>
                 </div>
               </div>
-              <Grid className="w-4 h-4 text-slate-300" />
+              <Grid className="w-4 h-4 text-slate-400" />
             </div>
             
             <div className="flex-1 overflow-y-auto relative z-0">
@@ -343,9 +343,9 @@ export default function MonitoringPage() {
                     <tr key={u.id} className={`hover:bg-slate-50/30 transition-colors ${currentUser?.id === u.id ? 'bg-blue-50/50' : ''}`}>
                       <td className="px-4 py-3 text-center font-bold">
                         {idx === 0 ? <Medal className="w-5 h-5 text-slate-500 mx-auto" strokeWidth={2.5}/> : 
-                         idx === 1 ? <Medal className="w-5 h-5 text-slate-400 mx-auto" strokeWidth={2.5}/> : 
+                         idx === 1 ? <Medal className="w-5 h-5 text-slate-500 mx-auto" strokeWidth={2.5}/> : 
                          idx === 2 ? <Medal className="w-5 h-5 text-slate-600 mx-auto" strokeWidth={2.5}/> : 
-                         <span className="text-slate-400">#{u.rank}</span>}
+                         <span className="text-slate-500">#{u.rank}</span>}
                       </td>
                       <td className="px-4 py-3">
                         <div className="font-bold text-slate-900 flex items-center gap-2">
@@ -354,7 +354,7 @@ export default function MonitoringPage() {
                           </div>
                           <div className="flex flex-col">
                             <span className="text-xs">{u.name} {currentUser?.id === u.id && <span className="bg-blue-100 text-blue-700 text-[8px] px-1 ml-1 rounded-sm">Siz</span>}</span>
-                            <span className="text-[9px] text-slate-400 font-normal">{u.role}</span>
+                            <span className="text-[9px] text-slate-500 font-normal">{u.role}</span>
                           </div>
                         </div>
                       </td>
@@ -386,7 +386,7 @@ export default function MonitoringPage() {
                  <BarChart2 className="w-4 h-4 text-blue-500" />
                  Kengaytirilgan yakuniy monitoring
                </h2>
-               <Grid className="w-4 h-4 text-slate-400" />
+               <Grid className="w-4 h-4 text-slate-500" />
              </div>
              
              <div className="flex-1 overflow-x-auto overflow-y-auto relative z-0">
@@ -414,7 +414,7 @@ export default function MonitoringPage() {
                         <td className="px-6 py-3 text-center">
                           <div className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 rounded text-xs font-bold">
                             <span className="text-blue-600">{done}</span>
-                            <span className="text-slate-400">/</span>
+                            <span className="text-slate-500">/</span>
                             <span className="text-slate-600">{total}</span>
                           </div>
                         </td>

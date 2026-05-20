@@ -287,7 +287,7 @@ export default function CalendarPage() {
                <h3 className="font-bold text-slate-900 flex items-center gap-2">
                  <Info className="w-5 h-5 text-blue-500" /> Vazifa ma'lumotlari
                </h3>
-               <button onClick={() => setSelectedEvent(null)} className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-200 rounded-lg transition-colors">
+               <button onClick={() => setSelectedEvent(null)} className="p-1.5 text-slate-500 hover:text-slate-600 hover:bg-slate-200 rounded-lg transition-colors">
                  <X className="w-5 h-5" />
                </button>
              </div>
@@ -304,14 +304,14 @@ export default function CalendarPage() {
                 
                 <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100">
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Biriktirilgan rol</p>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Biriktirilgan rol</p>
                     <p className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
                       <Shield className="w-4 h-4 text-slate-500" />
                       {selectedEvent.assignedRole || "Hamma"}
                     </p>
                   </div>
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Muddati</p>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Muddati</p>
                     <p className="text-sm font-semibold text-slate-700 flex items-center gap-1.5">
                       <Clock className="w-4 h-4 text-blue-500" />
                       {selectedEvent.timeframe || "Muddatsiz"}
@@ -320,7 +320,7 @@ export default function CalendarPage() {
                 </div>
 
                 <div className="pt-3 border-t border-slate-100">
-                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Holati va hisobotlar</p>
+                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Holati va hisobotlar</p>
                    <div className="flex items-center gap-2 mb-3">
                       <span className={`px-3 py-1 text-xs font-bold rounded-lg border ${
                         selectedEvent.submissions?.length > 0 ? 'bg-blue-50 text-blue-600 border-blue-100' :

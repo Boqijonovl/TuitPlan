@@ -188,7 +188,7 @@ export default function DashboardHome() {
                   <h3 className="font-semibold text-slate-900 pr-10">{n.title}</h3>
                   <div className="flex items-center gap-2">
                     {user?.id === n.authorId && (
-                      <button onClick={() => handleDeleteNews(n.id)} className="p-1.5 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" title="O'chirish">
+                      <button onClick={() => handleDeleteNews(n.id)} className="p-1.5 text-slate-500 hover:text-slate-500 hover:bg-slate-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100" title="O'chirish">
                         <Trash2 className="w-4 h-4"/>
                       </button>
                     )}
@@ -198,7 +198,7 @@ export default function DashboardHome() {
                   </div>
                 </div>
                 <p className="text-sm text-slate-600 mt-1">{n.content}</p>
-                <div className="mt-3 text-xs text-slate-400 font-medium flex items-center gap-2">
+                <div className="mt-3 text-xs text-slate-500 font-medium flex items-center gap-2">
                   <span>Mualif: {n.author?.name || "Noma'lum"}</span>
                   <span>&bull;</span>
                   <span>{new Date(n.createdAt).toLocaleTimeString('uz-UZ', { hour: '2-digit', minute: '2-digit' })}</span>

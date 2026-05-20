@@ -110,7 +110,7 @@ export default function UserHistoryPage() {
                        <h3 className="font-bold text-slate-900">{log.action}</h3>
                        <span className="text-xs font-semibold text-slate-500 bg-white px-2.5 py-1 rounded-md border border-slate-200 shadow-sm flex items-center gap-1.5 w-fit">
                          <Clock className="w-3.5 h-3.5 text-blue-400" />
-                         {formattedDate} <span className="text-slate-300">|</span> {formattedTime}
+                         {formattedDate} <span className="text-slate-400">|</span> {formattedTime}
                        </span>
                      </div>
                      {log.details && (

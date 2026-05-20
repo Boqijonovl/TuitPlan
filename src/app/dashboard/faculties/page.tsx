@@ -223,7 +223,7 @@ export default function FacultiesPage() {
                   </button>
                   <button 
                     onClick={() => handleDeleteFaculty(faculty.id)}
-                    className="text-white/40 hover:text-slate-400 hover:bg-white/10 p-2 rounded-xl transition-all"
+                    className="text-white/40 hover:text-slate-500 hover:bg-white/10 p-2 rounded-xl transition-all"
                     title="Fakultetni o'chirish"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -233,7 +233,7 @@ export default function FacultiesPage() {
               
               <div className="p-6 flex-1 space-y-4 relative z-10">
                 <div className="flex items-center justify-between mb-4 mt-2">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-full">Kafedralar ro'yxati</span>
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-full">Kafedralar ro'yxati</span>
                   <button 
                     onClick={() => {
                       setSelectedFacultyId(faculty.id);
@@ -272,13 +272,13 @@ export default function FacultiesPage() {
                           </button>
                           <button 
                             onClick={(e) => { e.stopPropagation(); setEditTarget({ id: dep.id, name: dep.name, type: "DEPARTMENT" }); setIsEditModalOpen(true); }}
-                            className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all" title="Nomini tahrirlash"
+                            className="p-1.5 text-slate-500 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all" title="Nomini tahrirlash"
                           >
                             <Edit2 className="w-4 h-4" />
                           </button>
                           <button 
                             onClick={(e) => { e.stopPropagation(); handleDeleteDepartment(dep.id, dep.name); }}
-                            className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all" title="Kafedrani o'chirish"
+                            className="p-1.5 text-slate-500 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all" title="Kafedrani o'chirish"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -290,9 +290,9 @@ export default function FacultiesPage() {
                 ) : (
                   <div className="text-center py-10 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm border border-slate-100">
-                      <GraduationCap className="w-5 h-5 text-slate-300" />
+                      <GraduationCap className="w-5 h-5 text-slate-400" />
                     </div>
-                    <p className="text-sm font-semibold text-slate-400">Hozircha bo'sh</p>
+                    <p className="text-sm font-semibold text-slate-500">Hozircha bo'sh</p>
                   </div>
                 )}
               </div>

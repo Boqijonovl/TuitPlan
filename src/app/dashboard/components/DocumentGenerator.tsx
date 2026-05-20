@@ -93,7 +93,7 @@ export default function DocumentGenerator({ user, isOpen, onClose }: DocumentGen
               <p className="text-xs font-semibold text-slate-500">AI yordamida rasmiy dalolatnoma va bayonnomalar yasash</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-colors">
+          <button onClick={onClose} className="p-2 text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-xl transition-colors">
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -128,7 +128,7 @@ export default function DocumentGenerator({ user, isOpen, onClose }: DocumentGen
           {/* Preview Section */}
           <div className="w-full lg:w-2/3 bg-white rounded-2xl border border-slate-200 shadow-inner overflow-hidden flex flex-col">
             <div className="p-3 border-b border-slate-100 bg-slate-100 flex items-center justify-between">
-              <span className="text-xs font-black text-slate-400 uppercase tracking-widest px-2">Oldindan Ko'rish (Preview)</span>
+              <span className="text-xs font-black text-slate-500 uppercase tracking-widest px-2">Oldindan Ko'rish (Preview)</span>
               {docContent && (
                 <div className="flex items-center gap-2">
                   <button onClick={handlePrint} className="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm">
@@ -145,7 +145,7 @@ export default function DocumentGenerator({ user, isOpen, onClose }: DocumentGen
                   dangerouslySetInnerHTML={{ __html: docContent }} 
                 />
               ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500">
                   <FileText className="w-16 h-16 opacity-20 mb-4" />
                   <p className="text-sm font-semibold max-w-xs text-center">Matn kiritib "Generatsiya qilish" tugmasini bosing va natijani shu yerda ko'ring</p>
                 </div>

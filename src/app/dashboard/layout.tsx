@@ -83,7 +83,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
            <ShieldAlert className="w-12 h-12" />
          </div>
          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">Tizimda ta'mirlash ishlari bajarilmoqda!</h1>
-         <p className="text-slate-400 text-lg max-w-2xl mb-12">Hozirda baza va dastur doirasida yangilanishlar olib borilmoqda. Tizim qisqa vaqtlarda yana faol holatga qaytadi. Noqulayliklar uchun uzr so'raymiz.</p>
+         <p className="text-slate-500 text-lg max-w-2xl mb-12">Hozirda baza va dastur doirasida yangilanishlar olib borilmoqda. Tizim qisqa vaqtlarda yana faol holatga qaytadi. Noqulayliklar uchun uzr so'raymiz.</p>
          <button onClick={handleLogout} className="bg-white/10 hover:bg-white/20 text-white px-8 py-3 rounded-xl font-bold transition-all border border-white/10 hover:border-white/30 flex items-center gap-2">
             <LogOut className="w-5 h-5"/> Tizimdan chiqish
          </button>

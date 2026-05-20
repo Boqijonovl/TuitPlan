@@ -153,7 +153,7 @@ export default function SettingsPage() {
                <div className={`w-14 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors ${maintenance ? 'bg-red-500' : 'bg-slate-200'}`} onClick={handleMaintenanceToggle}>
                  <div className={`bg-white w-6 h-6 rounded-full shadow-sm transform transition-transform ${maintenance ? 'translate-x-6' : 'translate-x-0'}`}></div>
                </div>
-               <span className={`font-bold text-sm ${maintenance ? 'text-red-500' : 'text-slate-400'}`}>
+               <span className={`font-bold text-sm ${maintenance ? 'text-red-500' : 'text-slate-500'}`}>
                  {maintenance ? "FAOL (Boshqalar kirolmaydi)" : "O'CHIRILGAN (Barqaror)"}
                </span>
              </div>
@@ -186,7 +186,7 @@ export default function SettingsPage() {
                <div className={`w-14 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors ${broadcastActive ? 'bg-red-500' : 'bg-slate-200'}`} onClick={handleBroadcastToggle}>
                  <div className={`bg-white w-6 h-6 rounded-full shadow-sm transform transition-transform ${broadcastActive ? 'translate-x-6' : 'translate-x-0'}`}></div>
                </div>
-               <span className={`font-bold text-sm ${broadcastActive ? 'text-red-500' : 'text-slate-400'}`}>
+               <span className={`font-bold text-sm ${broadcastActive ? 'text-red-500' : 'text-slate-500'}`}>
                  {broadcastActive ? "Barchaga Ko'rsatilmoqda" : "O'chirilgan"}
                </span>
              </div>
@@ -231,7 +231,7 @@ export default function SettingsPage() {
                <div className={`w-14 h-8 flex items-center rounded-full p-1 cursor-pointer transition-colors ${lockStructure ? 'bg-orange-500' : 'bg-slate-200'}`} onClick={handleLockToggle}>
                  <div className={`bg-white w-6 h-6 rounded-full shadow-sm transform transition-transform ${lockStructure ? 'translate-x-6' : 'translate-x-0'}`}></div>
                </div>
-               <span className={`font-bold text-sm ${lockStructure ? 'text-orange-500' : 'text-slate-400'}`}>
+               <span className={`font-bold text-sm ${lockStructure ? 'text-orange-500' : 'text-slate-500'}`}>
                  {lockStructure ? "QULFLANGAN (Fakultet va Kafedra maxfiy saqlanmoqda)" : "Ochiq arxitektura (O'zgartirishlar faol)"}
                </span>
              </div>

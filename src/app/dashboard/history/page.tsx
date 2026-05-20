@@ -74,7 +74,7 @@ export default function SecurityLogsPage() {
                 onChange={e => setSearch(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-4 focus:ring-slate-500/10 shadow-sm"
               />
-              <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3.5 top-3.5 w-4 h-4 text-slate-500" />
             </div>
             
             <div className="flex bg-slate-200/50 p-1 rounded-xl">
@@ -87,7 +87,7 @@ export default function SecurityLogsPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="bg-white text-slate-400 uppercase text-[10px] sm:text-xs font-black tracking-widest border-b border-slate-100">
+            <thead className="bg-white text-slate-500 uppercase text-[10px] sm:text-xs font-black tracking-widest border-b border-slate-100">
               <tr>
                 <th className="px-6 py-5">Sana va Vaqt</th>
                 <th className="px-6 py-5">Xodim</th>
@@ -105,7 +105,7 @@ export default function SecurityLogsPage() {
                   <tr key={log.id} className="hover:bg-slate-50/80 transition-colors">
                     <td className="px-6 py-4 text-slate-500 font-bold whitespace-nowrap text-xs">
                        <div className="flex items-center gap-2">
-                         <Calendar className="w-4 h-4 text-slate-400" />
+                         <Calendar className="w-4 h-4 text-slate-500" />
                          {format(new Date(log.createdAt), "dd MMM yyyy, HH:mm")}
                        </div>
                     </td>
@@ -114,7 +114,7 @@ export default function SecurityLogsPage() {
                          <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[11px] text-slate-600 border border-slate-200 shadow-inner">{log.user?.name?.charAt(0) || '?'}</div>
                          <div>
                            {log.user?.name || "Tizim / Noma'lum"}
-                           <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mt-0.5">{log.user?.role || "AUTO"}</div>
+                           <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mt-0.5">{log.user?.role || "AUTO"}</div>
                          </div>
                        </span>
                     </td>
@@ -130,7 +130,7 @@ export default function SecurityLogsPage() {
                 ))
               )}
               {!loading && filteredLogs.length === 0 && (
-                <tr><td colSpan={4} className="py-16 text-center text-slate-400 font-bold">Hech qanday jurnal qaydi topilmadi.</td></tr>
+                <tr><td colSpan={4} className="py-16 text-center text-slate-500 font-bold">Hech qanday jurnal qaydi topilmadi.</td></tr>
               )}
             </tbody>
           </table>

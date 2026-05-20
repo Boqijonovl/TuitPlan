@@ -71,7 +71,7 @@ export function GlobalSearch() {
       >
         <Search className="w-4 h-4" />
         <span className="text-sm font-medium flex-1 text-left">Qidirish...</span>
-        <kbd className="hidden sm:inline-block px-2 py-0.5 bg-white border border-slate-200 rounded-md text-[10px] font-bold text-slate-400">Ctrl K</kbd>
+        <kbd className="hidden sm:inline-block px-2 py-0.5 bg-white border border-slate-200 rounded-md text-[10px] font-bold text-slate-500">Ctrl K</kbd>
       </button>
     );
   }
@@ -84,19 +84,19 @@ export function GlobalSearch() {
           onClick={e => e.stopPropagation()}
         >
           <div className="flex items-center px-4 py-3 border-b border-slate-100">
-            <Search className="w-5 h-5 text-slate-400 shrink-0" />
+            <Search className="w-5 h-5 text-slate-500 shrink-0" />
             <input 
               ref={inputRef}
               type="text" 
               placeholder="Foydalanuvchi, Reja yoki Vazifa izlang..."
-              className="flex-1 bg-transparent px-4 py-2 outline-none text-slate-900 placeholder:text-slate-400"
+              className="flex-1 bg-transparent px-4 py-2 outline-none text-slate-900 placeholder:text-slate-500"
               value={query}
               onChange={e => setQuery(e.target.value)}
             />
             {loading ? (
               <Loader2 className="w-5 h-5 text-blue-500 animate-spin shrink-0" />
             ) : (
-              <button onClick={() => setIsOpen(false)} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors shrink-0">
+              <button onClick={() => setIsOpen(false)} className="p-1 text-slate-500 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors shrink-0">
                 <X className="w-5 h-5" />
               </button>
             )}
@@ -117,7 +117,7 @@ export function GlobalSearch() {
 
             {results.length > 0 && (
               <div className="space-y-1 pb-2">
-                <h3 className="px-3 md:px-4 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Natijalar</h3>
+                <h3 className="px-3 md:px-4 py-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Natijalar</h3>
                 {results.map((res, i) => (
                   <button 
                     key={res.type + res.id} 
@@ -134,14 +134,14 @@ export function GlobalSearch() {
                       <p className="font-semibold text-sm text-slate-900 group-hover:text-blue-700 truncate">{res.title}</p>
                       <p className="text-xs text-slate-500 truncate mt-0.5">{res.subtitle}</p>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all shrink-0" />
+                    <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all shrink-0" />
                   </button>
                 ))}
               </div>
             )}
           </div>
           
-          <div className="border-t border-slate-100 bg-slate-50/50 p-3 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+          <div className="border-t border-slate-100 bg-slate-50/50 p-3 flex items-center justify-between text-[11px] text-slate-500 font-medium">
              <span>Tizim bo'ylab tezkor qidiruv</span>
              <span className="hidden sm:inline-block">Yopish uchun <kbd className="px-1.5 py-0.5 bg-white border border-slate-200 rounded text-[10px] mx-1">ESC</kbd> bosing</span>
           </div>

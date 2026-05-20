@@ -136,7 +136,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.totalUsers || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Umumiy tizim a'zolari</p>
+             <p className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-widest">Umumiy tizim a'zolari</p>
            </div>
         </div>
 
@@ -150,7 +150,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.activePlans || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Tasdiqlangan rejalar</p>
+             <p className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-widest">Tasdiqlangan rejalar</p>
            </div>
         </div>
 
@@ -164,7 +164,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.completedTasks || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Bajarilgan vazifalar</p>
+             <p className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-widest">Bajarilgan vazifalar</p>
            </div>
         </div>
 
@@ -178,7 +178,7 @@ export default function AdminMonitoringPage() {
            </div>
            <div className="mt-4 relative z-10">
              <p className="text-4xl font-black text-slate-900 tracking-tighter">{stats?.inProgressTasks || 0}</p>
-             <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-widest">Kutmoqda / Bajarilmoqda</p>
+             <p className="text-xs font-bold text-slate-500 mt-1 uppercase tracking-widest">Kutmoqda / Bajarilmoqda</p>
            </div>
         </div>
       </div>
@@ -188,10 +188,10 @@ export default function AdminMonitoringPage() {
          <div className="lg:col-span-2 bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col">
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h3 className="font-extrabold text-slate-900 text-lg flex items-center gap-2">
+                <h2 className="font-extrabold text-slate-900 text-lg flex items-center gap-2">
                    <BarChart3 className="w-5 h-5 text-[#1d2d5b]" />
                    Serverdagi aktiv faollik
-                </h3>
+                </h2>
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mt-1">So'nggi 7 kundagi avtorizatsiyalar</p>
               </div>
               <div className="flex px-3 py-1.5 rounded-full bg-slate-100 items-center justify-center gap-2 shadow-inner border border-slate-200/50">
@@ -222,9 +222,9 @@ export default function AdminMonitoringPage() {
          {/* Distribution Chart and Feed */}
          <div className="flex flex-col gap-6">
            <div className="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col justify-center items-center">
-              <h3 className="w-full font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-6">
+              <h2 className="w-full font-extrabold text-slate-900 text-sm flex items-center gap-2 mb-6">
                  Demografik tarqalish
-              </h3>
+              </h2>
               <div className="w-full h-[140px]">
                 <ResponsiveContainer width="100%" height="100%">
                    <BarChart data={roleDistribution} layout="vertical" margin={{top:0, right: 30, left: 40, bottom:0}}>
@@ -243,9 +243,9 @@ export default function AdminMonitoringPage() {
 
            <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm flex flex-col flex-1 overflow-hidden min-h-[190px]">
               <div className="p-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                <h3 className="font-extrabold text-slate-900 uppercase tracking-widest text-[11px] flex items-center gap-2">
+                <h2 className="font-extrabold text-slate-900 uppercase tracking-widest text-[11px] flex items-center gap-2">
                   <Terminal className="w-4 h-4 text-[#1d2d5b]" /> Terminal jurnali (So'nggi harakat)
-                </h3>
+                </h2>
               </div>
               <div className="p-5 flex-1 flex flex-col gap-3 overflow-y-auto">
                 {history.map((log: any) => (
@@ -256,7 +256,7 @@ export default function AdminMonitoringPage() {
                       </div>
                       <div className="pb-3 flex-1">
                         <p className="text-sm font-semibold text-slate-700 leading-tight">{log.action}</p>
-                        <p className="text-[10px] text-slate-400 font-black mt-1 uppercase tracking-widest">{log.createdAt ? format(new Date(log.createdAt), "HH:mm, dd MMM") : "Hozirgina"}</p>
+                        <p className="text-[10px] text-slate-500 font-black mt-1 uppercase tracking-widest">{log.createdAt ? format(new Date(log.createdAt), "HH:mm, dd MMM") : "Hozirgina"}</p>
                       </div>
                     </div>
                 ))}
@@ -298,7 +298,7 @@ export default function AdminMonitoringPage() {
                    ))
                  ) : (
                    <div className="md:col-span-2 flex-1 flex items-center justify-center border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50 min-h-[200px]">
-                     <span className="text-center p-6 text-slate-400 text-sm font-semibold">Tahlil uchun ma'lumot yetarli emas</span>
+                     <span className="text-center p-6 text-slate-500 text-sm font-semibold">Tahlil uchun ma'lumot yetarli emas</span>
                    </div>
                  )}
                </div>

@@ -237,7 +237,7 @@ export default function ChatPage() {
             <span className="flex items-center gap-2"><MessageSquare className="w-5 h-5 text-blue-500" /> Xodimlar (Chat)</span>
           </h2>
           <div className="relative mt-3 group">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" />
+            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-blue-500 transition-colors" />
             <input 
               ref={searchInputRef}
               type="text" 
@@ -274,7 +274,7 @@ export default function ChatPage() {
             </button>
           )})}
           {!loadingContacts && contacts.length === 0 && (
-             <div className="p-6 text-center text-sm text-slate-400">Hech qanday kontakt topilmadi.</div>
+             <div className="p-6 text-center text-sm text-slate-500">Hech qanday kontakt topilmadi.</div>
           )}
         </div>
       </div>
@@ -282,7 +282,7 @@ export default function ChatPage() {
       {/* Main Chat Area */}
       <div className={`flex-1 bg-slate-50 flex-col relative min-w-0 ${!activeContact ? 'hidden md:flex' : 'flex'}`} onClick={() => setActiveDropdown(null)}>
         {!activeContact ? (
-          <div className="flex-1 flex flex-col items-center justify-center text-slate-400 text-center p-8">
+          <div className="flex-1 flex flex-col items-center justify-center text-slate-500 text-center p-8">
             <MessageSquare className="w-16 h-16 mx-auto mb-4 opacity-20 text-blue-500" />
             <h3 className="text-xl font-bold text-slate-700 mb-1">Xavfsiz birlashtirilgan chat</h3>
             <p className="text-sm">Xodimlar bilan xabarlar va hujjatlar almashish uchun kontaktni tanlang.</p>
@@ -305,7 +305,7 @@ export default function ChatPage() {
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                       {isOnline(activeContact.lastSeen) ? 
                          <span className="text-blue-500">Tarmoqda</span> : 
-                         <span className="text-slate-400">Offline {activeContact.lastSeen ? `(${new Date(activeContact.lastSeen).toLocaleTimeString('uz-UZ', {hour:'2-digit', minute:'2-digit'})})` : ''}</span>
+                         <span className="text-slate-500">Offline {activeContact.lastSeen ? `(${new Date(activeContact.lastSeen).toLocaleTimeString('uz-UZ', {hour:'2-digit', minute:'2-digit'})})` : ''}</span>
                       }
                     </p>
                   </div>
@@ -318,7 +318,7 @@ export default function ChatPage() {
               {loadingMessages ? (
                 <div className="flex justify-center p-4"><Loader2 className="w-6 h-6 animate-spin text-blue-500"/></div>
               ) : messages.length === 0 ? (
-                 <div className="h-full flex items-center justify-center text-sm text-slate-400">Hozircha xabarlar yo'q. Birinchi bo'lib yozing!</div>
+                 <div className="h-full flex items-center justify-center text-sm text-slate-500">Hozircha xabarlar yo'q. Birinchi bo'lib yozing!</div>
               ) : messages.map((m: any) => {
                  if (m.isDeleted) return null; // Soft delete qilingan xabarni ko'rsatmaslik
 
@@ -338,13 +338,13 @@ export default function ChatPage() {
                             </div>
                             <div className="overflow-hidden flex-1">
                                <a href={m.fileUrl} target="_blank" className={`truncate block text-xs font-semibold hover:underline ${isMe ? 'text-blue-100' : 'text-blue-600'}`}>{m.fileName || "Fayl"}</a>
-                               <span className={`text-[9px] ${isMe ? 'text-blue-300' : 'text-slate-400'}`}>Biriktirilgan hujjat</span>
+                               <span className={`text-[9px] ${isMe ? 'text-blue-300' : 'text-slate-500'}`}>Biriktirilgan hujjat</span>
                             </div>
                          </div>
                        )}
 
                         {/* Vaqt va Edit status */}
-                       <div className={`flex items-center justify-end gap-1.5 mt-1.5 ${isMe ? 'text-blue-200' : 'text-slate-400'}`}>
+                       <div className={`flex items-center justify-end gap-1.5 mt-1.5 ${isMe ? 'text-blue-200' : 'text-slate-500'}`}>
                          {m.isEdited && <span className="text-[9px] italic">Tahrirlangan</span>}
                          <span className="text-[10px] font-medium block">
                            {new Date(m.createdAt).toLocaleTimeString('uz-UZ', {hour: '2-digit', minute:'2-digit'})}
@@ -355,7 +355,7 @@ export default function ChatPage() {
                            <div className="relative ml-1 flex items-center">
                               <button 
                                  onClick={(e) => { e.stopPropagation(); setActiveDropdown(activeDropdown === m.id ? null : m.id); }}
-                                 className={`p-1 rounded-full transition-colors ${isMe ? 'hover:bg-blue-500 text-blue-100' : 'hover:bg-slate-200 text-slate-400'}`}
+                                 className={`p-1 rounded-full transition-colors ${isMe ? 'hover:bg-blue-500 text-blue-100' : 'hover:bg-slate-200 text-slate-500'}`}
                               >
                                  <MoreVertical className="w-4 h-4" />
                               </button>

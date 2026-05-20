@@ -286,15 +286,15 @@ export default function PlansPage() {
                 </div>
                 
                 <div className="flex gap-2">
-                  <button onClick={() => handleExportWord(plan)} className="text-slate-400 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Word fayl sifatida yuklab olish'">
+                  <button onClick={() => handleExportWord(plan)} className="text-slate-500 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Word fayl sifatida yuklab olish'">
                     <Eye className="w-4 h-4" />
                   </button>
                   {(user?.role !== "ADMIN" && (!plan.userId || plan.userId === user?.id)) && (
                     <>
-                      <button onClick={() => openEditModal(plan)} className="text-slate-400 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Tahrirlash'">
+                      <button onClick={() => openEditModal(plan)} className="text-slate-500 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 p-2 rounded-lg transition-colors border border-slate-100 title='Tahrirlash'">
                         <FileEdit className="w-4 h-4" />
                       </button>
-                      <button onClick={() => handleDeletePlan(plan.id)} className="text-slate-400 hover:text-slate-600 bg-slate-50 hover:bg-slate-50 p-2 rounded-lg transition-colors border border-slate-100 title='O`chirish'">
+                      <button onClick={() => handleDeletePlan(plan.id)} className="text-slate-500 hover:text-slate-600 bg-slate-50 hover:bg-slate-50 p-2 rounded-lg transition-colors border border-slate-100 title='O`chirish'">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </>
@@ -305,7 +305,7 @@ export default function PlansPage() {
               <div className="flex items-center gap-2 text-sm text-slate-500 mb-4 font-medium">
                 <Clock className="w-4 h-4 text-blue-400" />
                 {plan.year}-yil
-                <span className="text-slate-300">|</span>
+                <span className="text-slate-400">|</span>
                 <span className="truncate">{plan.department?.name || "Umumiy reja"}</span>
               </div>
             </div>
@@ -326,7 +326,7 @@ export default function PlansPage() {
         ))}
         {plans?.length === 0 && !loading && (
           <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
-            <div className="mx-auto w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mb-4">
+            <div className="mx-auto w-16 h-16 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center mb-4">
               <BookOpen className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-medium text-slate-900">Rejalar yo'q</h3>
@@ -343,7 +343,7 @@ export default function PlansPage() {
                 {currentPlan.id ? <Edit3 className="w-5 h-5 text-blue-500"/> : <Plus className="w-5 h-5 text-blue-500"/>}
                 {currentPlan.id ? "Rejani tahrirlash" : "Yangi reja yaratish"}
               </h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-500 transition-colors p-1 rounded-md hover:bg-slate-100">
+              <button aria-label="Yopish" onClick={() => setIsModalOpen(false)} className="text-slate-500 hover:text-slate-500 transition-colors p-1 rounded-md hover:bg-slate-100">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -439,7 +439,7 @@ export default function PlansPage() {
                   </div>
                   
                   {currentPlan.tasks.length === 0 ? (
-                    <div className="text-center py-8 text-slate-400 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
+                    <div className="text-center py-8 text-slate-500 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50">
                       Vazifalar qo'shilmagan. Yuqoridagi tugmani bosing.
                     </div>
                   ) : (
@@ -461,7 +461,7 @@ export default function PlansPage() {
                             />
                           </div>
                           <div className="w-full sm:w-40 shrink-0 flex items-center gap-2">
-                             <Shield className="w-4 h-4 text-slate-400 hidden lg:block" />
+                             <Shield className="w-4 h-4 text-slate-500 hidden lg:block" />
                              <select
                                value={task.assignedRole} onChange={e => handleTaskChange(index, "assignedRole", e.target.value)}
                                className="w-full text-xs px-2 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-1 focus:ring-blue-500 outline-none text-slate-700 font-medium"
@@ -478,7 +478,7 @@ export default function PlansPage() {
                           
 
 
-                           <button type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-400 hover:text-slate-500 hover:bg-slate-50 rounded-lg shrink-0 transition-colors self-start mt-1">
+                           <button aria-label="Vazifani o'chirish" type="button" onClick={() => removeTaskRow(index)} className="p-2 text-slate-500 hover:text-slate-500 hover:bg-slate-50 rounded-lg shrink-0 transition-colors self-start mt-1">
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>

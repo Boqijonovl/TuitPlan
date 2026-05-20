@@ -126,7 +126,7 @@ export default function ArchivePage() {
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col min-h-[500px]">
         <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row gap-4 items-center justify-between">
           <div className="relative w-full max-w-sm shrink-0">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
             <input 
               type="text" 
               placeholder="Fayl yoki xodim nomi orqali qidirish..." 
@@ -160,7 +160,7 @@ export default function ArchivePage() {
              </div>
           ) : filteredDocs.length === 0 ? (
              <div className="py-20 text-center">
-               <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+               <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-500">
                  <FileText className="w-8 h-8" />
                </div>
                <h3 className="text-lg font-medium text-slate-900">Fayllar topilmadi</h3>
@@ -185,7 +185,7 @@ export default function ArchivePage() {
                    </div>
                    
                    <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
-                     <div className="text-[10px] text-slate-400 font-medium">
+                     <div className="text-[10px] text-slate-500 font-medium">
                        <Calendar className="w-3 h-3 inline mr-1" />
                        {new Date(doc.createdAt).toLocaleDateString("uz-UZ")}
                      </div>

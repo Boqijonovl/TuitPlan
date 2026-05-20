@@ -139,7 +139,7 @@ export default function RolesPage() {
                    <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold shadow-inner">
                      <Shield className="w-5 h-5" />
                    </div>
-                   <span className="text-xs font-bold tracking-widest text-slate-400">{r.permissions.length} ta huquq</span>
+                   <span className="text-xs font-bold tracking-widest text-slate-500">{r.permissions.length} ta huquq</span>
                  </div>
                  <h3 className="text-xl font-extrabold text-slate-900 tracking-tight relative z-10">{r.name}</h3>
                  <div className="mt-4 flex flex-wrap gap-1 relative z-10">
@@ -153,9 +153,9 @@ export default function RolesPage() {
                <div className="mt-6 flex items-center gap-2 relative z-10 border-t border-slate-100 pt-4">
                  <button onClick={() => { setEditingRole(r); setRoleForm({ name: r.name, permissions: r.permissions }); setIsModalOpen(true); }} className="flex-1 bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-blue-100 flex items-center justify-center gap-1.5"><Edit2 className="w-3.5 h-3.5"/> Tahrirlash</button>
                  {["ADMIN", "DEKAN", "MUDIR", "PROFESSOR", "DOTSENT", "KATTA_OQITUVCHI", "ASSISTENT"].includes(r.name) ? (
-                   <div className="px-3 bg-slate-50 text-slate-300 font-bold text-xs py-2 rounded-lg border border-transparent cursor-not-allowed" title="Tizim asosiy rolini o'chirib bo'lmaydi"><Trash2 className="w-3.5 h-3.5"/></div>
+                   <div className="px-3 bg-slate-50 text-slate-400 font-bold text-xs py-2 rounded-lg border border-transparent cursor-not-allowed" title="Tizim asosiy rolini o'chirib bo'lmaydi"><Trash2 className="w-3.5 h-3.5"/></div>
                  ) : (
-                   <button onClick={() => handleDelete(r.id, r.name)} className="px-3 bg-slate-50 hover:bg-red-50 text-slate-400 hover:text-red-500 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-red-100"><Trash2 className="w-3.5 h-3.5"/></button>
+                   <button onClick={() => handleDelete(r.id, r.name)} className="px-3 bg-slate-50 hover:bg-red-50 text-slate-500 hover:text-red-500 font-bold text-xs py-2 rounded-lg transition-colors border border-transparent hover:border-red-100"><Trash2 className="w-3.5 h-3.5"/></button>
                  )}
                </div>
              </div>
