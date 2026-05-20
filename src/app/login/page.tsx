@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Lock, Mail, ArrowRight, ShieldCheck } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -83,7 +84,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-8 md:p-10 rounded-xl bg-white shadow-sm border border-slate-200 relative z-10">
         <div className="mb-8 text-center flex flex-col items-center">
           <div className="text-center mb-8 shrink-0">
-            <img src="/logo1.png" alt="TUIT" className="h-40 md:h-48 w-auto mx-auto object-contain transition-transform duration-500" />
+            <Image src="/logo1.png" alt="TUIT" width={200} height={192} className="h-40 md:h-48 w-auto mx-auto object-contain transition-transform duration-500" priority />
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight mt-6">Tizimga kirish</h1>
           </div>
         </div>

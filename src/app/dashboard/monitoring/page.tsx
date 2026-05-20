@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Activity, BarChart2, TrendingUp, Users, Download, PieChart as PieChartIcon, Trophy, Medal, FileText, LayoutTemplate, RotateCcw, Grid } from "lucide-react";
+import Image from "next/image";
 import * as XLSX from "xlsx";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Skeleton } from "@/components/ui/skeleton";
@@ -350,7 +351,7 @@ export default function MonitoringPage() {
                       <td className="px-4 py-3">
                         <div className="font-bold text-slate-900 flex items-center gap-2">
                           <div className="w-6 h-6 rounded-full overflow-hidden bg-blue-100 border border-slate-50 shrink-0 flex items-center justify-center text-blue-500 font-bold text-[10px]">
-                             {u.avatarUrl ? <img src={u.avatarUrl} className="w-full h-full object-cover" /> : u.name.charAt(0).toUpperCase()}
+                             {u.avatarUrl ? <Image src={u.avatarUrl} alt={u.name} width={40} height={40} className="w-full h-full object-cover" /> : u.name.charAt(0).toUpperCase()}
                           </div>
                           <div className="flex flex-col">
                             <span className="text-xs">{u.name} {currentUser?.id === u.id && <span className="bg-blue-100 text-blue-700 text-[8px] px-1 ml-1 rounded-sm">Siz</span>}</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { LayoutDashboard, CalendarDays, Users, LogOut, CheckSquare, Menu, BookOpen, Bell, BarChart2, Calendar, Clock, History, FolderOpen, Search, MessageSquare, ShieldAlert, Settings, Shield } from "lucide-react";
 import Link from "next/link";
@@ -100,7 +101,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Sidebar - Blue Theme */}
       <aside className={`fixed lg:static top-0 left-0 bg-blue-900 text-white h-screen transition-all z-40 flex flex-col ${isSidebarOpen ? 'w-64' : 'w-0 lg:w-20'} overflow-hidden shadow-sm lg:shadow-none print:hidden`}>
         <div className="py-2 px-3 border-b border-blue-800/50 flex items-center shrink-0 min-h-[6rem] h-24 transition-all cursor-pointer hover:bg-white/5 group gap-3">
-          <img src="/logo.png" alt="TUIT" className={`object-contain transition-all duration-300 shrink-0 ${!isSidebarOpen && !isMobile ? 'w-10 mx-auto' : 'w-10 group-hover:scale-110'}`} />
+          <Image src="/logo.png" alt="TUIT" width={40} height={40} className={`object-contain transition-all duration-300 shrink-0 ${!isSidebarOpen && !isMobile ? 'w-10 mx-auto' : 'w-10 group-hover:scale-110'}`} priority />
           <div className={`flex flex-col justify-center transition-all duration-300 ${!isSidebarOpen && !isMobile ? 'opacity-0 hidden' : 'opacity-100'}`}>
             <span className="text-[8px] font-bold text-white/90 tracking-wider uppercase leading-tight line-clamp-3" style={{ textShadow: "0 1px 2px rgba(0,0,0,0.3)" }}>
               Muhammad al-Xorazmiy nomidagi Toshkent Axborot Texnologiyalari Universiteti
@@ -261,7 +262,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center text-white font-bold shadow-sm ring-2 ring-blue-100 cursor-pointer overflow-hidden border border-blue-200"
             >
               {(user as any).avatarUrl ? (
-                <img src={(user as any).avatarUrl} alt="User Avatar" className="w-full h-full object-cover" />
+                <Image src={(user as any).avatarUrl} alt="User Avatar" width={32} height={32} className="w-full h-full object-cover" />
               ) : (
                 <>{user.name?.charAt(0).toUpperCase()}</>
               )}

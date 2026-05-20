@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { User, Lock, Mail, Shield, Save, Camera, Upload } from "lucide-react";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
@@ -105,9 +106,9 @@ export default function ProfilePage() {
                 <div className="relative group cursor-pointer">
                   <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-slate-50 shadow-sm bg-blue-100 flex items-center justify-center text-blue-500 font-bold text-4xl">
                     {avatarFile ? (
-                      <img src={URL.createObjectURL(avatarFile)} alt="Preview" className="w-full h-full object-cover" />
+                      <Image src={URL.createObjectURL(avatarFile)} alt="Preview" width={96} height={96} className="w-full h-full object-cover" unoptimized />
                     ) : avatarUrl ? (
-                      <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                      <Image src={avatarUrl} alt="Avatar" width={96} height={96} className="w-full h-full object-cover" />
                     ) : (
                       <>{name.charAt(0).toUpperCase()}</>
                     )}

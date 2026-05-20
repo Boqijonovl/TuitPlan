@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Send, User as UserIcon, MessageSquare, Loader2, Paperclip, MoreVertical, Edit2, Trash2, X, File as FileIcon, FileText, Image as ImageIcon, ArrowLeft, Search } from "lucide-react";
+import { Search, Send, File, FileText, FileImage, User as UserIcon, Check, CheckCheck, MoreVertical, Paperclip, Smile, Download, ArrowLeft, Bot, ShieldCheck, Loader2, X, Edit2, Trash2, MessageSquare } from "lucide-react";
+import Image from "next/image";
 import toast from "react-hot-toast";
 import { createClient } from "@supabase/supabase-js";
 
@@ -261,7 +262,7 @@ export default function ChatPage() {
             >
               <div className="relative">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 overflow-hidden border border-blue-200">
-                  {c.avatarUrl ? <img src={c.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-blue-500" />}
+                  {c.avatarUrl ? <Image src={c.avatarUrl} alt={c.name} width={40} height={40} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-blue-500" />}
                 </div>
                 <div className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${online ? 'bg-blue-500' : 'bg-slate-300'}`}></div>
               </div>
@@ -296,7 +297,7 @@ export default function ChatPage() {
                   <ArrowLeft className="w-5 h-5" />
                 </button>
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0 overflow-hidden border border-blue-100">
-                  {activeContact.avatarUrl ? <img src={activeContact.avatarUrl} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-blue-500" />}
+                  {activeContact.avatarUrl ? <Image src={activeContact.avatarUrl} alt={activeContact.name} width={40} height={40} className="w-full h-full object-cover"/> : <UserIcon className="w-5 h-5 text-blue-500" />}
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900">{activeContact.name}</h3>
