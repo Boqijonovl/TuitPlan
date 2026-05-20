@@ -335,7 +335,7 @@ export default function ChatPage() {
                        {m.fileUrl && (
                          <div className={`mt-2 mb-1 p-2 rounded-xl border flex items-center gap-3 ${isMe ? 'bg-blue-700 border-blue-500' : 'bg-slate-50 border-slate-200'}`}>
                             <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${isMe ? 'bg-blue-500' : 'bg-slate-200'}`}>
-                               {String(m.fileType).includes('image') ? <ImageIcon className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
+                               {String(m.fileType).includes('image') ? <FileImage className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
                             </div>
                             <div className="overflow-hidden flex-1">
                                <a href={m.fileUrl} target="_blank" className={`truncate block text-xs font-semibold hover:underline ${isMe ? 'text-blue-100' : 'text-blue-600'}`}>{m.fileName || "Fayl"}</a>
