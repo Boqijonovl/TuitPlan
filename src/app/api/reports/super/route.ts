@@ -25,11 +25,7 @@ export async function GET(request: Request) {
 
     // 2. Vazifalar statistikasi
     const completedTasks = tasks.filter(t => t.status === "BAJARILGAN");
-    
-    const oquvHours = completedTasks.filter(t => t.category === "OQUV").reduce((acc, t) => acc + (t.hours || 0), 0);
-    const ilmiyHours = completedTasks.filter(t => t.category === "ILMIY").reduce((acc, t) => acc + (t.hours || 0), 0);
-    const metodikHours = completedTasks.filter(t => t.category === "METODIK").reduce((acc, t) => acc + (t.hours || 0), 0);
-    const manaviyHours = completedTasks.filter(t => t.category === "MANAVIY").reduce((acc, t) => acc + (t.hours || 0), 0);
+    const totalCompletedTasksCount = completedTasks.length;
 
     // Kafedralar kesimida hisobot
     const depts = await prisma.department.findMany();
@@ -41,7 +37,7 @@ export async function GET(request: Request) {
          usersCount: dUsers.length,
          phd: dUsers.filter(u => u.degree === "PHD").length,
          dsc: dUsers.filter(u => u.degree === "DSC").length,
-         totalHours: dTasks.reduce((acc, t) => acc + (t.hours || 0), 0)
+         tasksCount: dTasks.length
        };
     });
 
@@ -82,19 +78,14 @@ export async function GET(request: Request) {
                 <tr class="highlight"><td>Umumiy Ilmiy Salohiyat</td><td class="text-center"><b>${ilmiySalohiyat}%</b></td></tr>
             </table>
 
-            <h2>2. Yillik Yuklamalar Bajarilishi (Soatlar Kesimida)</h2>
-            <p>Barcha kafedralar tomonidan yillik ish rejalar doirasida jami tasdiqlangan va isbotlovchi hujjatlari tizimga yuklangan soatlar quyidagicha:</p>
+            <h2>2. Yillik Rejalar Bajarilishi (Vazifalar Soni)</h2>
+            <p>Barcha kafedralar tomonidan yillik ish rejalar doirasida jami tasdiqlangan va bajarilgan vazifalar soni:</p>
             <table>
                 <tr>
-                    <th width="10%">T/R</th>
-                    <th width="60%">Faoliyat yo'nalishi (Kategoriya)</th>
-                    <th width="30%">Bajarilgan soat</th>
+                    <th width="70%">Umumiy Ko'rsatkich</th>
+                    <th width="30%">Miqdor</th>
                 </tr>
-                <tr><td class="text-center">1</td><td>O'quv ishlari (Dars berish, reyting nazorati, diplom ishi)</td><td class="text-center"><b>${oquvHours}</b></td></tr>
-                <tr><td class="text-center">2</td><td>Ilmiy-tadqiqot ishlari (Scopus, Monografiya, Patent)</td><td class="text-center"><b>${ilmiyHours}</b></td></tr>
-                <tr><td class="text-center">3</td><td>Tashkiliy-metodik ishlar (O'quv qo'llanma, Sillabus)</td><td class="text-center"><b>${metodikHours}</b></td></tr>
-                <tr><td class="text-center">4</td><td>Ma'naviy-ma'rifiy ishlar (Murabbiylik, TTJ bilan ishlash)</td><td class="text-center"><b>${manaviyHours}</b></td></tr>
-                <tr class="highlight"><td colspan="2" class="text-right">JAMI BAJARILGAN YUKLAMA SOATI:</td><td class="text-center"><b>${oquvHours + ilmiyHours + metodikHours + manaviyHours} soat</b></td></tr>
+                <tr><td>Universitet bo'yicha jami bajarilgan vazifalar</td><td class="text-center"><b>${totalCompletedTasksCount}</b> ta</td></tr>
             </table>
 
             <h2>3. Kafedralar Kesimidagi Reyting (KPI)</h2>
@@ -103,14 +94,14 @@ export async function GET(request: Request) {
                     <th>Kafedra nomi</th>
                     <th>Xodimlar soni</th>
                     <th>Ilmiy Salohiyati</th>
-                    <th>Bajarilgan soat</th>
+                    <th>Bajarilgan Vazifalar</th>
                 </tr>
                 ${deptStats.map(d => `
                     <tr>
                         <td>${d.name}</td>
                         <td class="text-center">${d.usersCount}</td>
                         <td class="text-center">${d.usersCount > 0 ? Math.round(((d.phd + d.dsc) / d.usersCount) * 100) : 0}%</td>
-                        <td class="text-center">${d.totalHours} soat</td>
+                        <td class="text-center">${d.tasksCount} ta vazifa</td>
                     </tr>
                 `).join('')}
             </table>
