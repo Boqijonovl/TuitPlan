@@ -337,6 +337,14 @@ export default function TasksPage() {
                                </div>
                             )}
                           </div>
+                          
+                          {task.fileUrl && (
+                             <div className="mt-3">
+                               <a href={task.fileUrl} download target="_blank" className="inline-flex items-center gap-1.5 text-blue-600 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border border-blue-100">
+                                 <FileUp className="w-3.5 h-3.5" /> Biriktirilgan faylni ko'rish
+                               </a>
+                             </div>
+                          )}
                         </div>
                       </div>
 
