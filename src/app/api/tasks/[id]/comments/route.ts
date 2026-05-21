@@ -13,7 +13,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
       where: { taskId },
       orderBy: { createdAt: 'asc' },
       include: {
-        user: { select: { id: true, name: true, role: true } }
+        user: { select: { id: true, name: true, role: true, avatarUrl: true } }
       }
     });
     
@@ -40,7 +40,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
         userId: body.userId
       },
       include: {
-        user: { select: { id: true, name: true, role: true } }
+        user: { select: { id: true, name: true, role: true, avatarUrl: true } }
       }
     });
 

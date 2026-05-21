@@ -45,6 +45,19 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       });
     }
 
+    // Vazifani Yakunlandi holatiga o'tkazish va ball berish
+    const oldTask = await prisma.task.findUnique({ where: { id: taskId } });
+    if (oldTask && oldTask.status !== "BAJARILGAN") {
+      await prisma.task.update({
+        where: { id: taskId },
+        data: { status: "BAJARILGAN" }
+      });
+      
+      // Points
+      const reward = oldTask.pointsReward || 10;
+      await prisma.user.update({ where: { id: userId }, data: { points: { increment: reward } } });
+    }
+
     return NextResponse.json(submission, { status: 201 });
   } catch (error) {
     console.error("Task submission error:", error);

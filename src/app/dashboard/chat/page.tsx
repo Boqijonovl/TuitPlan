@@ -400,7 +400,7 @@ export default function ChatPage() {
                   {/* Agar xabarda fayl bo'lsa va hali o'chirilmagan bo'lsa */}
                   {editingMessage.fileUrl && !editingMessage.removeFile && (
                      <div className="px-4 py-1.5 bg-slate-100/50 flex items-center justify-between text-xs text-slate-800 border-t border-slate-100/50">
-                        <span className="truncate max-w-[200px] flex items-center gap-1"><FileIcon className="w-3 h-3"/> {editingMessage.fileName || "Biriktirilgan fayl"}</span>
+                        <span className="truncate max-w-[200px] flex items-center gap-1"><File className="w-3 h-3"/> {editingMessage.fileName || "Biriktirilgan fayl"}</span>
                         <button 
                           type="button"
                           onClick={() => setEditingMessage({...editingMessage, removeFile: true})} 
@@ -417,7 +417,7 @@ export default function ChatPage() {
             {selectedFile && !editingMessage && (
                <div className="w-full bg-blue-50 border-t border-blue-100 px-4 py-2 flex items-center justify-between">
                   <div className="flex items-center gap-2 text-blue-700 text-xs">
-                     <FileIcon className="w-3.5 h-3.5" />
+                     <File className="w-3.5 h-3.5" />
                      <span className="font-semibold truncate max-w-[200px]">{selectedFile.name}</span>
                      <span className="text-blue-400">({Math.round(selectedFile.size / 1024)} KB)</span>
                   </div>

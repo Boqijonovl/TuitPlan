@@ -14,7 +14,7 @@ export default function TasksPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("ALL"); 
-  const [viewMode, setViewMode] = useState<"LIST" | "BOARD">("BOARD");
+  const [viewMode, setViewMode] = useState<"LIST" | "BOARD">("LIST");
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const limit = 10;
@@ -83,7 +83,7 @@ export default function TasksPage() {
       });
       if (res.ok) {
         toast.success("Vazifa jarayoni boshlandi!");
-        fetchTasks(1, false);
+        setTasks(prev => prev.map(t => t.id === id ? { ...t, status: "JARAYONDA" } : t));
       }
     } catch (error: any) {
       toast.error(error.message || "Xatolik yuz berdi");
@@ -165,11 +165,17 @@ export default function TasksPage() {
       });
 
       if (res.ok) {
+        const submissionData = await res.json();
+        setTasks(prev => prev.map(t => {
+           if (t.id === selectedTask.id) {
+             return { ...t, status: "BAJARILGAN", submissions: [...(t.submissions || []), submissionData] };
+           }
+           return t;
+        }));
         setSelectedTask(null);
         setNote("");
         setFile(null);
         toast.success("Hisobot muvaffaqiyatli saqlandi!");
-        fetchTasks(1, false);
       } else {
         const errorData = await res.json();
         toast.error(errorData.error || "Saqlashda xatolik yuz berdi.");
@@ -197,8 +203,14 @@ export default function TasksPage() {
         body: JSON.stringify({ text, userId: user.id })
       });
       if (res.ok) {
+        const newComment = await res.json();
+        setTasks(prev => prev.map(t => {
+          if (t.id === taskId) {
+            return { ...t, comments: [...(t.comments || []), newComment] };
+          }
+          return t;
+        }));
         setCommentText(prev => ({ ...prev, [taskId]: "" }));
-        fetchTasks(1, false);
       } else {
         toast.error("Xabarni yuborishda xatolik yuz berdi");
       }
@@ -251,16 +263,14 @@ export default function TasksPage() {
       });
       if (res.ok) {
         toast.success("Vazifa holati yangilandi");
-        // Refetch silently to ensure relations are correct
-        fetchTasks(1, false);
       } else {
         const d = await res.json();
         toast.error(d.error || "Ruxsat etilmagan");
-        fetchTasks(1, false); // revert optimistic
+        setTasks(prev => prev.map(t => t.id === draggableId ? { ...t, status: source.droppableId } : t)); // revert optimistic
       }
     } catch (err: any) {
       toast.error("Tarmoq xatosi");
-      fetchTasks(1, false); // revert optimistic
+      setTasks(prev => prev.map(t => t.id === draggableId ? { ...t, status: source.droppableId } : t)); // revert optimistic
     }
   };
 
